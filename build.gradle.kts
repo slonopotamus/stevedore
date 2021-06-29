@@ -1,4 +1,3 @@
-import com.inet.gradle.setup.msi.Msi
 import de.undercouch.gradle.tasks.download.Download
 
 val dockerVersion = "20.10.7"
@@ -37,6 +36,7 @@ tasks {
     }
 
     setupBuilder {
+        licenseFile("LICENSE")
         vendor = "Marat Radchenko"
     }
 
