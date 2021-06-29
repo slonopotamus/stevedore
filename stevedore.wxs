@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="f091e132-b19e-410e-9e2e-c071162758fb" UpgradeCode="1239507e-0ca4-3379-82c0-175908bb8c31">
+        <DirectoryRef Id="INSTALLDIR">
+          <Component Id="root_Comp">
+            <Environment Id="SET_PATH"
+                         Action="set"
+                         Name="PATH"
+                         Part="last"
+                         Permanent="no"
+                         System="yes"
+                         Value="[INSTALLDIR]" />
+          </Component>
+        </DirectoryRef>
+    </Product>
+</Wix>
