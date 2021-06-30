@@ -31,7 +31,10 @@ tasks {
         dependsOn(unzipDockerArchive)
         from(buildDir.resolve("docker"))
         setLanguages("en-US")
+
+        // Workaround for https://github.com/i-net-software/SetupBuilder/issues/99
         inputs.file("stevedore.wxs")
+
         setWxsTemplate("stevedore.wxs")
     }
 
