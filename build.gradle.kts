@@ -1,4 +1,6 @@
+import com.inet.gradle.setup.abstracts.Service
 import de.undercouch.gradle.tasks.download.Download
+import groovy.lang.Closure
 
 val dockerVersion = "20.10.7"
 
@@ -9,6 +11,16 @@ plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
     id("de.inetsoftware.setupbuilder") version "4.8.7"
     id("de.undercouch.download") version "4.1.1"
+}
+
+setupBuilder {
+    licenseFile("LICENSE")
+    vendor = "Marat Radchenko"
+    service(closureOf<Service> {
+        displayName = project.displayName
+        executable = "dockerd.exe"
+        startArguments = "--run-service --service-name $displayName --host npipe:////./pipe/docker_desktop_windows"
+    } as Closure<Service>) // Workaround for https://github.com/i-net-software/SetupBuilder/pull/100
 }
 
 tasks {
@@ -36,11 +48,6 @@ tasks {
         inputs.file("stevedore.wxs")
 
         setWxsTemplate("stevedore.wxs")
-    }
-
-    setupBuilder {
-        licenseFile("LICENSE")
-        vendor = "Marat Radchenko"
     }
 
     wrapper {
