@@ -10,7 +10,7 @@ version = "${dockerVersion}.1"
 plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
     id("de.inetsoftware.setupbuilder") version "4.8.7"
-    id("de.undercouch.download") version "4.1.1"
+    id("de.undercouch.download") version "4.1.2"
 }
 
 setupBuilder {
