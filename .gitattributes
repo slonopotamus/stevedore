@@ -1,0 +1,8 @@
+.gitattributes text
+.gitignore text
+LICENSE text
+*.rs text
+*.rtf text
+*.toml text
+*.wxs text
+*.yml text
