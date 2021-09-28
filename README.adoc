@@ -18,5 +18,6 @@ Stevedore currently only supports Windows containers.
 . Download {uri-project}/releases/latest[MSI installer]
 . Double-click on it
 . Next-next-next
-. Reboot your computer
-. Profit! `docker` command is now available on your PATH and `dockerd` daemon is already running.
+. Reboot your computer.
+This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
+. Profit! `docker` command is now available on your PATH and `dockerd` service is already running.
