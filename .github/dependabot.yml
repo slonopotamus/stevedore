@@ -2,7 +2,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "gradle"
+  - package-ecosystem: "cargo"
     directory: "/"
     schedule:
       interval: "daily"

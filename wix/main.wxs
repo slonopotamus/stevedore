@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!--
+  Copyright (C) 2017 Christopher R. Field.
+
+  Licensed under the Apache License, Version 2.0 (the 'License');
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an 'AS IS' BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+  Please do not remove these pre-processor If-Else blocks. These are used with
+  the `cargo wix` subcommand to automatically determine the installation
+  destination for 32-bit versus 64-bit installers. Removal of these lines will
+  cause installation errors.
+-->
+<?if $(var.Platform) = x64 ?>
+<?define Win64 = 'yes' ?>
+<?define PlatformProgramFilesFolder = 'ProgramFiles64Folder' ?>
+<?else ?>
+<?define Win64 = 'no' ?>
+<?define PlatformProgramFilesFolder = 'ProgramFilesFolder' ?>
+<?endif ?>
+
+<Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+
+    <Product
+            Id='*'
+            Name='Stevedore'
+            UpgradeCode='9A68EC9C-B494-4CDD-B081-F074FE91BF0B'
+            Manufacturer='Marat Radchenko'
+            Language='1033'
+            Codepage='1252'
+            Version='$(var.Version)'>
+
+        <Package Id='*'
+                 Keywords='Installer'
+                 Description='Docker distribution for Windows that Just Works'
+                 Manufacturer='Marat Radchenko'
+                 InstallerVersion='450'
+                 Languages='1033'
+                 Compressed='yes'
+                 InstallScope='perMachine'
+                 SummaryCodepage='1252'
+                 Platform='$(var.Platform)'/>
+
+        <MajorUpgrade
+                AllowSameVersionUpgrades='yes'
+                Schedule='afterInstallInitialize'
+                DowngradeErrorMessage='A newer version of [ProductName] is already installed. Setup will now exit.'/>
+
+        <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
+        <Property Id='DiskPrompt' Value='Stevedore Installation'/>
+
+        <util:Group Id="DockerGroup" Name="docker-users"/>
+
+        <Directory Id='TARGETDIR' Name='SourceDir'>
+            <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
+                <Directory Id='APPLICATIONFOLDER' Name='Stevedore'>
+                    <Component Id='License' Guid='*' Win64='$(var.Win64)'>
+                        <File Source='wix\License.rtf'/>
+                    </Component>
+
+                    <Component Id='dockerd_Comp' Guid='*' Win64='$(var.Win64)'>
+                        <util:User
+                                Id="DockerUser"
+                                Domain="[%USERDOMAIN]"
+                                Name="[%USERNAME]"
+                                RemoveOnUninstall="no">
+                            <util:GroupRef Id="DockerGroup"/>
+                        </util:User>
+                        <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
+                        <ServiceInstall
+                                Arguments='--run-service --service-name stevedored -G docker-users'
+                                DisplayName='Stevedore'
+                                ErrorControl='normal'
+                                Id='dockerd_install'
+                                Name='stevedored'
+                                Start='auto'
+                                Type='ownProcess'/>
+                        <ServiceControl
+                                Id='dockerd_start'
+                                Name='stevedored'
+                                Remove='uninstall'
+                                Stop='both'
+                                Wait='yes'/>
+                    </Component>
+
+                    <Directory Id='cli' Name='cli'>
+                        <Component Id='cli_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
+                            <File Source='target\$(var.Profile)\docker\docker.exe'/>
+                            <Environment Id="PATH"
+                                         Action="set"
+                                         Name="PATH"
+                                         Value="[APPLICATIONFOLDER]\cli"
+                                         Part="last"
+                                         Permanent="no"
+                                         System="yes"/>
+                        </Component>
+                        <Directory Id='cli_plugins' Name='cli-plugins'>
+                            <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'
+                                       Win64='$(var.Win64)'>
+                                <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
+                                <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature
+                Id='Binaries'
+                Title='Application'
+                Description='Installs all binaries and the license.'
+                Level='1'
+                ConfigurableDirectory='APPLICATIONFOLDER'
+                AllowAdvertise='no'
+                Display='expand'
+                Absent='disallow'>
+            <ComponentRef Id='License'/>
+            <ComponentRef Id='cli_Comp'/>
+            <ComponentRef Id='cli_plugins_Comp'/>
+            <ComponentRef Id='dockerd_Comp'/>
+        </Feature>
+
+        <Property Id='POWERSHELLEXE' Value='C:\Windows\sysnative\WindowsPowerShell\v1.0\powershell.exe'/>
+
+        <SetProperty Id='CreateDockerGroup'
+                     Before='CreateDockerGroup'
+                     Sequence='execute'
+                     Value="&quot;[POWERSHELLEXE]&quot; -Command &quot;(Get-LocalGroup -Name docker-users) -or (New-LocalGroup -Name docker-users -Description 'Users of Docker Desktop')&quot;"/>
+
+        <CustomAction Id='CreateDockerGroup'
+                      BinaryKey='WixCA'
+                      DllEntry='WixQuietExec'
+                      Execute='deferred'
+                      Return='check'
+                      Impersonate='no'/>
+
+        <SetProperty Id='InstallContainersFeature'
+                     Before='InstallContainersFeature'
+                     Sequence='execute'
+                     Value="&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart&quot;"/>
+
+        <CustomAction Id='InstallContainersFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
+                      Return='check' Impersonate='no'/>
+
+        <InstallExecuteSequence>
+            <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
+            <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
+            <ScheduleReboot After="InstallFinalize">NOT Installed AND NOT REMOVE</ScheduleReboot>
+        </InstallExecuteSequence>
+
+        <SetProperty Id='ARPINSTALLLOCATION' Value='[APPLICATIONFOLDER]' After='CostFinalize'/>
+
+        <!--
+          Uncomment the following `Icon` and `Property` tags to change the product icon.
+
+          The product icon is the graphic that appears in the Add/Remove
+          Programs control panel for the application.
+        -->
+        <!--<Icon Id='ProductICO' SourceFile='wix\Product.ico'/>-->
+        <!--<Property Id='ARPPRODUCTICON' Value='ProductICO' />-->
+
+        <Property Id='ARPHELPLINK' Value='https://github.com/slonopotamus/stevedore'/>
+
+        <UI>
+            <UIRef Id='WixUI_FeatureTree'/>
+            <!--
+              Disabling the EULA dialog in the installer is a two step process:
+
+                 1. Uncomment the following two `Publish` tags
+                 2. Comment out or remove the `<WiXVariable Id='WixUILicenseRtf'...` tag further down
+
+            -->
+            <!--<Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>-->
+            <!--<Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>-->
+
+        </UI>
+
+        <!--
+          Disabling the EULA dialog in the installer requires commenting out
+          or removing the following `WixVariable` tag
+        -->
+        <WixVariable Id='WixUILicenseRtf' Value='wix\License.rtf'/>
+
+
+        <!--
+          Uncomment the next `WixVariable` tag to customize the installer's
+          Graphical User Interface (GUI) and add a custom banner image across
+          the top of each screen. See the WiX Toolset documentation for details
+          about customization.
+
+          The banner BMP dimensions are 493 x 58 pixels.
+        -->
+        <!--<WixVariable Id='WixUIBannerBmp' Value='wix\Banner.bmp'/>-->
+
+
+        <!--
+          Uncomment the next `WixVariable` tag to customize the installer's
+          Graphical User Interface (GUI) and add a custom image to the first
+          dialog, or screen. See the WiX Toolset documentation for details about
+          customization.
+
+          The dialog BMP dimensions are 493 x 312 pixels.
+        -->
+        <!--<WixVariable Id='WixUIDialogBmp' Value='wix\Dialog.bmp'/>-->
+
+    </Product>
+
+</Wix>
