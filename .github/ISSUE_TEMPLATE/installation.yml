@@ -4,7 +4,7 @@ labels: [ "bug" ]
 body:
   - type: markdown
     attributes:
-      value: Before reporting a bug, please check that is isn't fixed in [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
+      value: Before reporting a bug, please check that is isn't fixed in the [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
   - type: dropdown
     id: version
     attributes:
@@ -15,17 +15,10 @@ body:
     validations:
       required: true
   - type: textarea
-    id: what-happened
+    id: logs
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: |
+      label: Log output
+      description: |
         In order to collect installation logs, do the following:
         1. Launch `cmd.exe`
         2. `cd` to directory where Stevedore MSI is located
@@ -34,10 +27,8 @@ body:
         5. Close installer
         6. Open `stevedore.log` located in the same directory with MSI
         7. Copy-paste contents of `stevedore.log` in the textfield below
-  - type: textarea
-    id: logs
-    attributes:
-      label: Log output
+    validations:
+      required: true
   - type: textarea
     id: context
     attributes:

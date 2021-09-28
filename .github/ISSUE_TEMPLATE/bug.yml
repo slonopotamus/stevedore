@@ -4,7 +4,7 @@ labels: [ "bug" ]
 body:
   - type: markdown
     attributes:
-      value: Before reporting a bug, please check that is isn't fixed in [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
+      value: Before reporting a bug, please check that is isn't fixed in the [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
   - type: dropdown
     id: version
     attributes:
