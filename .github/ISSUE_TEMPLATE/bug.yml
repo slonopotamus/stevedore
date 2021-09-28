@@ -1,4 +1,4 @@
-name: Other bug during Stevedore usage
+name: Stevedore fails to work properly after installation finished
 description: Report an issue that happens after Stevedore was installed
 labels: [ "bug" ]
 body:
