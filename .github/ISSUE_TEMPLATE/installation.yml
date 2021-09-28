@@ -40,4 +40,5 @@ body:
   - type: textarea
     id: context
     attributes:
-      label: Any additional context information you think is relevant
+      label: Additional context
+      description: Any additional information you think is relevant to the issue
