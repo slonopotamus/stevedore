@@ -1,0 +1,44 @@
+name: Stevedore fails to install
+description: Report an issue related to Stevedore install process
+labels: [ "bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: Before reporting a bug, please check that is isn't fixed in [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What Stevedore version are you using?
+      options:
+        - 0.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        In order to collect installation logs, do the following:
+        1. Launch `cmd.exe`
+        2. `cd` to directory where Stevedore MSI is located
+        3. `msiexec /i <name-of-stevedore.msi> /l+v stevedore.log`
+        4. Walk through installer steps to reproduce the bug
+        5. Close installer
+        6. Open `stevedore.log` located in the same directory with MSI
+        7. Copy-paste contents of `stevedore.log` in the textfield below
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output
+  - type: textarea
+    id: context
+    attributes:
+      label: Any additional context information you think is relevant

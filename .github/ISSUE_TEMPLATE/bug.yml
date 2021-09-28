@@ -1,0 +1,54 @@
+name: Other bug during Stevedore usage
+description: Report an issue that happens after Stevedore was installed
+labels: [ "bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: Before reporting a bug, please check that is isn't fixed in [latest release](https://github.com/slonopotamus/stevedore/releases/latest)
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What Stevedore version are you using?
+      options:
+        - 0.0.1
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      description: |
+        What Windows build are you using?
+        To find it out, launch `cmd.exe` and copy-paste the first line that it prints
+      placeholder: Microsoft Windows [Version 10.0.17763.316]
+  - type: textarea
+    id: steps
+    attributes:
+      label: What steps are needed to reproduce the behavior?
+      description: Describe step-by-step actions required to reproduce the issue
+      placeholder: |
+        1. Do this
+        2. Do that
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected?
+      description: Describe what you expectex to happen
+      placeholder: Stevedore frobs
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Describe actual behavior that you're seeing
+      placeholder: Stevedore doesn't frob and produces an error
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Any additional context information you think is relevant
