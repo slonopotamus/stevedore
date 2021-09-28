@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>stevedore</id>
+    <version>{{ version }}</version>
+    <title>Stevedore</title>
+    <authors>Marat Radchenko</authors>
+    <projectUrl>https://github.com/slonopotamus/stevedore</projectUrl>
+    <tags>stevedore docker</tags>
+    <summary>Docker distribution for Windows that Just Works</summary>
+    <description>Docker distribution for Windows that Just Works</description>
+  </metadata>
+  <files>
+    <file src="tools/**" target="tools" />
+  </files>
+</package>

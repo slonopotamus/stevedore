@@ -26,10 +26,15 @@ jobs:
         with:
           name: package
           path: target/wix/*.msi
-      - name: publish release
+      - name: publish to gh-releases
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: target/wix/*.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: publish to chocolatey.org
+        if: startsWith(github.ref, 'refs/tags/')
+        run: .\choco-publish.ps1 ${env:GITHUB_REF} ${env:CHOCOLATEY_APIKEY}
+        with:
+          CHOCOLATEY_APIKEY: ${{ secrets.CHOCOLATEY_APIKEY }}
