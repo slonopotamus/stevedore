@@ -1,0 +1,10 @@
+= Stevedore
+:slug: slonopotamus/stevedore
+:uri-project: https://github.com/{slug}
+
+This document provides a high-level view of the changes to the Stevedore by release.
+For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
+
+== Unreleased
+
+* Initial release

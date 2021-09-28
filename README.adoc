@@ -1,0 +1,22 @@
+= Stevedore
+Marat Radchenko
+:slug: slonopotamus/stevedore
+:uri-project: https://github.com/{slug}
+:uri-ci: {uri-project}/actions?query=branch%3Amain
+
+image:https://img.shields.io/github/release/{slug}.svg[Download,link={uri-project}/releases/latest]
+image:{uri-project}/workflows/CI/badge.svg?branch=master[Build Status,link={uri-ci}]
+
+== Overview
+
+This project aims to be a frictionless Docker distribution for Windows.
+
+Stevedore currently only supports Windows containers.
+
+== Installation
+
+. Download {uri-project}/releases/latest[MSI installer]
+. Double-click on it
+. Next-next-next
+. Reboot your computer
+. Profit! `docker` command is now available on your PATH and `dockerd` daemon is already running.
