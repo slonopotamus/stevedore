@@ -36,5 +36,5 @@ jobs:
       - name: publish to chocolatey.org
         if: startsWith(github.ref, 'refs/tags/')
         run: .\choco-publish.ps1 ${env:GITHUB_REF} ${env:CHOCOLATEY_APIKEY}
-        with:
+        env:
           CHOCOLATEY_APIKEY: ${{ secrets.CHOCOLATEY_APIKEY }}
