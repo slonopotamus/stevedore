@@ -8,7 +8,13 @@
     <projectUrl>https://github.com/slonopotamus/stevedore</projectUrl>
     <tags>stevedore docker</tags>
     <summary>Docker distribution for Windows that Just Works</summary>
-    <description>Docker distribution for Windows that Just Works</description>
+    <description>Stevedore aims to be a frictionless Docker distribution for Windows. Stevedore currently only supports Windows containers.</description>
+    <licenseUrl>https://github.com/slonopotamus/stevedore/blob/main/LICENSE</licenseUrl>
+    <releaseNotes>https://github.com/slonopotamus/stevedore/releases/tag/{{ version }}</releaseNotes>
+    <packageSourceUrl>https://github.com/slonopotamus/stevedore/tree/main/choco</packageSourceUrl>
+    <bugTrackerUrl>https://github.com/slonopotamus/stevedore/issues</bugTrackerUrl>
+    <projectSourceUrl>https://github.com/slonopotamus/stevedore</projectSourceUrl>
+    <docsUrl>https://github.com/slonopotamus/stevedore/blob/main/README.adoc</docsUrl>
   </metadata>
   <files>
     <file src="tools/**" target="tools" />
