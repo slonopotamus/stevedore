@@ -6,7 +6,7 @@
     <title>Stevedore</title>
     <authors>Marat Radchenko</authors>
     <projectUrl>https://github.com/slonopotamus/stevedore</projectUrl>
-    <tags>stevedore docker</tags>
+    <tags>containers docker</tags>
     <summary>Docker distribution for Windows that Just Works</summary>
     <description>Stevedore aims to be a frictionless Docker distribution for Windows. Stevedore currently only supports Windows containers.</description>
     <licenseUrl>https://github.com/slonopotamus/stevedore/blob/main/LICENSE</licenseUrl>
