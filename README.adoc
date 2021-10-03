@@ -36,6 +36,15 @@ Note that reboot is required before you can use `docker` commands.
 This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
 . Profit! `docker` command is now available on your PATH and `dockerd` service is already running.
 
+=== Bundled components
+
+* Docker Engine 20.10.7
+* Docker App 0.9.1-beta3
+* Buildx 0.5.1
+* Docker Compose 1.29.2 and 2.0.1
+* compose-switch 1.0.1
+* Docker Scan 0.8.0
+
 == Usage
 
 After installation and reboot, `docker` command should be available on PATH.

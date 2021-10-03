@@ -11,6 +11,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 You can access Docker Compose V2 via `docker compose`.
 You can access Docker Compose V1 via `docker-compose`.
 You can toggle whether `docker-compose` uses V1 or V2 via `docker-compose enable-v2` and `docker-compose disable-v2`.
+* Add `docker scan` (https://github.com/slonopotamus/stevedore/issues/7[#7])
 
 == 0.0.1 (2021-09-28) - @slonopotamus
 

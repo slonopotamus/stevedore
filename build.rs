@@ -24,6 +24,10 @@ const COMPOSE_SWITCH_VERSION: &str = "1.0.1";
 const COMPOSE_SWITCH_URL: &str = formatcp!("https://github.com/docker/compose-switch/releases/download/v{COMPOSE_SWITCH_VERSION}/docker-compose-windows-amd64.exe");
 const COMPOSE_SWITCH_SHA256: &str = "b9fd276064cae38eb068b1298e2e618d4d48c6eac709b85a983420937c62f207";
 
+const DOCKER_SCAN_VERSION: &str = "0.8.0";
+const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
+const DOCKER_SCAN_SHA256: &str = "1485d7788e412d2622599d073117b909614433d4b0721a85592fb72658ce84cc";
+
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
     let manifest_dir_string = env::var("CARGO_MANIFEST_DIR").unwrap();
@@ -84,6 +88,11 @@ fn build_compose_switch(dest_dir: &Path) {
     download_file(COMPOSE_SWITCH_URL, COMPOSE_SWITCH_SHA256, &dest_path);
 }
 
+fn build_docker_scan_plugin(dest_dir: &Path) {
+    let dest_path = dest_dir.join("docker-scan.exe");
+    download_file(DOCKER_SCAN_URL, DOCKER_SCAN_SHA256, &dest_path);
+}
+
 fn main() {
     let dest_dir = get_dest_dir();
 
@@ -91,6 +100,7 @@ fn main() {
     build_docker_compose_v1(&dest_dir);
     build_docker_compose_v2(&dest_dir);
     build_compose_switch(&dest_dir);
+    build_docker_scan_plugin(&dest_dir);
 
     println!("cargo:rerun-if-changed=build.rs");
 }

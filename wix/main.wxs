@@ -115,6 +115,7 @@
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
                             <File Id='docker_compose_v2.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\docker-compose-v2.exe'/>
+                            <File Source='target\$(var.Profile)\docker-scan.exe'/>
                         </Component>
                     </Directory>
                 </Directory>
