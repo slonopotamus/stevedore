@@ -20,9 +20,10 @@ Stevedore currently only supports Windows containers.
 Stevedore is available via https://community.chocolatey.org/packages/stevedore[Chocolatey] package manager.
 If you already have Chocolatey installed, you can just run the following command from elevated console:
 
-```
+[source,bash]
+----
 choco install stevedore
-```
+----
 
 Note that reboot is required before you can use `docker` commands.
 
@@ -34,3 +35,25 @@ Note that reboot is required before you can use `docker` commands.
 . Reboot your computer.
 This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
 . Profit! `docker` command is now available on your PATH and `dockerd` service is already running.
+
+== Usage
+
+After installation and reboot, `docker` command should be available on PATH.
+
+=== Docker Compose
+
+Stevedore ships with both Docker Compose V1 and Docker Compose V2.
+
+To access Docker Compose V2, use `docker compose` command.
+
+To access Docker Compose V1, use `docker-compose` command.
+
+You can also enable compatibility mode when `docker-compose` acts as an adapter and converts V1-style commands to V2-style and automatically passes them to Docker Compose V2.
+
+To enable compatibility mode, use `docker-compose enable-v2` command.
+
+To revert `docker-compose` to V1 mode, use `docker-compose disable-v2` command.
+
+You can check current mode by using `docker-compose version`.
+
+NOTE: `docker compose` is *always* V2. Only `docker-compose` can switch between V2 and V2.
