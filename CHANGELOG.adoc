@@ -5,6 +5,13 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Add `docker-compose` (https://github.com/slonopotamus/stevedore/issues/5[#5]).
+You can access Docker Compose V2 via `docker compose`.
+You can access Docker Compose V1 via `docker-compose`.
+You can toggle whether `docker-compose` uses V1 or V2 via `docker-compose enable-v2` and `docker-compose disable-v2`.
+
 == 0.0.1 (2021-09-28) - @slonopotamus
 
 * Initial release

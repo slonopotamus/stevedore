@@ -3,13 +3,14 @@ name = "stevedore"
 version = "0.0.1"
 description = "Docker distribution for Windows that Just Works"
 edition = "2018"
-authors = [ "Marat Radchenko <marat@slonopotamus.org>" ]
+authors = ["Marat Radchenko <marat@slonopotamus.org>"]
 homepage = "https://github.com/slonopotamus/stevedore"
 repository = "https://github.com/slonopotamus/stevedore.git"
 license = "Apache-2.0"
 
 [build-dependencies]
+bytes = "1.1"
 const_format = "0.2"
-http_req = "0.8"
+reqwest = { version = "0.11", features = ["blocking"] }
 sha2 = "0.9"
 zip = "0.5"
