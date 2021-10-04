@@ -65,4 +65,4 @@ To revert `docker-compose` to V1 mode, use `docker-compose disable-v2` command.
 
 You can check current mode by using `docker-compose version`.
 
-NOTE: `docker compose` is *always* V2. Only `docker-compose` can switch between V2 and V2.
+NOTE: `docker compose` is *always* V2. Only `docker-compose` can switch between V1 and V2.
