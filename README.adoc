@@ -4,8 +4,9 @@ Marat Radchenko
 :uri-project: https://github.com/{slug}
 :uri-ci: {uri-project}/actions?query=branch%3Amain
 
-image:https://img.shields.io/github/release/{slug}.svg[Download,link={uri-project}/releases/latest]
 image:{uri-project}/workflows/CI/badge.svg?branch=master[Build Status,link={uri-ci}]
+image:https://img.shields.io/github/release/{slug}.svg[Download,link={uri-project}/releases/latest]
+image:https://img.shields.io/chocolatey/v/stevedore[Chocolatey package,link=https://community.chocolatey.org/packages/stevedore]
 
 == Overview
 
