@@ -113,7 +113,7 @@
                         <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'
                                    Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
-                            <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
+                            <File Source='target\$(var.Profile)\docker-buildx.exe'/>
                             <File Id='docker_compose_v2.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\docker-compose-v2.exe'/>
                             <File Source='target\$(var.Profile)\docker-scan.exe'/>
                         </Component>

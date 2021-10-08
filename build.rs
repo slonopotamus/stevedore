@@ -9,20 +9,29 @@ use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
 const DOCKER_VERSION: &str = "20.10.7";
-const DOCKER_URL: &str = formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
+const DOCKER_URL: &str =
+    formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
 const DOCKER_SHA256: &str = "c3bd22dab5f9ece41c2f496b4551b54f823625a85d8e4789d762a2d249d8b3b2";
+
+const DOCKER_BUILDX_VERSION: &str = "0.6.3";
+const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
+const DOCKER_BUILDX_SHA256: &str =
+    "83375d83f5d5424dbbd0e4e877abd01843e7591cf1e22add5494c77df2e732a9";
 
 const DOCKER_COMPOSE_V1_VERSION: &str = "1.29.2";
 const DOCKER_COMPOSE_V1_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/{DOCKER_COMPOSE_V1_VERSION}/docker-compose-Windows-x86_64.exe");
-const DOCKER_COMPOSE_V1_SHA256: &str = "94c3c634e21532eb9783057eac5235ca44b3e14a4c34e73d7eb6b94a2544cc12";
+const DOCKER_COMPOSE_V1_SHA256: &str =
+    "94c3c634e21532eb9783057eac5235ca44b3e14a4c34e73d7eb6b94a2544cc12";
 
 const DOCKER_COMPOSE_V2_VERSION: &str = "2.0.1";
 const DOCKER_COMPOSE_V2_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_V2_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_V2_SHA256: &str = "5a89d3d16e214f7686423c18db33f2b7348b4a24988633f8402c257dd3def3d3";
+const DOCKER_COMPOSE_V2_SHA256: &str =
+    "5a89d3d16e214f7686423c18db33f2b7348b4a24988633f8402c257dd3def3d3";
 
 const COMPOSE_SWITCH_VERSION: &str = "1.0.1";
 const COMPOSE_SWITCH_URL: &str = formatcp!("https://github.com/docker/compose-switch/releases/download/v{COMPOSE_SWITCH_VERSION}/docker-compose-windows-amd64.exe");
-const COMPOSE_SWITCH_SHA256: &str = "b9fd276064cae38eb068b1298e2e618d4d48c6eac709b85a983420937c62f207";
+const COMPOSE_SWITCH_SHA256: &str =
+    "b9fd276064cae38eb068b1298e2e618d4d48c6eac709b85a983420937c62f207";
 
 const DOCKER_SCAN_VERSION: &str = "0.8.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
@@ -73,6 +82,11 @@ fn download_file(uri: &str, sha256: &str, dest: &Path) {
     outfile.write_all(&data).unwrap();
 }
 
+fn build_docker_buildx(dest_dir: &Path) {
+    let dest_path = dest_dir.join("docker-buildx.exe");
+    download_file(DOCKER_BUILDX_URL, DOCKER_BUILDX_SHA256, &dest_path);
+}
+
 fn build_docker_compose_v1(dest_dir: &Path) {
     let dest_path = dest_dir.join("docker-compose-v1.exe");
     download_file(DOCKER_COMPOSE_V1_URL, DOCKER_COMPOSE_V1_SHA256, &dest_path);
@@ -97,6 +111,7 @@ fn main() {
     let dest_dir = get_dest_dir();
 
     build_docker(&dest_dir);
+    build_docker_buildx(&dest_dir);
     build_docker_compose_v1(&dest_dir);
     build_docker_compose_v2(&dest_dir);
     build_compose_switch(&dest_dir);

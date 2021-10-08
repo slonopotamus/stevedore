@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Upgrade Buildx to 0.6.3
+
 == 0.0.2 (2021-10-03) - @slonopotamus
 
 * Add `docker-compose` (https://github.com/slonopotamus/stevedore/issues/5[#5]).

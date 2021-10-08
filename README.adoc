@@ -41,7 +41,7 @@ This is needed to finish installation of Windows Containers feature and to add y
 
 * Docker Engine 20.10.7
 * Docker App 0.9.1-beta3
-* Buildx 0.5.1
+* Buildx 0.6.3
 * Docker Compose 1.29.2 and 2.0.1
 * compose-switch 1.0.1
 * Docker Scan 0.8.0
