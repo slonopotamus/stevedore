@@ -12,6 +12,7 @@ body:
       description: What Stevedore version are you trying to install?
       options:
         - 0.0.1
+        - 0.0.2
     validations:
       required: true
   - type: input
