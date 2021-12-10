@@ -8,10 +8,10 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.7";
+const DOCKER_VERSION: &str = "20.10.11";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA256: &str = "c3bd22dab5f9ece41c2f496b4551b54f823625a85d8e4789d762a2d249d8b3b2";
+const DOCKER_SHA256: &str = "a60a1d45cc45ffc7cc0337813e6d5a0cad39409416bab04ade6eb4e03a0e5a7c";
 
 const DOCKER_BUILDX_VERSION: &str = "0.6.3";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
@@ -23,19 +23,19 @@ const DOCKER_COMPOSE_V1_URL: &str = formatcp!("https://github.com/docker/compose
 const DOCKER_COMPOSE_V1_SHA256: &str =
     "94c3c634e21532eb9783057eac5235ca44b3e14a4c34e73d7eb6b94a2544cc12";
 
-const DOCKER_COMPOSE_V2_VERSION: &str = "2.0.1";
+const DOCKER_COMPOSE_V2_VERSION: &str = "2.2.2";
 const DOCKER_COMPOSE_V2_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_V2_VERSION}/docker-compose-windows-x86_64.exe");
 const DOCKER_COMPOSE_V2_SHA256: &str =
-    "5a89d3d16e214f7686423c18db33f2b7348b4a24988633f8402c257dd3def3d3";
+    "77496c57449437194add809f10634fca96b9253433809446b6986e709fc8c032";
 
 const COMPOSE_SWITCH_VERSION: &str = "1.0.1";
 const COMPOSE_SWITCH_URL: &str = formatcp!("https://github.com/docker/compose-switch/releases/download/v{COMPOSE_SWITCH_VERSION}/docker-compose-windows-amd64.exe");
 const COMPOSE_SWITCH_SHA256: &str =
     "b9fd276064cae38eb068b1298e2e618d4d48c6eac709b85a983420937c62f207";
 
-const DOCKER_SCAN_VERSION: &str = "0.8.0";
+const DOCKER_SCAN_VERSION: &str = "0.10.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
-const DOCKER_SCAN_SHA256: &str = "1485d7788e412d2622599d073117b909614433d4b0721a85592fb72658ce84cc";
+const DOCKER_SCAN_SHA256: &str = "a1500a753eb99806517666539fbe5c7865d95fe522dc61b19c3ed9c25f9d2e37";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

@@ -8,6 +8,9 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Upgrade Buildx to 0.6.3
+* Upgrade Docker to 20.10.11
+* Upgrade Docker Compose to 2.2.2
+* Upgrade Docker Scan to 0.10.0
 
 == 0.0.2 (2021-10-03) - @slonopotamus
 
