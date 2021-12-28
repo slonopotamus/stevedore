@@ -39,12 +39,12 @@ This is needed to finish installation of Windows Containers feature and to add y
 
 === Bundled components
 
-* Docker Engine 20.10.7
+* Docker Engine 20.10.11
 * Docker App 0.9.1-beta3
 * Buildx 0.6.3
-* Docker Compose 1.29.2 and 2.0.1
+* Docker Compose 1.29.2 and 2.2.2
 * compose-switch 1.0.1
-* Docker Scan 0.8.0
+* Docker Scan 0.10.0
 
 == Usage
 
