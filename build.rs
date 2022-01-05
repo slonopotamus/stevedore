@@ -8,34 +8,18 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.11";
+const DOCKER_VERSION: &str = "20.10.12";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA256: &str = "a60a1d45cc45ffc7cc0337813e6d5a0cad39409416bab04ade6eb4e03a0e5a7c";
+const DOCKER_SHA: &str = "bd3775ada72492aa1f3c2edb3e81663bd128b9d4f6752ef75953a6af7c219c81";
 
-const DOCKER_BUILDX_VERSION: &str = "0.6.3";
-const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA256: &str =
-    "83375d83f5d5424dbbd0e4e877abd01843e7591cf1e22add5494c77df2e732a9";
+const DOCKER_COMPOSE_VERSION: &str = "2.2.2";
+const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
+const DOCKER_COMPOSE_SHA: &str = "77496c57449437194add809f10634fca96b9253433809446b6986e709fc8c032";
 
-const DOCKER_COMPOSE_V1_VERSION: &str = "1.29.2";
-const DOCKER_COMPOSE_V1_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/{DOCKER_COMPOSE_V1_VERSION}/docker-compose-Windows-x86_64.exe");
-const DOCKER_COMPOSE_V1_SHA256: &str =
-    "94c3c634e21532eb9783057eac5235ca44b3e14a4c34e73d7eb6b94a2544cc12";
-
-const DOCKER_COMPOSE_V2_VERSION: &str = "2.2.2";
-const DOCKER_COMPOSE_V2_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_V2_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_V2_SHA256: &str =
-    "77496c57449437194add809f10634fca96b9253433809446b6986e709fc8c032";
-
-const COMPOSE_SWITCH_VERSION: &str = "1.0.1";
-const COMPOSE_SWITCH_URL: &str = formatcp!("https://github.com/docker/compose-switch/releases/download/v{COMPOSE_SWITCH_VERSION}/docker-compose-windows-amd64.exe");
-const COMPOSE_SWITCH_SHA256: &str =
-    "b9fd276064cae38eb068b1298e2e618d4d48c6eac709b85a983420937c62f207";
-
-const DOCKER_SCAN_VERSION: &str = "0.10.0";
+const DOCKER_SCAN_VERSION: &str = "0.16.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
-const DOCKER_SCAN_SHA256: &str = "a1500a753eb99806517666539fbe5c7865d95fe522dc61b19c3ed9c25f9d2e37";
+const DOCKER_SCAN_SHA: &str = "552677f8650d9d5bc91b706e76ebc60a8d54176e6eafc6a34f897b53e8540a31";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
@@ -56,7 +40,7 @@ fn download(uri: &str, sha256: &str) -> bytes::Bytes {
 }
 
 fn build_docker(dest_dir: &Path) {
-    let compressed_data = download(DOCKER_URL, DOCKER_SHA256);
+    let compressed_data = download(DOCKER_URL, DOCKER_SHA);
     let mut zip_archive = ZipArchive::new(Cursor::new(compressed_data)).unwrap();
 
     for i in 0..zip_archive.len() {
@@ -82,39 +66,21 @@ fn download_file(uri: &str, sha256: &str, dest: &Path) {
     outfile.write_all(&data).unwrap();
 }
 
-fn build_docker_buildx(dest_dir: &Path) {
-    let dest_path = dest_dir.join("docker-buildx.exe");
-    download_file(DOCKER_BUILDX_URL, DOCKER_BUILDX_SHA256, &dest_path);
-}
-
-fn build_docker_compose_v1(dest_dir: &Path) {
-    let dest_path = dest_dir.join("docker-compose-v1.exe");
-    download_file(DOCKER_COMPOSE_V1_URL, DOCKER_COMPOSE_V1_SHA256, &dest_path);
-}
-
-fn build_docker_compose_v2(dest_dir: &Path) {
-    let dest_path = dest_dir.join("docker-compose-v2.exe");
-    download_file(DOCKER_COMPOSE_V2_URL, DOCKER_COMPOSE_V2_SHA256, &dest_path);
-}
-
-fn build_compose_switch(dest_dir: &Path) {
-    let dest_path = dest_dir.join("compose-switch.exe");
-    download_file(COMPOSE_SWITCH_URL, COMPOSE_SWITCH_SHA256, &dest_path);
+fn build_docker_compose(dest_dir: &Path) {
+    let dest_path = dest_dir.join("docker-compose.exe");
+    download_file(DOCKER_COMPOSE_URL, DOCKER_COMPOSE_SHA, &dest_path);
 }
 
 fn build_docker_scan_plugin(dest_dir: &Path) {
     let dest_path = dest_dir.join("docker-scan.exe");
-    download_file(DOCKER_SCAN_URL, DOCKER_SCAN_SHA256, &dest_path);
+    download_file(DOCKER_SCAN_URL, DOCKER_SCAN_SHA, &dest_path);
 }
 
 fn main() {
     let dest_dir = get_dest_dir();
 
     build_docker(&dest_dir);
-    build_docker_buildx(&dest_dir);
-    build_docker_compose_v1(&dest_dir);
-    build_docker_compose_v2(&dest_dir);
-    build_compose_switch(&dest_dir);
+    build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
 
     println!("cargo:rerun-if-changed=build.rs");

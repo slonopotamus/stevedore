@@ -96,8 +96,7 @@
                         <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Name="com.docker.cli.exe" Source='target\$(var.Profile)\docker\docker.exe'/>
-                            <File Source='target\$(var.Profile)\docker-compose-v1.exe'/>
-                            <File Id='compose_switch.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\compose-switch.exe'/>
+                            <File Id='docker_compose_v1.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\docker-compose.exe'/>
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
@@ -113,8 +112,8 @@
                         <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'
                                    Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
-                            <File Source='target\$(var.Profile)\docker-buildx.exe'/>
-                            <File Id='docker_compose_v2.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\docker-compose-v2.exe'/>
+                            <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
+                            <File Source='target\$(var.Profile)\docker-compose.exe'/>
                             <File Source='target\$(var.Profile)\docker-scan.exe'/>
                         </Component>
                     </Directory>
