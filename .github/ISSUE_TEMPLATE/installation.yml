@@ -13,6 +13,7 @@ body:
       options:
         - 0.0.1
         - 0.0.2
+        - 0.0.3
     validations:
       required: true
   - type: input
