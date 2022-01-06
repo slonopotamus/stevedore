@@ -72,6 +72,7 @@
                                 Id="DockerUser"
                                 Domain="[%USERDOMAIN]"
                                 Name="[%USERNAME]"
+                                CreateUser="no"
                                 RemoveOnUninstall="no">
                             <util:GroupRef Id="DockerGroup"/>
                         </util:User>
