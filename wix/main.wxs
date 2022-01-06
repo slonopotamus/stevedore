@@ -167,58 +167,17 @@
 
         <SetProperty Id='ARPINSTALLLOCATION' Value='[APPLICATIONFOLDER]' After='CostFinalize'/>
 
-        <!--
-          Uncomment the following `Icon` and `Property` tags to change the product icon.
-
-          The product icon is the graphic that appears in the Add/Remove
-          Programs control panel for the application.
-        -->
-        <!--<Icon Id='ProductICO' SourceFile='wix\Product.ico'/>-->
-        <!--<Property Id='ARPPRODUCTICON' Value='ProductICO' />-->
+        <Icon Id='ProductICO' SourceFile='resources/stevedore.ico'/>
+        <Property Id='ARPPRODUCTICON' Value='ProductICO' />
 
         <Property Id='ARPHELPLINK' Value='https://github.com/slonopotamus/stevedore'/>
 
         <UI>
             <UIRef Id='WixUI_FeatureTree'/>
-            <!--
-              Disabling the EULA dialog in the installer is a two step process:
-
-                 1. Uncomment the following two `Publish` tags
-                 2. Comment out or remove the `<WiXVariable Id='WixUILicenseRtf'...` tag further down
-
-            -->
-            <!--<Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>-->
-            <!--<Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>-->
-
         </UI>
 
-        <!--
-          Disabling the EULA dialog in the installer requires commenting out
-          or removing the following `WixVariable` tag
-        -->
-        <WixVariable Id='WixUILicenseRtf' Value='wix\License.rtf'/>
-
-
-        <!--
-          Uncomment the next `WixVariable` tag to customize the installer's
-          Graphical User Interface (GUI) and add a custom banner image across
-          the top of each screen. See the WiX Toolset documentation for details
-          about customization.
-
-          The banner BMP dimensions are 493 x 58 pixels.
-        -->
-        <!--<WixVariable Id='WixUIBannerBmp' Value='wix\Banner.bmp'/>-->
-
-
-        <!--
-          Uncomment the next `WixVariable` tag to customize the installer's
-          Graphical User Interface (GUI) and add a custom image to the first
-          dialog, or screen. See the WiX Toolset documentation for details about
-          customization.
-
-          The dialog BMP dimensions are 493 x 312 pixels.
-        -->
-        <!--<WixVariable Id='WixUIDialogBmp' Value='wix\Dialog.bmp'/>-->
-
+        <WixVariable Id='WixUILicenseRtf' Value='wix/License.rtf'/>
+        <WixVariable Id='WixUIBannerBmp' Value='wix/Banner.bmp'/>
+        <WixVariable Id='WixUIDialogBmp' Value='wix/Dialog.bmp'/>
     </Product>
 </Wix>
