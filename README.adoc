@@ -56,3 +56,11 @@ Stevedore installs two flavors of Docker Compose.
 You can use Docker Compose V2 via `docker compose` command.
 
 You can also use Docker Compose V1 compatibility mode via `docker-compose` command.
+
+== Building from source
+
+. https://www.rust-lang.org/tools/install[Install Rust]
+. Install https://wixtoolset.org/releases/https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
+. Clone Stevedore Git repository
+. Run `cargo install cargo-wix` to install https://github.com/volks73/cargo-wix[cargo-wix]
+. Run `cargo wix --nocapture` in repository root. Ready-to-use MSI package will be built in `<repo>/target/wix` directory.
