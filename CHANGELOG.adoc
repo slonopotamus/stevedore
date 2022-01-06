@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Add icons to installer
+* Fix ERROR_ALIAS_EXISTS error when installing as AD user
+
 == 0.0.3 (2022-01-06) - @slonopotamus
 
 * Upgrade Buildx to 0.7.1
