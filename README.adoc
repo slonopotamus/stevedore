@@ -12,7 +12,9 @@ image:https://img.shields.io/chocolatey/v/stevedore[Chocolatey package,link=http
 
 This project aims to be a frictionless Docker distribution for Windows.
 
-Stevedore currently only supports Windows containers.
+Stevedore can be used as a replacement for `DockerMsftProvider`, Docker Desktop or Mirantis Container Runtime.
+
+Only Windows containers are supported currently.
 
 == Supported OSes
 
