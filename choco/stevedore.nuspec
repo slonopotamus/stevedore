@@ -13,8 +13,8 @@
     <releaseNotes>https://github.com/slonopotamus/stevedore/releases/tag/{{ version }}</releaseNotes>
     <packageSourceUrl>https://github.com/slonopotamus/stevedore/tree/main/choco</packageSourceUrl>
     <bugTrackerUrl>https://github.com/slonopotamus/stevedore/issues</bugTrackerUrl>
-    <projectSourceUrl>https://github.com/slonopotamus/stevedore</projectSourceUrl>
     <docsUrl>https://github.com/slonopotamus/stevedore/blob/main/README.adoc</docsUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/slonopotamus/stevedore@main/resources/stevedore_orig.png</iconUrl>
   </metadata>
   <files>
     <file src="tools/**" target="tools" />
