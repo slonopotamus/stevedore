@@ -14,6 +14,13 @@ This project aims to be a frictionless Docker distribution for Windows.
 
 Stevedore currently only supports Windows containers.
 
+== Supported OSes
+
+* Windows 10
+* Windows 11
+* Windows Server 2019
+* Windows Server 2022
+
 == Installation
 
 === Chocolatey
