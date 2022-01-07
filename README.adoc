@@ -14,7 +14,7 @@ This project aims to be a frictionless Docker distribution for Windows.
 
 Stevedore can be used as a replacement for `DockerMsftProvider`, Docker Desktop or Mirantis Container Runtime.
 
-Only Windows containers are supported currently.
+Only Windows containers are supported currently. Linux containers support is https://github.com/slonopotamus/stevedore/issues/8[under development].
 
 == Supported OSes
 
@@ -22,6 +22,8 @@ Only Windows containers are supported currently.
 * Windows 11
 * Windows Server 2019
 * Windows Server 2022
+
+Windows Server 2016 might also work, but wasn't tested.
 
 == Installation
 
@@ -36,6 +38,10 @@ choco install stevedore
 ----
 
 Note that reboot is required before you can use `docker` commands.
+
+=== WinGet
+
+https://github.com/slonopotamus/stevedore/issues/15[Planned], but not available yet.
 
 === Manual
 
@@ -56,7 +62,9 @@ This is needed to finish installation of Windows Containers feature and to add y
 
 == Usage
 
-After installation and reboot, `docker` command should be available on PATH.
+After installation and reboot, `docker` command should be available on PATH and ready to use.
+
+Just try `docker run hello-world` from a command line.
 
 === Docker Compose
 
