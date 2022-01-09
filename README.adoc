@@ -18,12 +18,8 @@ Only Windows containers are supported currently. Linux containers support is htt
 
 == Supported OSes
 
-* Windows 10
-* Windows 11
-* Windows Server 2019
-* Windows Server 2022
-
-Windows Server 2016 might also work, but wasn't tested.
+* Windows 10, 11
+* Windows Server 2016, 2019, 2022
 
 == Installation
 
