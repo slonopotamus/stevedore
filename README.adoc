@@ -62,6 +62,8 @@ After installation and reboot, `docker` command should be available on PATH and 
 
 Just try `docker run hello-world` from a command line.
 
+In order to communicate with Docker engine, users needs to be in `docker-users` group. Upon installation, Stevedore automatically adds installing user to `docker-users`. If you need other users to also access Docker engine, you will need to add them manually. You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
+
 === Docker Compose
 
 Stevedore installs two flavors of Docker Compose.
