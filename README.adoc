@@ -14,13 +14,14 @@ This project aims to be a frictionless Docker distribution for Windows.
 
 Stevedore can be used as a replacement for `DockerMsftProvider`, Docker Desktop or Mirantis Container Runtime.
 
-Only Windows containers are supported currently.
-Linux containers support is https://github.com/slonopotamus/stevedore/issues/8[under development].
+Windows Containers are fully supported.
+
+Linux Containers support is in _experimental mode_.
 
 == Supported OSes
 
 * Windows 10, 11
-* Windows Server 2016, 2019, 2022
+* Windows Server 2016, 2019, 2022 (no Linux containers due to lack of WSL2)
 
 == Installation
 
@@ -64,6 +65,7 @@ If you only want to install specific Stevedore features, use `/ADDLOCAL=Feature1
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#process-isolation[process isolation].
 * `FeatureHyperV` installs Hyper-V support.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
+* `FeatureLinuxContainers` installs Linux Containers support.
 
 You can also pass custom installation properties to Stevedore installer using `/PROPERTY=value` syntax.
 

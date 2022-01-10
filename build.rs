@@ -3,8 +3,11 @@ use std::fs::{create_dir_all, File};
 use std::io;
 use std::io::{Cursor, Write};
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 use const_format::formatcp;
+use flate2::write::GzEncoder;
+use flate2::Compression;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
@@ -14,6 +17,13 @@ const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
 const DOCKER_WIN64_SHA: &str = "bd3775ada72492aa1f3c2edb3e81663bd128b9d4f6752ef75953a6af7c219c81";
 
+const DOCKER_LINUX_URL: &str =
+    formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
+const DOCKER_LINUX_SHA: &str = "ee9b5be14e54bf92f48c82c2e6a83fbdd1c5329e8f247525a9ed2fe90d9f89a5";
+
+const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
+const ALPINE_SHA: &str = "ec7ec80a96500f13c189a6125f2dbe8600ef593b87fc4670fe959dc02db727a2";
+
 const DOCKER_COMPOSE_VERSION: &str = "2.2.3";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
 const DOCKER_COMPOSE_SHA: &str = "7ed35698f85d2d67855934b834845461cd454d40f9a07ee72deb88085af0890e";
@@ -21,6 +31,11 @@ const DOCKER_COMPOSE_SHA: &str = "7ed35698f85d2d67855934b834845461cd454d40f9a07e
 const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
 const DOCKER_SCAN_SHA: &str = "d6e19957813f28970c5552aa2683277e187a1b7327b3af90194e8f04f1d04021";
+
+const DOCKER_WSL_PROXY_VERSION: &str = "0.0.1";
+const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/docker-wsl-proxy/releases/download/{DOCKER_WSL_PROXY_VERSION}/docker-wsl-proxy.exe");
+const DOCKER_WSL_PROXY_SHA: &str =
+    "8df71c496052427787cbf8df37fa9aff625086702990a74a1864e11700bfee02";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
@@ -81,12 +96,110 @@ fn build_docker_scan_plugin(dest_dir: &Path) {
     download_file(DOCKER_SCAN_URL, DOCKER_SCAN_SHA, &dest_path);
 }
 
+fn build_docker_wsl_proxy(dest_dir: &Path) {
+    let dest_path = dest_dir.join("docker-wsl-proxy.exe");
+    download_file(DOCKER_WSL_PROXY_URL, DOCKER_WSL_PROXY_SHA, &dest_path);
+}
+
+fn run_cmd(cmd: &mut Command) -> String {
+    let output = cmd.output().unwrap();
+    assert!(
+        output.status.success(),
+        "{:?} returned {:?}\nSTDOUT:{}\nSTDERR:\n{}",
+        cmd,
+        output.status,
+        std::str::from_utf8(&output.stdout).unwrap(),
+        std::str::from_utf8(&output.stderr).unwrap(),
+    );
+    String::from(std::str::from_utf8(&output.stdout).unwrap().trim())
+}
+
+/**
+1. You can't use Docker in this function because GitHub Actions doesn't support nested virtualization
+2. You can't use WSL2 in this function because Windows Server only has WSL1
+*/
+fn build_wsl_tarball(dest_dir: &Path) {
+    const DISTRIBUTION_NAME: &str = "stevedore";
+    const STAGING_DISTRIBUTION_NAME: &str = formatcp!("{DISTRIBUTION_NAME}-staging");
+
+    // Download Alpine Linux rootfs
+    let alpine_tgz = dest_dir.join(formatcp!("alpine.tar.gz"));
+    download_file(ALPINE_URL, ALPINE_SHA, &alpine_tgz);
+
+    // Download Linux Docker binaries
+    let docker_tgz = dest_dir.join("docker.tar.gz");
+    download_file(DOCKER_LINUX_URL, DOCKER_LINUX_SHA, &docker_tgz);
+
+    // Remove WSL distribution in case it already exists
+    let _ = Command::new("wsl")
+        .arg("--unregister")
+        .arg(STAGING_DISTRIBUTION_NAME)
+        .output();
+
+    // Import Alpine Linux rootfs into WSL
+    run_cmd(
+        Command::new("wsl")
+            .arg("--import")
+            .arg(STAGING_DISTRIBUTION_NAME)
+            .arg(dest_dir)
+            .arg(alpine_tgz),
+    );
+
+    // Add docker into WSL
+    // TODO: Instead, use Docker binaries we just downloaded
+    run_cmd(
+        Command::new("wsl")
+            .arg("--distribution")
+            .arg(STAGING_DISTRIBUTION_NAME)
+            .arg("--")
+            .arg("apk")
+            .arg("add")
+            .arg("--no-cache")
+            .arg("docker")
+            .arg("socat"),
+    );
+
+    let uncompressed_tarball_path = dest_dir.join(formatcp!("{DISTRIBUTION_NAME}.tar"));
+    let compressed_tarball_path = dest_dir.join(formatcp!("{DISTRIBUTION_NAME}.tar.gz"));
+
+    // Export tarball from WSL
+    run_cmd(
+        Command::new("wsl")
+            .arg("--export")
+            .arg(STAGING_DISTRIBUTION_NAME)
+            .arg(&uncompressed_tarball_path),
+    );
+
+    // Compress tarball
+    // TODO: pipe directly from wsl --export
+    {
+        let mut uncompressed_tarball = File::open(uncompressed_tarball_path).unwrap();
+        let compressed_tarball = File::create(compressed_tarball_path).unwrap();
+        let mut encoder = GzEncoder::new(compressed_tarball, Compression::default());
+        std::io::copy(&mut uncompressed_tarball, &mut encoder).unwrap();
+    }
+
+    // Cleanup WSL
+    run_cmd(
+        Command::new("wsl")
+            .arg("--unregister")
+            .arg(STAGING_DISTRIBUTION_NAME),
+    );
+}
+
 fn main() {
     let dest_dir = get_dest_dir();
 
+    build_wsl_tarball(&dest_dir);
     build_docker(&dest_dir);
     build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
+    build_docker_wsl_proxy(&dest_dir);
 
+    let mut res = winres::WindowsResource::new();
+    res.set_icon("resources/stevedore.ico");
+    res.compile().unwrap();
+
+    println!("cargo:rerun-if-changed=resources/stevedore.ico");
     println!("cargo:rerun-if-changed=build.rs");
 }
