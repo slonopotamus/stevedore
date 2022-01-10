@@ -159,8 +159,17 @@
         <CustomAction Id='InstallContainersFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
                       Return='check' Impersonate='no'/>
 
+        <SetProperty Id='InstallHyperVFeature'
+                     Before='InstallHyperVFeature'
+                     Sequence='execute'
+                     Value="&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart&quot;"/>
+
+        <CustomAction Id='InstallHyperVFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
+                      Return='check' Impersonate='no'/>
+
         <InstallExecuteSequence>
             <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
+            <Custom Action='InstallHyperVFeature' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
             <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
             <ScheduleReboot After="InstallFinalize">NOT Installed AND NOT REMOVE</ScheduleReboot>
         </InstallExecuteSequence>
@@ -174,6 +183,8 @@
 
         <UI>
             <UIRef Id='WixUI_FeatureTree'/>
+            <ProgressText Action="InstallContainersFeature">Enabling Containers feature</ProgressText>
+            <ProgressText Action="InstallHyperVFeature">Enabling Hyper-V feature</ProgressText>
         </UI>
 
         <WixVariable Id='WixUILicenseRtf' Value='wix/License.rtf'/>

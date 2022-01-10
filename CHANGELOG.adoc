@@ -9,6 +9,8 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 * Add icons to installer
 * Fix ERROR_ALIAS_EXISTS error when installing as AD user. {uri-project}/issues/10[#10]
+* Add Windows Server 2016 to list of supported OSes
+* Enable Hyper-V Windows feature when Stevedore is installed for https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V container isolation]
 
 == 0.0.3 (2022-01-06) - @slonopotamus
 
