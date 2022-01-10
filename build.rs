@@ -9,9 +9,10 @@ use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
 const DOCKER_VERSION: &str = "20.10.12";
-const DOCKER_URL: &str =
+
+const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "bd3775ada72492aa1f3c2edb3e81663bd128b9d4f6752ef75953a6af7c219c81";
+const DOCKER_WIN64_SHA: &str = "bd3775ada72492aa1f3c2edb3e81663bd128b9d4f6752ef75953a6af7c219c81";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.2.2";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
@@ -30,17 +31,20 @@ fn get_dest_dir() -> PathBuf {
         .join(build_type)
 }
 
-fn download(uri: &str, sha256: &str) -> bytes::Bytes {
+fn download(uri: &str, expected_sha256: &str) -> bytes::Bytes {
     let data = reqwest::blocking::get(uri).unwrap().bytes().unwrap();
-    let hash = Sha256::digest(&data);
-    if format!("{:x}", hash) != sha256 {
-        panic!("Checksum mismatch: expected {} but got {:x}", sha256, hash);
+    let actual_sha256 = Sha256::digest(&data);
+    if format!("{:x}", actual_sha256) != expected_sha256 {
+        panic!(
+            "Checksum mismatch for {}: expected {} but got {:x}",
+            uri, expected_sha256, actual_sha256
+        );
     }
     data
 }
 
 fn build_docker(dest_dir: &Path) {
-    let compressed_data = download(DOCKER_URL, DOCKER_SHA);
+    let compressed_data = download(DOCKER_WIN64_URL, DOCKER_WIN64_SHA);
     let mut zip_archive = ZipArchive::new(Cursor::new(compressed_data)).unwrap();
 
     for i in 0..zip_archive.len() {
@@ -61,6 +65,7 @@ fn build_docker(dest_dir: &Path) {
 }
 
 fn download_file(uri: &str, sha256: &str, dest: &Path) {
+    // TODO: skip download if file already matches SHA
     let data = download(uri, sha256);
     let mut outfile = File::create(dest).unwrap();
     outfile.write_all(&data).unwrap();
