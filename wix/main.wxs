@@ -123,18 +123,36 @@
         </Directory>
 
         <Feature
-                Id='Binaries'
-                Title='Application'
-                Description='Installs all binaries and the license.'
-                Level='1'
+                Id='FeatureMain'
+                Title='Stevedore'
+                Description='Installs Docker CLI executables and license file.'
                 ConfigurableDirectory='APPLICATIONFOLDER'
                 AllowAdvertise='no'
                 Display='expand'
                 Absent='disallow'>
+
             <ComponentRef Id='License'/>
             <ComponentRef Id='bin_Comp'/>
             <ComponentRef Id='cli_plugins_Comp'/>
-            <ComponentRef Id='dockerd_Comp'/>
+
+            <Feature
+                    Id='FeatureWindowsContainers'
+                    Title='Windows Containers'
+                    Description='Installs Windows containers support. It allows running Docker containers with process isolation.'
+                    AllowAdvertise='no'
+                    Display='expand'>
+                <ComponentRef Id='dockerd_Comp'/>
+
+                <Feature
+                        Id='FeatureHyperV'
+                        Title='Hyper-V'
+                        Description='Installs Hyper-V optional Windows component. It allows running Docker containers with Hyper-V isolation.'
+                        AllowAdvertise='no'
+                        Display='expand'>
+                        <!-- Dummy component to get rid of the "run from network" option  -->
+                       <ComponentRef Id='License'/>
+                </Feature>
+            </Feature>
         </Feature>
 
         <Property Id='POWERSHELLEXE' Value='C:\Windows\sysnative\WindowsPowerShell\v1.0\powershell.exe'/>
@@ -167,11 +185,28 @@
         <CustomAction Id='InstallHyperVFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
                       Return='check' Impersonate='no'/>
 
+        <!-- See https://stackoverflow.com/a/17608049 for conditions -->
         <InstallExecuteSequence>
-            <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
-            <Custom Action='InstallHyperVFeature' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
-            <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>NOT Installed AND NOT REMOVE</Custom>
-            <ScheduleReboot After="InstallFinalize">NOT Installed AND NOT REMOVE</ScheduleReboot>
+            <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>
+                <![CDATA[
+                (&FeatureWindowsContainers = 3) AND (NOT REMOVE)
+                ]]>
+            </Custom>
+            <Custom Action='InstallHyperVFeature' Before='ConfigureUsers'>
+                <![CDATA[
+                (&FeatureHyperV = 3) AND (NOT REMOVE)
+                ]]>
+            </Custom>
+            <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>
+                <![CDATA[
+                NOT REMOVE
+                ]]>
+            </Custom>
+            <ScheduleReboot After="InstallFinalize">
+                <![CDATA[
+                NOT REMOVE
+                ]]>
+            </ScheduleReboot>
         </InstallExecuteSequence>
 
         <SetProperty Id='ARPINSTALLLOCATION' Value='[APPLICATIONFOLDER]' After='CostFinalize'/>
@@ -185,6 +220,7 @@
             <UIRef Id='WixUI_FeatureTree'/>
             <ProgressText Action="InstallContainersFeature">Enabling Containers feature</ProgressText>
             <ProgressText Action="InstallHyperVFeature">Enabling Hyper-V feature</ProgressText>
+            <ProgressText Action="InstallWSL2Feature">Enabling WSL2 feature</ProgressText>
         </UI>
 
         <WixVariable Id='WixUILicenseRtf' Value='wix/License.rtf'/>
