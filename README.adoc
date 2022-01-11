@@ -14,7 +14,8 @@ This project aims to be a frictionless Docker distribution for Windows.
 
 Stevedore can be used as a replacement for `DockerMsftProvider`, Docker Desktop or Mirantis Container Runtime.
 
-Only Windows containers are supported currently. Linux containers support is https://github.com/slonopotamus/stevedore/issues/8[under development].
+Only Windows containers are supported currently.
+Linux containers support is https://github.com/slonopotamus/stevedore/issues/8[under development].
 
 == Supported OSes
 
@@ -48,6 +49,26 @@ https://github.com/slonopotamus/stevedore/issues/15[Planned], but not available 
 This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
 . Profit! `docker` command is now available on your PATH and `dockerd` service is already running.
 
+=== Command-line install options
+
+Stevedore installer supports several command-line options that may be handy to configure unattended installations.
+
+Basic usage: `msiexec /i c:\path\to\stevedore.msi`.
+
+For quiet (non-interactive) installation add `/quiet` option.
+
+If you want to change install location from `%ProgramFiles%\Stevedore`, use `/INSTALLDIR=c:\custom\path\`.
+
+If you only want to install specific Stevedore features, use `/ADDLOCAL=Feature1,Feature2,Feature3`.
+
+When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --params="/ADDLOCAL=Feature1,Feature2,Feature3 /INSTALLDIR=c:\custom\path\ /quiet"`
+
+.List of available MSI features for `/ADDLOCAL`
+* `FeatureWindowsContainers` installs Windows Containers support, including Stevedore service.
+It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#process-isolation[process isolation].
+* `FeatureHyperV` installs Hyper-V support.
+It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
+
 == Bundled components
 
 * Docker Engine 20.10.12
@@ -62,7 +83,10 @@ After installation and reboot, `docker` command should be available on PATH and 
 
 Just try `docker run hello-world` from a command line.
 
-In order to communicate with Docker engine, users needs to be in `docker-users` group. Upon installation, Stevedore automatically adds installing user to `docker-users`. If you need other users to also access Docker engine, you will need to add them manually. You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
+In order to communicate with Docker engine, users needs to be in `docker-users` group.
+Upon installation, Stevedore automatically adds installing user to `docker-users`.
+If you need other users to also access Docker engine, you will need to add them manually.
+You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
 
 === Docker Compose
 
@@ -78,4 +102,5 @@ You can also use Docker Compose V1 compatibility mode via `docker-compose` comma
 . Install https://wixtoolset.org/releases/https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
 . Clone Stevedore Git repository
 . Run `cargo install cargo-wix` to install https://github.com/volks73/cargo-wix[cargo-wix]
-. Run `cargo wix --nocapture` in repository root. Ready-to-use MSI package will be built in `<repo>/target/wix` directory.
+. Run `cargo wix --nocapture` in repository root.
+Ready-to-use MSI package will be built in `<repo>/target/wix` directory.
