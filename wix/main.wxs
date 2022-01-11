@@ -62,7 +62,7 @@
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
-                <Directory Id='APPLICATIONFOLDER' Name='Stevedore'>
+                <Directory Id='INSTALLDIR' Name='Stevedore'>
                     <Component Id='License' Guid='*' Win64='$(var.Win64)'>
                         <File Source='wix\License.rtf'/>
                     </Component>
@@ -101,7 +101,7 @@
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
-                                         Value="[APPLICATIONFOLDER]\bin"
+                                         Value="[INSTALLDIR]\bin"
                                          Part="last"
                                          Permanent="no"
                                          System="yes"/>
@@ -126,7 +126,7 @@
                 Id='FeatureMain'
                 Title='Stevedore'
                 Description='Installs Docker CLI executables and license file.'
-                ConfigurableDirectory='APPLICATIONFOLDER'
+                ConfigurableDirectory='INSTALLDIR'
                 AllowAdvertise='no'
                 Display='expand'
                 Absent='disallow'>
@@ -209,7 +209,7 @@
             </ScheduleReboot>
         </InstallExecuteSequence>
 
-        <SetProperty Id='ARPINSTALLLOCATION' Value='[APPLICATIONFOLDER]' After='CostFinalize'/>
+        <SetProperty Id='ARPINSTALLLOCATION' Value='[INSTALLDIR]' After='CostFinalize'/>
 
         <Icon Id='ProductICO' SourceFile='resources/stevedore.ico'/>
         <Property Id='ARPPRODUCTICON' Value='ProductICO' />
