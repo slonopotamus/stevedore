@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.0.4 (2022-01-14) - @slonopotamus
 
 * Add icons to installer
 * Fix ERROR_ALIAS_EXISTS error when installing as AD user. {uri-project}/issues/10[#10]
