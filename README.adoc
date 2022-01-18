@@ -61,7 +61,7 @@ If you want to change install location from `%ProgramFiles%\Stevedore`, use `/IN
 
 If you only want to install specific Stevedore features, use `/ADDLOCAL=Feature1,Feature2,Feature3`.
 
-When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --params="/ADDLOCAL=Feature1,Feature2,Feature3 /INSTALLDIR=c:\custom\path\ /quiet"`
+When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="/ADDLOCAL=Feature1,Feature2,Feature3 /INSTALLDIR=c:\custom\path\ /quiet"`
 
 .List of available MSI features for `/ADDLOCAL`
 * `FeatureWindowsContainers` installs Windows Containers support, including Stevedore service.
