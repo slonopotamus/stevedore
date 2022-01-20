@@ -58,6 +58,8 @@
         <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
         <Property Id='DiskPrompt' Value='Stevedore Installation'/>
 
+        <Property Id='SERVICENAME' Value='stevedore'/>
+
         <util:Group Id="DockerGroup" Name="docker-users"/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
@@ -78,16 +80,16 @@
                         </util:User>
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
                         <ServiceInstall
-                                Arguments='--run-service --service-name stevedored -G docker-users'
+                                Arguments='--run-service --service-name [SERVICENAME] -G docker-users'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'
-                                Name='stevedored'
+                                Name='[SERVICENAME]'
                                 Start='auto'
                                 Type='ownProcess'/>
                         <ServiceControl
                                 Id='dockerd_start'
-                                Name='stevedored'
+                                Name='[SERVICENAME]'
                                 Remove='uninstall'
                                 Stop='both'
                                 Wait='yes'/>
