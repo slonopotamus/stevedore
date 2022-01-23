@@ -8,6 +8,8 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Add `/SERVICENAME=stevedore` installer option to configure Windows service name
+* Update docker-compose to 2.2.3
+* Update Docker Scan to 0.17.0
 
 == 0.0.4 (2022-01-14) - @slonopotamus
 

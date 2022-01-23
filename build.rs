@@ -14,13 +14,13 @@ const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
 const DOCKER_WIN64_SHA: &str = "bd3775ada72492aa1f3c2edb3e81663bd128b9d4f6752ef75953a6af7c219c81";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.2.2";
+const DOCKER_COMPOSE_VERSION: &str = "2.2.3";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "77496c57449437194add809f10634fca96b9253433809446b6986e709fc8c032";
+const DOCKER_COMPOSE_SHA: &str = "7ed35698f85d2d67855934b834845461cd454d40f9a07ee72deb88085af0890e";
 
-const DOCKER_SCAN_VERSION: &str = "0.16.0";
+const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
-const DOCKER_SCAN_SHA: &str = "552677f8650d9d5bc91b706e76ebc60a8d54176e6eafc6a34f897b53e8540a31";
+const DOCKER_SCAN_SHA: &str = "d6e19957813f28970c5552aa2683277e187a1b7327b3af90194e8f04f1d04021";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
