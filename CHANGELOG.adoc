@@ -5,10 +5,14 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Add `/SERVICENAME=stevedore` installer option to configure Windows service name
+
 == 0.0.4 (2022-01-14) - @slonopotamus
 
 * Add icons to installer
-* Fix ERROR_ALIAS_EXISTS error when installing as AD user. {uri-project}/issues/10[#10]
+* Fix ERROR_ALIAS_EXISTS error when installing as AD user. https://github.com/slonopotamus/stevedore/issues/10[#10]
 * Add Windows Server 2016 to list of supported OSes
 * Add installer option to install Hyper-V Windows feature when Stevedore is installed for https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V container isolation]
 
