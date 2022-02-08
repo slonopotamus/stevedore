@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.0.5 (2022-02-08) - @slonopotamus
 
 * Add `/SERVICENAME=stevedore` installer option to configure Windows service name
 * Update docker-compose to 2.2.3
