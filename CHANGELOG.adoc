@@ -10,6 +10,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 * Automatically attempt to restart service in case startup fails https://github.com/slonopotamus/stevedore/issues/22[#22]
 * Make service depend on EventLog
 * Fix event text not shown properly in Windows Event Viewer
+* Workaround failure to install under SYSTEM account https://github.com/slonopotamus/stevedore/issues/10[#10]
 
 == 0.0.5 (2022-02-08) - @slonopotamus
 

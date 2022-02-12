@@ -70,12 +70,23 @@
                     </Component>
 
                     <Component Id='dockerd_Comp' Guid='*' Win64='$(var.Win64)'>
+                        <!--
+                            TODO: consider fixing WiX or replacing this with custom code
+                            Already encountered issues:
+                            1. WiX cannot create a group (so we do it by hand with Powershell)
+                            2. WiX doesn't properly handle special accounts like SYSTEM (so we have Vital=no)
+                            3. WiX tries to DELETE user if it couldn't determine whether user exists.
+                               This is not an issue for SYSTEM (you can't delete what doesn't exists),
+                               but sounds very dangerous in general case.
+                               See https://github.com/wixtoolset/wix3/blob/wix3112rtm/src/ext/ca/serverca/scasched/scauser.cpp#L556
+                            -->
                         <util:User
                                 Id="DockerUser"
                                 Domain="[%USERDOMAIN]"
                                 Name="[%USERNAME]"
                                 CreateUser="no"
-                                RemoveOnUninstall="no">
+                                RemoveOnUninstall="no"
+                                Vital="no">
                             <util:GroupRef Id="DockerGroup"/>
                         </util:User>
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
