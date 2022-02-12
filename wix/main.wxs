@@ -43,7 +43,7 @@
                  Keywords='Installer'
                  Description='Docker distribution for Windows that Just Works'
                  Manufacturer='Marat Radchenko'
-                 InstallerVersion='450'
+                 InstallerVersion='500'
                  Languages='1033'
                  Compressed='yes'
                  InstallScope='perMachine'
@@ -79,6 +79,7 @@
                             <util:GroupRef Id="DockerGroup"/>
                         </util:User>
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
+                        <!-- See https://github.com/moby/moby/blob/v20.10.12/cmd/dockerd/service_windows.go#L194-L233 -->
                         <ServiceInstall
                                 Arguments='--run-service --service-name [SERVICENAME] -G docker-users'
                                 DisplayName='Stevedore'
@@ -86,13 +87,27 @@
                                 Id='dockerd_install'
                                 Name='[SERVICENAME]'
                                 Start='auto'
-                                Type='ownProcess'/>
+                                Type='ownProcess'>
+                            <ServiceDependency Id="EventLog" />
+                            <util:ServiceConfig
+                                    FirstFailureActionType="restart"
+                                    SecondFailureActionType="restart"
+                                    ResetPeriodInDays="1"
+                                    RestartServiceDelayInSeconds="60"/>
+                        </ServiceInstall>
                         <ServiceControl
                                 Id='dockerd_start'
                                 Name='[SERVICENAME]'
                                 Remove='uninstall'
                                 Stop='both'
                                 Wait='yes'/>
+                        <util:EventSource
+                                Name="[SERVICENAME]"
+                                Log="[SERVICENAME]"
+                                EventMessageFile="[INSTALLDIR]\dockerd.exe"
+                                SupportsErrors="yes"
+                                SupportsInformationals="yes"
+                                SupportsWarnings="yes"/>
                     </Component>
 
                     <Directory Id='bin' Name='bin'>
@@ -151,8 +166,8 @@
                         Description='Installs Hyper-V optional Windows component. It allows running Docker containers with Hyper-V isolation.'
                         AllowAdvertise='no'
                         Display='expand'>
-                        <!-- Dummy component to get rid of the "run from network" option  -->
-                       <ComponentRef Id='License'/>
+                    <!-- Dummy component to get rid of the "run from network" option  -->
+                    <ComponentRef Id='License'/>
                 </Feature>
             </Feature>
         </Feature>
@@ -214,7 +229,7 @@
         <SetProperty Id='ARPINSTALLLOCATION' Value='[INSTALLDIR]' After='CostFinalize'/>
 
         <Icon Id='ProductICO' SourceFile='resources/stevedore.ico'/>
-        <Property Id='ARPPRODUCTICON' Value='ProductICO' />
+        <Property Id='ARPPRODUCTICON' Value='ProductICO'/>
 
         <Property Id='ARPHELPLINK' Value='https://github.com/slonopotamus/stevedore'/>
 
