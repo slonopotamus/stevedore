@@ -60,6 +60,8 @@
 
         <Property Id='SERVICENAME' Value='stevedore'/>
 
+        <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+
         <util:Group Id="DockerGroup" Name="docker-users"/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
@@ -122,6 +124,26 @@
                                 SupportsWarnings="yes"/>
                     </Component>
 
+                    <Component Id='wsl_Comp' Guid='e92a7bbf-8612-4fba-923d-6724aae71f4a' Win64='$(var.Win64)'>
+                        <File Source='target\$(var.Profile)\docker-wsl-proxy.exe'/>
+                        <File Source='target\$(var.Profile)\stevedore.exe' KeyPath='yes'>
+                                <Shortcut
+                                    Id='StevedoreProgramMenuShortcut'
+                                    Icon='stevedore.ico'
+                                    Advertise='yes'
+                                    Directory='ProgramMenuFolder'
+                                    Name='Stevedore'/>
+                                <Shortcut
+                                    Id='StevedoreDesktopShortcut'
+                                    Icon='stevedore.ico'
+                                    Advertise='yes'
+                                    Directory='DesktopFolder'
+                                    Name='Stevedore'>
+                                </Shortcut>
+                        </File>
+                        <File Source='target\$(var.Profile)\stevedore.tar.gz'/>
+                    </Component>
+
                     <Directory Id='bin' Name='bin'>
                         <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
@@ -148,6 +170,11 @@
                         </Component>
                     </Directory>
                 </Directory>
+            </Directory>
+
+            <Directory Id='ProgramMenuFolder'>
+            </Directory>
+            <Directory Id='DesktopFolder'>
             </Directory>
         </Directory>
 
@@ -182,6 +209,20 @@
                     <ComponentRef Id='License'/>
                 </Feature>
             </Feature>
+
+            <Feature
+                    Id='FeatureLinuxContainers'
+                    Title='Linux Containers (EXPERIMENTAL)'
+                    Description='Installs Linux containers support.'
+                    Level='0'>
+                <!-- We need WSL2 for Linux containers. As of 2022-01-09, WSL2 is only available on client Windows -->
+                <Condition Level='2'>
+                    <![CDATA[
+                    MsiNTProductType = 1
+                    ]]>
+                </Condition>
+                <ComponentRef Id='wsl_Comp'/>
+            </Feature>
         </Feature>
 
         <Property Id='POWERSHELLEXE' Value='C:\Windows\sysnative\WindowsPowerShell\v1.0\powershell.exe'/>
@@ -214,6 +255,14 @@
         <CustomAction Id='InstallHyperVFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
                       Return='check' Impersonate='no'/>
 
+        <SetProperty Id='InstallWSL2Feature'
+                     Before='InstallWSL2Feature'
+                     Sequence='execute'
+                     Value='&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux;VirtualMachinePlatform" -All -NoRestart&quot;'/>
+
+        <CustomAction Id='InstallWSL2Feature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
+                      Return='check' Impersonate='no'/>
+
         <!-- See https://stackoverflow.com/a/17608049 for conditions -->
         <InstallExecuteSequence>
             <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>
@@ -224,6 +273,11 @@
             <Custom Action='InstallHyperVFeature' Before='ConfigureUsers'>
                 <![CDATA[
                 (&FeatureHyperV = 3) AND (NOT REMOVE)
+                ]]>
+            </Custom>
+            <Custom Action='InstallWSL2Feature' Before='ConfigureUsers'>
+                <![CDATA[
+                (&FeatureLinuxContainers = 3) AND (NOT REMOVE)
                 ]]>
             </Custom>
             <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>
@@ -240,8 +294,8 @@
 
         <SetProperty Id='ARPINSTALLLOCATION' Value='[INSTALLDIR]' After='CostFinalize'/>
 
-        <Icon Id='ProductICO' SourceFile='resources/stevedore.ico'/>
-        <Property Id='ARPPRODUCTICON' Value='ProductICO'/>
+        <Icon Id='stevedore.ico' SourceFile='resources/stevedore.ico'/>
+        <Property Id='ARPPRODUCTICON' Value='stevedore.ico'/>
 
         <Property Id='ARPHELPLINK' Value='https://github.com/slonopotamus/stevedore'/>
 
@@ -249,7 +303,7 @@
             <UIRef Id='WixUI_FeatureTree'/>
             <ProgressText Action="InstallContainersFeature">Enabling Containers feature</ProgressText>
             <ProgressText Action="InstallHyperVFeature">Enabling Hyper-V feature</ProgressText>
-            <ProgressText Action="InstallWSL2Feature">Enabling WSL2 feature</ProgressText>
+            <ProgressText Action='InstallWSL2Feature'>Enabling WSL2 feature</ProgressText>
         </UI>
 
         <WixVariable Id='WixUILicenseRtf' Value='wix/License.rtf'/>
