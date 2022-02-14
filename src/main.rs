@@ -147,7 +147,7 @@ impl Application {
             None,
             None,
         )
-            .map_err(Box::new)?;
+        .map_err(Box::new)?;
 
         let icon = Icon::from_buffer(include_bytes!("../resources/stevedore.ico"), None, None)
             .map_err(Box::new)?;
