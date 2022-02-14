@@ -8,9 +8,10 @@ body:
   - type: dropdown
     id: version
     attributes:
-      label: Stevedore Sersion
+      label: Stevedore Version
       description: What Stevedore version are you trying to install?
       options:
+        - 0.0.6
         - 0.0.5
         - 0.0.4
         - 0.0.3
@@ -21,7 +22,7 @@ body:
   - type: input
     id: windows-version
     attributes:
-      label: Windows version
+      label: Windows Version
       description: |
         What Windows build are you using?
         To find it out, launch `cmd.exe` and copy-paste the first line that it prints
