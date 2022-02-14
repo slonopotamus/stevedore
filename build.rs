@@ -146,7 +146,7 @@ fn build_wsl_tarball(dest_dir: &Path) {
     );
 
     // Add docker into WSL
-    // TODO: Instead, use Docker binaries we just downloaded
+    // TODO(https://github.com/slonopotamus/stevedore/issues/26): Instead, use Docker binaries we just downloaded
     run_cmd(
         Command::new("wsl")
             .arg("--distribution")

@@ -72,9 +72,9 @@ impl WslDistribution {
     fn register(&self) -> std::io::Result<()> {
         let wsl = wslapi::Library::new()?;
 
-        // TODO: we need to store docker data in a separate wsl distribution so it isn't wiped away during upgrades
+        // TODO(https://github.com/slonopotamus/stevedore/issues/24): we need to store docker data in a separate wsl distribution so it isn't wiped away during upgrades
 
-        // TODO: we need to re-register in case wsl distribution is outdated
+        // TODO(https://github.com/slonopotamus/stevedore/issues/25): we need to re-register in case wsl distribution is outdated
         if !wsl.is_distribution_registered(self.name) {
             let base_dirs = BaseDirs::new().ok_or_else(|| {
                 io::Error::new(
@@ -147,7 +147,7 @@ impl Application {
             None,
             None,
         )
-        .map_err(Box::new)?;
+            .map_err(Box::new)?;
 
         let icon = Icon::from_buffer(include_bytes!("../resources/stevedore.ico"), None, None)
             .map_err(Box::new)?;

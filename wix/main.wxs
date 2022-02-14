@@ -60,7 +60,7 @@
 
         <Property Id='SERVICENAME' Value='stevedore'/>
 
-        <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+        <Property Id="DISABLEADVTSHORTCUTS" Value="1"/>
 
         <util:Group Id="DockerGroup" Name="docker-users"/>
 
@@ -101,7 +101,7 @@
                                 Name='[SERVICENAME]'
                                 Start='auto'
                                 Type='ownProcess'>
-                            <ServiceDependency Id="EventLog" />
+                            <ServiceDependency Id="EventLog"/>
                             <util:ServiceConfig
                                     FirstFailureActionType="restart"
                                     SecondFailureActionType="restart"
@@ -127,19 +127,19 @@
                     <Component Id='wsl_Comp' Guid='e92a7bbf-8612-4fba-923d-6724aae71f4a' Win64='$(var.Win64)'>
                         <File Source='target\$(var.Profile)\docker-wsl-proxy.exe'/>
                         <File Source='target\$(var.Profile)\stevedore.exe' KeyPath='yes'>
-                                <Shortcut
+                            <Shortcut
                                     Id='StevedoreProgramMenuShortcut'
                                     Icon='stevedore.ico'
                                     Advertise='yes'
                                     Directory='ProgramMenuFolder'
                                     Name='Stevedore'/>
-                                <Shortcut
+                            <Shortcut
                                     Id='StevedoreDesktopShortcut'
                                     Icon='stevedore.ico'
                                     Advertise='yes'
                                     Directory='DesktopFolder'
                                     Name='Stevedore'>
-                                </Shortcut>
+                            </Shortcut>
                         </File>
                         <File Source='target\$(var.Profile)\stevedore.tar.gz'/>
                     </Component>
@@ -148,7 +148,8 @@
                         <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Name="com.docker.cli.exe" Source='target\$(var.Profile)\docker\docker.exe'/>
-                            <File Id='docker_compose_v1.exe' Name="docker-compose.exe" Source='target\$(var.Profile)\docker-compose.exe'/>
+                            <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
+                                  Source='target\$(var.Profile)\docker-compose.exe'/>
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
