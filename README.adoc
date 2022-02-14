@@ -127,8 +127,6 @@ https://github.com/slonopotamus/stevedore/issues/25[#25]
 https://github.com/slonopotamus/stevedore/issues/24[#24]
 - You cannot use Windows paths for container bind-mounts.
 https://github.com/slonopotamus/docker-wsl-proxy/issues/1[docker-wsl-proxy#1]
-- You cannot access container exposed ports via Windows host IP.
-https://github.com/slonopotamus/docker-wsl-proxy/issues/2[docker-wsl-proxy#2]
 - You cannot run Windows and Linux Containers at the same time
 
 == Building from source
