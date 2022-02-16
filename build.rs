@@ -32,10 +32,10 @@ const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
 const DOCKER_SCAN_SHA: &str = "d6e19957813f28970c5552aa2683277e187a1b7327b3af90194e8f04f1d04021";
 
-const DOCKER_WSL_PROXY_VERSION: &str = "0.0.1";
+const DOCKER_WSL_PROXY_VERSION: &str = "0.0.2";
 const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/docker-wsl-proxy/releases/download/{DOCKER_WSL_PROXY_VERSION}/docker-wsl-proxy.exe");
 const DOCKER_WSL_PROXY_SHA: &str =
-    "8df71c496052427787cbf8df37fa9aff625086702990a74a1864e11700bfee02";
+    "9fd63aeac811da6f0c0bd503c446054d189a69c53c11850abbae59863bdfacb2";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

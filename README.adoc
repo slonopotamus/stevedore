@@ -125,8 +125,6 @@ If everything was done properly, you'll be able to use `docker` command to work 
 https://github.com/slonopotamus/stevedore/issues/25[#25]
 - It is impossible to update WSL2 image without wiping all images/containers.
 https://github.com/slonopotamus/stevedore/issues/24[#24]
-- You cannot use Windows paths for container bind-mounts.
-https://github.com/slonopotamus/docker-wsl-proxy/issues/1[docker-wsl-proxy#1]. Workaround: use `/mnt/c/path/:/container/path/` format instead of `C:\path\:/container/path/`.
 - You cannot run Windows and Linux Containers at the same time
 
 == Building from source

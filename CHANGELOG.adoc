@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update docker-wsl-proxy to https://github.com/slonopotamus/docker-wsl-proxy/releases/tag/0.0.2[0.0.2]
+
 == 0.0.6 (2022-02-14) - @slonopotamus
 
 * Automatically attempt to restart service in case startup fails. https://github.com/slonopotamus/stevedore/issues/22[#22]
