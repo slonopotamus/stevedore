@@ -127,6 +127,10 @@ https://github.com/slonopotamus/stevedore/issues/25[#25]
 https://github.com/slonopotamus/stevedore/issues/24[#24]
 - You cannot run Windows and Linux Containers at the same time. https://github.com/slonopotamus/stevedore/issues/29[#29]
 
+See it in action:
+
+video::https://user-images.githubusercontent.com/92637/153852434-f4518f98-fde2-4902-81f0-655df9c554f7.mp4[]
+
 == Building from source
 
 . https://www.rust-lang.org/tools/install[Install Rust]
