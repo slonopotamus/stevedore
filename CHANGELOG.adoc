@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Add kubectl
+
 == 0.0.7 (2022-02-16) - @slonopotamus
 
 * Update docker-wsl-proxy to https://github.com/slonopotamus/docker-wsl-proxy/releases/tag/0.0.2[0.0.2]

@@ -37,6 +37,10 @@ const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/do
 const DOCKER_WSL_PROXY_SHA: &str =
     "9fd63aeac811da6f0c0bd503c446054d189a69c53c11850abbae59863bdfacb2";
 
+const KUBECTL_VERSION: &str = "1.23.4";
+const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");
+const KUBECTL_SHA: &str = "2447e0af25842a1b546110e3beb76154998f660cf3d147314d9c7472b983fbcd";
+
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
     let manifest_dir_string = env::var("CARGO_MANIFEST_DIR").unwrap();
@@ -99,6 +103,11 @@ fn build_docker_scan_plugin(dest_dir: &Path) {
 fn build_docker_wsl_proxy(dest_dir: &Path) {
     let dest_path = dest_dir.join("docker-wsl-proxy.exe");
     download_file(DOCKER_WSL_PROXY_URL, DOCKER_WSL_PROXY_SHA, &dest_path);
+}
+
+fn build_kubectl(dest_dir: &Path) {
+    let dest_path = dest_dir.join("kubectl.exe");
+    download_file(KUBECTL_URL, KUBECTL_SHA, &dest_path);
 }
 
 fn run_cmd(cmd: &mut Command) -> String {
@@ -195,6 +204,7 @@ fn main() {
     build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
     build_docker_wsl_proxy(&dest_dir);
+    build_kubectl(&dest_dir);
 
     let mut res = winres::WindowsResource::new();
     res.set_icon("resources/stevedore.ico");
