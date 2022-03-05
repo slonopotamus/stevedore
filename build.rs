@@ -28,9 +28,9 @@ const SHMOBY_SHA: &str = "43fccbd05b50a514b38c42771286810642c3413baaa4eb9999eec5
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
 const ALPINE_SHA: &str = "ec7ec80a96500f13c189a6125f2dbe8600ef593b87fc4670fe959dc02db727a2";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.2.3";
+const DOCKER_COMPOSE_VERSION: &str = "2.3.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "7ed35698f85d2d67855934b834845461cd454d40f9a07ee72deb88085af0890e";
+const DOCKER_COMPOSE_SHA: &str = "56c2d905ef8fe42d145880c20831b844e09e8c2a30d0c881c845d27f24e3f220";
 
 const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
