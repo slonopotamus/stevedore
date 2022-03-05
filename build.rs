@@ -211,13 +211,8 @@ fn main() {
     let dest_dir = get_dest_dir();
 
     build_wsl_tarball(&dest_dir);
-
-    if true {
-        build_shmoby(&dest_dir);
-    } else {
-        build_docker(&dest_dir);
-    }
-
+    build_docker(&dest_dir);
+    build_shmoby(&dest_dir);
     build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
     build_docker_wsl_proxy(&dest_dir);
