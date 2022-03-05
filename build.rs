@@ -21,6 +21,10 @@ const DOCKER_LINUX_URL: &str =
     formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
 const DOCKER_LINUX_SHA: &str = "ee9b5be14e54bf92f48c82c2e6a83fbdd1c5329e8f247525a9ed2fe90d9f89a5";
 
+const SHMOBY_VERSION: &str = "20.10.12.1";
+const SHMOBY_URL: &str = formatcp!("https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe");
+const SHMOBY_SHA: &str = "43fccbd05b50a514b38c42771286810642c3413baaa4eb9999eec58d68ad6082";
+
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
 const ALPINE_SHA: &str = "ec7ec80a96500f13c189a6125f2dbe8600ef593b87fc4670fe959dc02db727a2";
 
@@ -81,6 +85,11 @@ fn build_docker(dest_dir: &Path) {
         let mut outfile = File::create(&path).unwrap();
         io::copy(&mut file, &mut outfile).unwrap();
     }
+}
+
+fn build_shmoby(dest_dir: &Path) {
+    let dest_path = dest_dir.join("dockerd.exe");
+    download_file(SHMOBY_URL, SHMOBY_SHA, &dest_path);
 }
 
 fn download_file(uri: &str, sha256: &str, dest: &Path) {
@@ -200,7 +209,13 @@ fn main() {
     let dest_dir = get_dest_dir();
 
     build_wsl_tarball(&dest_dir);
-    build_docker(&dest_dir);
+
+    if true {
+        build_shmoby(&dest_dir);
+    } else {
+        build_docker(&dest_dir);
+    }
+
     build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
     build_docker_wsl_proxy(&dest_dir);

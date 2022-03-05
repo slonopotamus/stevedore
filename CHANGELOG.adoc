@@ -8,6 +8,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Add kubectl
+* Bundle https://github.com/slonopotamus/shmoby[Shmoby] as a temporary way to fix https://github.com/moby/moby/issues/37352[20 GB `COPY` issue].
 
 == 0.0.7 (2022-02-16) - @slonopotamus
 
