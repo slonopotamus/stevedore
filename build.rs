@@ -22,7 +22,9 @@ const DOCKER_LINUX_URL: &str =
 const DOCKER_LINUX_SHA: &str = "ee9b5be14e54bf92f48c82c2e6a83fbdd1c5329e8f247525a9ed2fe90d9f89a5";
 
 const SHMOBY_VERSION: &str = "20.10.12.1";
-const SHMOBY_URL: &str = formatcp!("https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe");
+const SHMOBY_URL: &str = formatcp!(
+    "https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe"
+);
 const SHMOBY_SHA: &str = "43fccbd05b50a514b38c42771286810642c3413baaa4eb9999eec58d68ad6082";
 
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
