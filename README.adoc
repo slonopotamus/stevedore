@@ -111,9 +111,6 @@ Stevedore stores configuration and runtime data files under `%ProgramData%\Docke
 
 In order to try Linux Containers support, you first need to enable "Linux Containers (Experimental)" feature in Stevedore installer.
 
-WARNING: Do *NOT* enable Windows and Linux Containers simultaneously.
-Currently, both of them bind to the same Windows named pipe, so they would conflict when run at the same time.
-
 After installing Stevedore, you need to reboot and install https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi[Linux kernel update package for WSL2].
 
 Finally, run Stevedore app using desktop shortcut or start menu.
@@ -125,7 +122,6 @@ If everything was done properly, you'll be able to use `docker` command to work 
 https://github.com/slonopotamus/stevedore/issues/25[#25]
 - It is impossible to update WSL2 image without wiping all images/containers.
 https://github.com/slonopotamus/stevedore/issues/24[#24]
-- You cannot run Windows and Linux Containers at the same time. https://github.com/slonopotamus/stevedore/issues/29[#29]
 
 See it in action:
 

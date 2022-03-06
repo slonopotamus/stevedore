@@ -94,7 +94,7 @@
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
                         <!-- See https://github.com/moby/moby/blob/v20.10.12/cmd/dockerd/service_windows.go#L194-L233 -->
                         <ServiceInstall
-                                Arguments='--run-service --service-name [SERVICENAME] -G docker-users'
+                                Arguments='--run-service --service-name [SERVICENAME] -G docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'

@@ -43,6 +43,42 @@ impl Drop for WslDistribution {
     }
 }
 
+const DEFAULT_DOCKER_CONTEXT_NAME: &str = "default";
+const LINUX_DOCKER_CONTEXT_HOST: &str = "npipe:////./pipe/dockerDesktopLinuxEngine";
+const WINDOWS_DOCKER_CONTEXT_HOST: &str = "npipe:////./pipe/dockerDesktopWindowsEngine";
+
+fn update_docker_context(name: &str, host: &str) -> std::io::Result<std::process::Output> {
+    let output = Command::new("docker")
+        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+        .arg("context")
+        .arg("update")
+        .arg(name)
+        .arg("--docker")
+        .arg(format!("host={}", host))
+        .output()?;
+    if output.status.success() {
+        return Ok(output);
+    }
+
+    Command::new("docker")
+        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+        .arg("context")
+        .arg("create")
+        .arg(name)
+        .arg("--docker")
+        .arg(format!("host={}", host))
+        .output()
+}
+
+fn use_docker_context(name: &str) -> std::io::Result<std::process::Output> {
+    Command::new("docker")
+        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+        .arg("context")
+        .arg("use")
+        .arg(name)
+        .output()
+}
+
 impl WslDistribution {
     fn new(app_dir: PathBuf, name: &'static str) -> std::io::Result<WslDistribution> {
         let mut distribution = WslDistribution {
@@ -108,6 +144,8 @@ impl WslDistribution {
                     .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
                     .arg("-c")
                     .arg(format!("wsl://{}/var/run/docker.sock", self.name))
+                    .arg("-l")
+                    .arg(LINUX_DOCKER_CONTEXT_HOST)
                     .spawn()?,
             },
         ];
@@ -134,7 +172,7 @@ impl WslDistribution {
 
 struct Application {
     _wsl_distribution: WslDistribution,
-    _tray_icon: trayicon::TrayIcon<Events>,
+    tray_icon: trayicon::TrayIcon<Events>,
 }
 
 impl Application {
@@ -152,7 +190,7 @@ impl Application {
         let icon = Icon::from_buffer(include_bytes!("../resources/stevedore.ico"), None, None)
             .map_err(Box::new)?;
 
-        let mut tray_icon = TrayIconBuilder::new()
+        let tray_icon = TrayIconBuilder::new()
             .sender_winit(event_loop_proxy)
             .icon(icon_loading)
             .tooltip("Stevedore")
@@ -162,15 +200,28 @@ impl Application {
 
         let wsl_distribution = WslDistribution::new(app_dir, "stevedore")?;
 
-        tray_icon.set_icon(&icon).map_err(Box::new)?;
-
-        Ok(Application {
+        let mut result = Application {
             _wsl_distribution: wsl_distribution,
-            _tray_icon: tray_icon,
-        })
+            tray_icon,
+        };
+
+        update_docker_context("desktop-linux", LINUX_DOCKER_CONTEXT_HOST).map_err(Box::new)?;
+        update_docker_context("desktop-windows", WINDOWS_DOCKER_CONTEXT_HOST).map_err(Box::new)?;
+        use_docker_context("desktop-linux").map_err(Box::new)?;
+
+        result.tray_icon.set_icon(&icon).map_err(Box::new)?;
+
+        Ok(result)
     }
 
     fn move_helper(&self) {}
+}
+
+impl Drop for Application {
+    fn drop(&mut self) {
+        // Restore default Docker context
+        let _ = use_docker_context(DEFAULT_DOCKER_CONTEXT_NAME);
+    }
 }
 
 fn do_main() -> Result<(), Box<dyn Error>> {
