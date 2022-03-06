@@ -11,6 +11,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 * Bundle https://github.com/slonopotamus/shmoby[Shmoby] as a temporary way to fix https://github.com/moby/moby/issues/37352[20 GB `COPY` issue].
 * Update docker-compose to 2.3.0
 * Allow running Linux and Windows containers simultaneously. https://github.com/slonopotamus/stevedore/issues/29[#29]
+* Auto-start Stevedore tray app on user logon. https://github.com/slonopotamus/stevedore/issues/31[#31]
 
 == 0.0.7 (2022-02-16) - @slonopotamus
 

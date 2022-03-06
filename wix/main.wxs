@@ -142,6 +142,11 @@
                             </Shortcut>
                         </File>
                         <File Source='target\$(var.Profile)\stevedore.tar.gz'/>
+                        <RegistryValue Root='HKMU'
+                                       Key='Software\Microsoft\Windows\CurrentVersion\Run'
+                                       Name='Stevedore'
+                                       Value='[INSTALLDIR]stevedore.exe'
+                                       Type='string'/>
                     </Component>
 
                     <Directory Id='bin' Name='bin'>
@@ -260,7 +265,7 @@
         <SetProperty Id='InstallWSL2Feature'
                      Before='InstallWSL2Feature'
                      Sequence='execute'
-                     Value='&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux;VirtualMachinePlatform" -All -NoRestart&quot;'/>
+                     Value='&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName &apos;Microsoft-Windows-Subsystem-Linux;VirtualMachinePlatform&apos; -All -NoRestart&quot;'/>
 
         <CustomAction Id='InstallWSL2Feature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
                       Return='check' Impersonate='no'/>
