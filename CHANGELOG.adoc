@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.1.0 (2022-03-06) - @slonopotamus
 
 * Add kubectl
 * Bundle https://github.com/slonopotamus/shmoby[Shmoby] as a temporary way to fix https://github.com/moby/moby/issues/37352[20 GB `COPY` issue].
