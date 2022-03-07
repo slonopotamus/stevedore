@@ -15,6 +15,14 @@ use winit::{
     event_loop::{ControlFlow, EventLoop},
 };
 
+fn parse_wsl_output(vec: Vec<u8>) -> String {
+    let words = unsafe {
+        #[allow(clippy::cast_ptr_alignment)]
+        slice::from_raw_parts(vec.as_ptr() as *const u16, vec.len() / 2)
+    };
+    String::from_utf16_lossy(words)
+}
+
 #[derive(Clone, Eq, PartialEq, Debug)]
 enum Events {
     Quit,
@@ -111,7 +119,9 @@ impl WslDistribution {
         // TODO(https://github.com/slonopotamus/stevedore/issues/24): we need to store docker data in a separate wsl distribution so it isn't wiped away during upgrades
 
         // TODO(https://github.com/slonopotamus/stevedore/issues/25): we need to re-register in case wsl distribution is outdated
-        if !wsl.is_distribution_registered(self.name) {
+        let output = if wsl.is_distribution_registered(self.name) {
+            self.command().arg("--exec").arg("echo").output()?
+        } else {
             let base_dirs = BaseDirs::new().ok_or_else(|| {
                 io::Error::new(
                     io::ErrorKind::NotFound,
@@ -120,7 +130,7 @@ impl WslDistribution {
             })?;
             let tarball = self.app_dir.join("stevedore.tar.gz");
             let data_dir = base_dirs.data_local_dir().join("Stevedore");
-            let output = Command::new("wsl")
+            Command::new("wsl")
                 .arg("--import")
                 .arg(self.name)
                 .arg(data_dir)
@@ -128,20 +138,17 @@ impl WslDistribution {
                 .arg("--version")
                 .arg("2")
                 .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
-                .output()?;
-            if !output.status.success() {
-                let words = unsafe {
-                    #[allow(clippy::cast_ptr_alignment)]
-                    slice::from_raw_parts(
-                        output.stdout.as_ptr() as *const u16,
-                        output.stdout.len() / 2,
-                    )
-                };
-                return Err(io::Error::new(
-                    io::ErrorKind::Other,
-                    String::from_utf16_lossy(words),
-                ));
-            }
+                .output()?
+        };
+
+        if !output.status.success() {
+            return Err(io::Error::new(
+                io::ErrorKind::Other,
+                format!(
+                    "Stevedore failed to start: {}",
+                    parse_wsl_output(output.stdout)
+                ),
+            ));
         }
 
         Ok(())
