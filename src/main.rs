@@ -1,10 +1,10 @@
 #![windows_subsystem = "windows"]
 
 use std::error::Error;
-use std::io;
 use std::os::windows::process::CommandExt;
 use std::path::PathBuf;
 use std::process::Command;
+use std::{io, slice};
 
 use directories::BaseDirs;
 use named_lock::NamedLock;
@@ -120,7 +120,7 @@ impl WslDistribution {
             })?;
             let tarball = self.app_dir.join("stevedore.tar.gz");
             let data_dir = base_dirs.data_local_dir().join("Stevedore");
-            Command::new("wsl")
+            let output = Command::new("wsl")
                 .arg("--import")
                 .arg(self.name)
                 .arg(data_dir)
@@ -129,6 +129,19 @@ impl WslDistribution {
                 .arg("2")
                 .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
                 .output()?;
+            if !output.status.success() {
+                let words = unsafe {
+                    #[allow(clippy::cast_ptr_alignment)]
+                    slice::from_raw_parts(
+                        output.stdout.as_ptr() as *const u16,
+                        output.stdout.len() / 2,
+                    )
+                };
+                return Err(io::Error::new(
+                    io::ErrorKind::Other,
+                    String::from_utf16_lossy(words),
+                ));
+            }
         }
 
         Ok(())
