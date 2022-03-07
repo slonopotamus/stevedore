@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.1.1 (2022-03-07) - @slonopotamus
 
 * Display error if WSL2 kernel is not installed. https://github.com/slonopotamus/stevedore/issues/32[#32]
 
