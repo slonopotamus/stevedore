@@ -61,6 +61,8 @@ Finally, run Stevedore app using desktop shortcut or start menu.
 
 If everything was done properly, you'll be able to use `docker` command to work with Linux containers.
 
+You may try `docker run --rm -i hello-world` from a command line to confirm that everything was set up properly.
+
 === Advanced: Command-line install options
 
 Stevedore installer supports several command-line options that may be handy to configure unattended installations.
@@ -98,7 +100,7 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 
 After installation and reboot, `docker` command should be available on PATH and ready to use.
 
-Just try `docker run hello-world` from a command line.
+You may try `docker run --rm -i hello-world` from a command line to confirm that everything was set up properly.
 
 In order to communicate with Docker engine, users needs to be in `docker-users` group.
 Upon installation, Stevedore automatically adds installing user to `docker-users`.
