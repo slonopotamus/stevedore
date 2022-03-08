@@ -21,6 +21,8 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 * Windows 10, 11
 * Windows Server 2016, 2019, 2022 (no Linux containers due to lack of WSL2)
 
+Looking for a solution for Mac? Give https://github.com/abiosoft/colima[Colima] a try.
+
 == Installation
 
 === Manual
