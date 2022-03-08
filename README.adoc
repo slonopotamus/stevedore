@@ -10,13 +10,11 @@ image:https://img.shields.io/chocolatey/v/stevedore[Chocolatey package,link=http
 
 == Overview
 
-This project aims to be a frictionless Docker distribution for Windows.
+This project aims to provide a frictionless Docker experience on Windows.
 
-Stevedore can be used as a replacement for `DockerMsftProvider`, Docker Desktop or Mirantis Container Runtime.
+Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` or Mirantis Container Runtime.
 
-Windows Containers are fully supported.
-
-Linux Containers support is in <<linux-containers,experimental mode>>.
+*Both Linux and Windows Containers are supported.*
 
 == Supported OSes
 
@@ -24,6 +22,15 @@ Linux Containers support is in <<linux-containers,experimental mode>>.
 * Windows Server 2016, 2019, 2022 (no Linux containers due to lack of WSL2)
 
 == Installation
+
+=== Manual
+
+. Download {uri-project}/releases/latest[MSI installer]
+. Double-click on it
+. Next-next-next
+. Reboot your computer.
+This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
+. Proceed to <<post-install>>
 
 === Chocolatey
 
@@ -35,22 +42,24 @@ If you already have Chocolatey installed, you can just run the following command
 choco install stevedore
 ----
 
-Note that reboot is required before you can use `docker` commands.
+Then reboot and proceed to <<post-install>>
 
 === WinGet
 
 https://github.com/slonopotamus/stevedore/issues/15[Planned], but not available yet.
 
-=== Manual
+[[post-install]]
+=== Post-installation steps
 
-. Download {uri-project}/releases/latest[MSI installer]
-. Double-click on it
-. Next-next-next
-. Reboot your computer.
-This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
-. Profit! `docker` command is now available on your PATH and `dockerd` service is already running.
+NOTE:: Skip this step if you didn't install Linux containers support
 
-=== Command-line install options
+After installing Stevedore and rebooting, you need to install https://aka.ms/wsl2kernel[Linux kernel update package for WSL2].
+
+Finally, run Stevedore app using desktop shortcut or start menu.
+
+If everything was done properly, you'll be able to use `docker` command to work with Linux containers.
+
+=== Advanced: Command-line install options
 
 Stevedore installer supports several command-line options that may be handy to configure unattended installations.
 
@@ -94,28 +103,8 @@ Upon installation, Stevedore automatically adds installing user to `docker-users
 If you need other users to also access Docker engine, you will need to add them manually.
 You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
 
-=== Docker Compose
-
-Stevedore installs two flavors of Docker Compose.
-
-You can use Docker Compose V2 via `docker compose` command.
-
-You can also use Docker Compose V1 compatibility mode via `docker-compose` command.
-
-== Configuration and data files
-
-Stevedore stores configuration and runtime data files under `%ProgramData%\Docker` directory.
-
 [[linux-containers]]
-== Experimental Linux Containers support
-
-In order to try Linux Containers support, you first need to enable "Linux Containers (Experimental)" feature in Stevedore installer.
-
-After installing Stevedore, you need to reboot and install https://aka.ms/wsl2kernel[Linux kernel update package for WSL2].
-
-Finally, run Stevedore app using desktop shortcut or start menu.
-
-If everything was done properly, you'll be able to use `docker` command to work with Linux containers.
+=== Linux Containers support
 
 .Current limitations:
 - WSL2 image, that Stevedore uses to run Docker, doesn't update when you update Stevedore.
@@ -126,6 +115,29 @@ https://github.com/slonopotamus/stevedore/issues/24[#24]
 See it in action:
 
 video::https://user-images.githubusercontent.com/92637/153852434-f4518f98-fde2-4902-81f0-655df9c554f7.mp4[]
+
+=== Docker Compose
+
+Stevedore installs two flavors of Docker Compose.
+
+You can use Docker Compose V2 via `docker compose` command.
+
+You can also use Docker Compose V1 compatibility mode via `docker-compose` command.
+
+=== Managing Stevedore tray app auto-startup
+
+IMPORTANT:: You *need* to run Stevedore tray app to use Linux containers.
+
+. Open Windows Task Manager
+. Open Startup tab
+. Right-click on Stevedore entry
+. Choose `Enable` or `Disable` options to control Stevedore tray app auto-startup
+
+=== Configuration and data files
+
+Stevedore stores configuration and runtime data files for Windows containers under `%ProgramData%\Docker` directory.
+
+Linux-specific WSL data is stored in `stevedore` WSL distribution located under `%LOCALAPPDATA%\Stevedore` directory.
 
 == Building from source
 

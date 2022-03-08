@@ -219,11 +219,11 @@
 
             <Feature
                     Id='FeatureLinuxContainers'
-                    Title='Linux Containers (EXPERIMENTAL)'
-                    Description='Installs Linux containers support.'
+                    Title='Linux Containers'
+                    Description='Installs Linux containers support. This feature requires WSL2 to work.'
                     Level='0'>
                 <!-- We need WSL2 for Linux containers. As of 2022-01-09, WSL2 is only available on client Windows -->
-                <Condition Level='2'>
+                <Condition Level='1'>
                     <![CDATA[
                     MsiNTProductType = 1
                     ]]>
