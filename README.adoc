@@ -111,7 +111,7 @@ Stevedore stores configuration and runtime data files under `%ProgramData%\Docke
 
 In order to try Linux Containers support, you first need to enable "Linux Containers (Experimental)" feature in Stevedore installer.
 
-After installing Stevedore, you need to reboot and install https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi[Linux kernel update package for WSL2].
+After installing Stevedore, you need to reboot and install https://aka.ms/wsl2kernel[Linux kernel update package for WSL2].
 
 Finally, run Stevedore app using desktop shortcut or start menu.
 
