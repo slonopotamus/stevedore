@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Show human-friendly message when user tries to launch multiple instances of Stevedore
+
 == 0.2.0 (2022-03-08) - @slonopotamus
 
 * Enable Linux containers by default and drop "experimental" label
