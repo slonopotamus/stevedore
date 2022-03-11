@@ -1,7 +1,7 @@
 use std::env;
 use std::fs::{create_dir_all, File};
 use std::io;
-use std::io::{Cursor, Write};
+use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -56,21 +56,11 @@ fn get_dest_dir() -> PathBuf {
         .join(build_type)
 }
 
-fn download(uri: &str, expected_sha256: &str) -> bytes::Bytes {
-    let data = reqwest::blocking::get(uri).unwrap().bytes().unwrap();
-    let actual_sha256 = Sha256::digest(&data);
-    if format!("{:x}", actual_sha256) != expected_sha256 {
-        panic!(
-            "Checksum mismatch for {}: expected {} but got {:x}",
-            uri, expected_sha256, actual_sha256
-        );
-    }
-    data
-}
-
 fn build_docker(dest_dir: &Path) {
-    let compressed_data = download(DOCKER_WIN64_URL, DOCKER_WIN64_SHA);
-    let mut zip_archive = ZipArchive::new(Cursor::new(compressed_data)).unwrap();
+    let compressed_path = dest_dir.join("docker.zip");
+    download_file(DOCKER_WIN64_URL, DOCKER_WIN64_SHA, &compressed_path);
+    let compressed_data = File::open(compressed_path).unwrap();
+    let mut zip_archive = ZipArchive::new(compressed_data).unwrap();
 
     for i in 0..zip_archive.len() {
         let mut file = zip_archive.by_index(i).unwrap();
@@ -94,9 +84,25 @@ fn build_shmoby(dest_dir: &Path) {
     download_file(SHMOBY_URL, SHMOBY_SHA, &dest_path);
 }
 
-fn download_file(uri: &str, sha256: &str, dest: &Path) {
-    // TODO: skip download if file already matches SHA
-    let data = download(uri, sha256);
+fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
+    if let Ok(mut file) = File::open(dest) {
+        let mut digest = Sha256::new();
+        io::copy(&mut file, &mut digest).unwrap();
+        let actual_sha = digest.finalize();
+        if expected_sha == format!("{:x}", actual_sha) {
+            return;
+        }
+    }
+
+    let data = reqwest::blocking::get(uri).unwrap().bytes().unwrap();
+    let actual_sha = Sha256::digest(&data);
+    if format!("{:x}", actual_sha) != expected_sha {
+        panic!(
+            "Checksum mismatch for {}: expected {} but got {:x}",
+            uri, expected_sha, actual_sha
+        );
+    }
+    let data = data;
     let mut outfile = File::create(dest).unwrap();
     outfile.write_all(&data).unwrap();
 }
