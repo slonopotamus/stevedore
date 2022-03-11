@@ -8,6 +8,8 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Show human-friendly message when user tries to launch multiple instances of Stevedore
+* Update Docker to 20.10.13
+* Update Buildx to 0.8.0
 
 == 0.2.0 (2022-03-08) - @slonopotamus
 
