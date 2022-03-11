@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.3.0 (2022-03-11) - @slonopotamus
 
 * Show human-friendly message when user tries to launch multiple instances of Stevedore
 * Update Docker Engine to 20.10.13
