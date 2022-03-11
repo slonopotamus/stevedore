@@ -93,7 +93,7 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 * Docker Engine 20.10.13
 * Docker App 0.9.1-beta3
 * Buildx 0.8.0
-* Docker Compose 2.3.0
+* Docker Compose 2.3.3
 * Docker Scan 0.17.0
 
 == Usage
