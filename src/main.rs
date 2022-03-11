@@ -1,12 +1,14 @@
 #![windows_subsystem = "windows"]
 
-use std::error::Error;
+mod error;
+
 use std::os::windows::process::CommandExt;
 use std::path::PathBuf;
 use std::process::Command;
 use std::{io, slice};
 
 use directories::BaseDirs;
+use named_lock::Error::WouldBlock;
 use named_lock::NamedLock;
 use trayicon::{Icon, MenuBuilder, TrayIconBuilder};
 use winit::event_loop::EventLoopProxy;
@@ -199,7 +201,7 @@ impl Application {
     fn new(
         event_loop_proxy: EventLoopProxy<Events>,
         app_dir: PathBuf,
-    ) -> Result<Application, Box<dyn Error>> {
+    ) -> Result<Application, Box<dyn std::error::Error>> {
         let icon_loading = Icon::from_buffer(
             include_bytes!("../resources/stevedore_grey.ico"),
             None,
@@ -244,7 +246,7 @@ impl Drop for Application {
     }
 }
 
-fn do_main() -> Result<(), Box<dyn Error>> {
+fn do_main() -> Result<(), Box<dyn std::error::Error>> {
     let app_dir = PathBuf::from(std::env::current_exe()?.parent().ok_or_else(|| {
         io::Error::new(
             io::ErrorKind::NotFound,
@@ -254,8 +256,13 @@ fn do_main() -> Result<(), Box<dyn Error>> {
 
     let named_lock = NamedLock::create("stevedore")?;
     // Lock to prevent multiple app instances from running
-    // TODO: Provide human-readable error message
-    let _guard = named_lock.try_lock().map_err(Box::new)?;
+    let guard = named_lock.try_lock();
+    if let Err(err) = guard {
+        return match err {
+            WouldBlock => Err(Box::new(error::Error::AlreadyRunning)),
+            _ => Err(Box::new(err)),
+        };
+    }
 
     let event_loop = EventLoop::<Events>::with_user_event();
     let application = Application::new(event_loop.create_proxy(), app_dir)?;
@@ -278,7 +285,7 @@ fn do_main() -> Result<(), Box<dyn Error>> {
     });
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     do_main().map_err(|error| {
         let _ = msgbox::create("Error", error.to_string().as_str(), msgbox::IconType::Error);
         error
