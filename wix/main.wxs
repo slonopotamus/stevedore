@@ -181,6 +181,17 @@
 
             <Directory Id='ProgramMenuFolder'>
             </Directory>
+
+            <Directory Id='CommonAppDataFolder'>
+                <Directory Id='common_Docker' Name='Docker'>
+                    <Directory Id='config' Name='config'>
+                        <Component Id='config_Comp' Guid='3488dfc8-cf12-4dd7-b685-f71408e35603' NeverOverwrite='yes' Permanent='yes' Win64='$(var.Win64)'>
+                            <File Source='resources/daemon.json' KeyPath='yes'/>
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+
             <Directory Id='DesktopFolder'>
             </Directory>
         </Directory>
@@ -204,6 +215,7 @@
                     Description='Installs Windows containers support. It allows running Docker containers with process isolation.'
                     AllowAdvertise='no'
                     Display='expand'>
+                <ComponentRef Id='config_Comp'/>
                 <ComponentRef Id='dockerd_Comp'/>
 
                 <Feature

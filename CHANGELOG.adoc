@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Enable LCOW by default. https://github.com/slonopotamus/stevedore/issues/33[#33]
+
 == 0.3.0 (2022-03-11) - @slonopotamus
 
 * Show human-friendly message when user tries to launch multiple instances of Stevedore
