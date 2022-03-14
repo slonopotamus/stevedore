@@ -67,11 +67,11 @@
         <Directory Id='TARGETDIR' Name='SourceDir'>
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='INSTALLDIR' Name='Stevedore'>
-                    <Component Id='License' Guid='*' Win64='$(var.Win64)'>
+                    <Component Id='License' Guid='eddd457c-28be-4d34-9c84-acd6e15a92a0' Win64='$(var.Win64)'>
                         <File Source='wix\License.rtf'/>
                     </Component>
 
-                    <Component Id='dockerd_Comp' Guid='*' Win64='$(var.Win64)'>
+                    <Component Id='dockerd_Comp' Guid='7adbeefe-d5cb-4977-aba0-8f6869c0da87' Win64='$(var.Win64)'>
                         <!--
                             TODO: consider fixing WiX or replacing this with custom code
                             Already encountered issues:

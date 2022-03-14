@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Use fixed GUIDs for MSI components to avoid unexpected unistalls of files. https://github.com/slonopotamus/stevedore/issues/34[#34]
+
 == 0.3.2 (2022-03-13) - @slonopotamus
 
 * Enable LCOW via dockerd flag, so there's better control over disabling it
