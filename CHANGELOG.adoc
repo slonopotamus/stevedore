@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.3.3 (2022-03-13) - @slonopotamus
 
 * Use fixed GUIDs for MSI components to avoid unexpected unistalls of files. https://github.com/slonopotamus/stevedore/issues/34[#34]
 
