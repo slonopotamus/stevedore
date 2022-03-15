@@ -65,6 +65,11 @@
         <util:Group Id="DockerGroup" Name="docker-users"/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
+            <Merge Id='VCRedist'
+                   SourceFile='target/$(var.Profile)/vcredist.msm'
+                   DiskId='1'
+                   Language='0'/>
+
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='INSTALLDIR' Name='Stevedore'>
                     <Component Id='License' Guid='eddd457c-28be-4d34-9c84-acd6e15a92a0' Win64='$(var.Win64)'>
@@ -195,6 +200,7 @@
                 Display='expand'
                 Absent='disallow'>
 
+            <MergeRef Id="VCRedist"/>
             <ComponentRef Id='License'/>
             <ComponentRef Id='bin_Comp'/>
             <ComponentRef Id='cli_plugins_Comp'/>

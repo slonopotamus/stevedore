@@ -213,9 +213,48 @@ fn build_wsl_tarball(dest_dir: &Path) {
     );
 }
 
+fn copy_redist_msm(dest_dir: &Path) {
+    let tool = cc::windows_registry::find_tool("x86_64-msvc", "cl.exe").unwrap();
+    let tools_dir = tool
+        .path()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap();
+    let version = tools_dir.file_name().unwrap();
+    let msm_dir = tools_dir
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join("Redist")
+        .join("MSVC")
+        .join(version)
+        .join("MergeModules");
+
+    let msm_suffix = "CRT_x64.msm";
+
+    for f in msm_dir.read_dir().unwrap() {
+        let f = f.unwrap();
+        if f.file_name().to_string_lossy().ends_with(msm_suffix) {
+            std::fs::copy(f.path(), dest_dir.join("vcredist.msm")).unwrap();
+            return;
+        }
+    }
+
+    panic!("Failed to find '*{}' {:?}", msm_suffix, msm_dir);
+}
+
 fn main() {
     let dest_dir = get_dest_dir();
 
+    copy_redist_msm(&dest_dir);
     build_wsl_tarball(&dest_dir);
     build_docker(&dest_dir);
     build_shmoby(&dest_dir);
