@@ -50,7 +50,7 @@ Then reboot and proceed to <<post-install>>
 
 [source,powershell]
 ----
-winget install Slonopotamus.Stevedore
+winget install stevedore
 ----
 
 [[post-install]]
