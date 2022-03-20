@@ -8,6 +8,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Bundle Visual C++ Runtime Files. https://github.com/slonopotamus/stevedore/issues/35[#35]
+* Automatically publish releases to WinGet. https://github.com/slonopotamus/stevedore/issues/15[#15]
 
 == 0.3.3 (2022-03-13) - @slonopotamus
 

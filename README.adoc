@@ -39,7 +39,7 @@ This is needed to finish installation of Windows Containers feature and to add y
 Stevedore is available via https://community.chocolatey.org/packages/stevedore[Chocolatey] package manager.
 If you already have Chocolatey installed, you can just run the following command from elevated console:
 
-[source,bash]
+[source,powershell]
 ----
 choco install stevedore
 ----
@@ -48,7 +48,10 @@ Then reboot and proceed to <<post-install>>
 
 === WinGet
 
-https://github.com/slonopotamus/stevedore/issues/15[Planned], but not available yet.
+[source,powershell]
+----
+winget install Slonopotamus.Stevedore
+----
 
 [[post-install]]
 === Post-installation steps
