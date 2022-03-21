@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.3.4 (2022-03-21) - @slonopotamus
 
 * Bundle Visual C++ Runtime Files. https://github.com/slonopotamus/stevedore/issues/35[#35]
 * Automatically publish releases to WinGet. https://github.com/slonopotamus/stevedore/issues/15[#15]
