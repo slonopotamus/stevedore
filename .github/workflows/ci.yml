@@ -117,6 +117,7 @@ jobs:
           CHOCOLATEY_APIKEY: ${{ secrets.CHOCOLATEY_APIKEY }}
       - name: publish to WinGet
         if: startsWith(github.ref, 'refs/tags/')
-        run: .\winget-publish.ps1 ${env:GITHUB_REF} ${env:GITHUB_TOKEN}
+        run: .\winget-publish.ps1 ${env:GITHUB_REF} ${env:GH_PERSONAL_TOKEN}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # We cannot use GITHUB_TOKEN here because it doesn't have permission to work with winget-pkgs repository fork
+          GH_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
