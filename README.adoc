@@ -53,6 +53,8 @@ Then reboot and proceed to <<post-install>>
 winget install stevedore
 ----
 
+Then reboot and proceed to <<post-install>>
+
 [[post-install]]
 === Post-installation steps
 
