@@ -5,10 +5,16 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== 0.4.1 (2022-03-23) - @slonopotamus
+
+* Update docker-wsl-proxy to 0.0.5. https://github.com/slonopotamus/stevedore/issues/38[#38].
+Fixes bind-mounting of a single file.
+
 == 0.4.0 (2022-03-23) - @slonopotamus
 
 * Update kubectl to 1.23.5
-* Update docker-wsl-proxy to 0.0.4. https://github.com/slonopotamus/stevedore/issues/38[#38]
+* Update docker-wsl-proxy to 0.0.4. https://github.com/slonopotamus/stevedore/issues/38[#38].
+Fixes bind-mounts in Docker Compose (and, actually, any named containers).
 
 == 0.3.4 (2022-03-21) - @slonopotamus
 
