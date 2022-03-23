@@ -8,6 +8,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Update kubectl to 1.23.5
+* Update docker-wsl-proxy to 0.0.4. https://github.com/slonopotamus/stevedore/issues/38[#38]
 
 == 0.3.4 (2022-03-21) - @slonopotamus
 
