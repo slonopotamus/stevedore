@@ -43,9 +43,9 @@ const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/do
 const DOCKER_WSL_PROXY_SHA: &str =
     "9fd63aeac811da6f0c0bd503c446054d189a69c53c11850abbae59863bdfacb2";
 
-const KUBECTL_VERSION: &str = "1.23.4";
+const KUBECTL_VERSION: &str = "1.23.5";
 const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");
-const KUBECTL_SHA: &str = "2447e0af25842a1b546110e3beb76154998f660cf3d147314d9c7472b983fbcd";
+const KUBECTL_SHA: &str = "708532a6207dbaafa395bd1fb01fbec7b925b462eedc6785bfaf8e8a6629384c";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

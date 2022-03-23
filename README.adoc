@@ -100,6 +100,7 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 * Buildx 0.8.0
 * Docker Compose 2.3.3
 * Docker Scan 0.17.0
+* kubectl 1.23.5
 
 == Usage
 
