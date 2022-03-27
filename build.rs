@@ -11,28 +11,28 @@ use flate2::Compression;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.13";
+const DOCKER_VERSION: &str = "20.10.14";
 
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "f18382ae665d75b1c31b1cc349bfd7d136cb29f67ea688849f2f31ed52e18f5f";
+const DOCKER_WIN64_SHA: &str = "8803f10abfa6e5259726829cb32cc4e2082938e13e4115f44f00c5b9cde9c33c";
 
 const DOCKER_LINUX_URL: &str =
     formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
-const DOCKER_LINUX_SHA: &str = "39edf7c8d773939ff5e4d318ae565691a9c7e754ed768e172757e58898fb7079";
+const DOCKER_LINUX_SHA: &str = "7ca4aeeed86619909ae584ce3405da3766d495f98904ffbd9d859add26b83af5";
 
-const SHMOBY_VERSION: &str = "20.10.13.1";
+const SHMOBY_VERSION: &str = "20.10.14.1";
 const SHMOBY_URL: &str = formatcp!(
     "https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe"
 );
-const SHMOBY_SHA: &str = "a7bfbb9bb0a59e03ab4ac0cd77ced6ed88e259390e27fd3cdaa110f21772f3dd";
+const SHMOBY_SHA: &str = "17c08426fd44d4ad43ae93d7d22e8b09199b87260ff8d77bdffad911a0cb9c4f";
 
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
 const ALPINE_SHA: &str = "ec7ec80a96500f13c189a6125f2dbe8600ef593b87fc4670fe959dc02db727a2";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.3.3";
+const DOCKER_COMPOSE_VERSION: &str = "2.3.4";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "7a89f0aaeca16fb04db64d742fc708df468af057ed08d3fca0388a8365e12fa7";
+const DOCKER_COMPOSE_SHA: &str = "a62fd2b5fc6a7884304864027d936dfeab4431415201d802783d535c60ccfe5b";
 
 const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");

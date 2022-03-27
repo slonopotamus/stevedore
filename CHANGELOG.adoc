@@ -5,6 +5,12 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 20.10.14
+* Update Docker Compose to 2.3.4
+* Update Buildx to 0.8.1
+
 == 0.4.1 (2022-03-23) - @slonopotamus
 
 * Update docker-wsl-proxy to 0.0.5. https://github.com/slonopotamus/stevedore/issues/38[#38].
