@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.6.0 (2022-04-04) - @slonopotamus
 
 * Bundle docker-credential-wincred. https://github.com/slonopotamus/stevedore/issues/39[#39].
 * Update Docker Compose to 2.4.0
