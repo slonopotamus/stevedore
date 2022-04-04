@@ -8,6 +8,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Bundle docker-credential-wincred. https://github.com/slonopotamus/stevedore/issues/39[#39].
+* Update Docker Compose to 2.4.0
 
 == 0.5.0 (2022-03-27) - @slonopotamus
 
