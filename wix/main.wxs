@@ -158,6 +158,7 @@
                         <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Name="com.docker.cli.exe" Source='target\$(var.Profile)\docker\docker.exe'/>
+                            <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
                             <File Source='target\$(var.Profile)\kubectl.exe'/>

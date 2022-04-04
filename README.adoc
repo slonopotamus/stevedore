@@ -101,6 +101,7 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 * Docker Compose 2.3.4
 * Docker Scan 0.17.0
 * kubectl 1.23.5
+* docker-credential-wincred 0.6.4
 
 == Usage
 

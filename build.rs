@@ -47,6 +47,10 @@ const KUBECTL_VERSION: &str = "1.23.5";
 const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");
 const KUBECTL_SHA: &str = "708532a6207dbaafa395bd1fb01fbec7b925b462eedc6785bfaf8e8a6629384c";
 
+const WINCRED_VERSION: &str = "0.6.4";
+const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}-amd64.zip");
+const WINCRED_SHA: &str = "25031fec7fa0501666d47e63dc7593e2b0e6ad72c6bf13abef5917691ea47e37";
+
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
     let manifest_dir_string = env::var("CARGO_MANIFEST_DIR").unwrap();
@@ -56,10 +60,8 @@ fn get_dest_dir() -> PathBuf {
         .join(build_type)
 }
 
-fn build_docker(dest_dir: &Path) {
-    let compressed_path = dest_dir.join("docker.zip");
-    download_file(DOCKER_WIN64_URL, DOCKER_WIN64_SHA, &compressed_path);
-    let compressed_data = File::open(compressed_path).unwrap();
+fn unzip(file: &Path, dest_dir: &Path) {
+    let compressed_data = File::open(file).unwrap();
     let mut zip_archive = ZipArchive::new(compressed_data).unwrap();
 
     for i in 0..zip_archive.len() {
@@ -77,6 +79,18 @@ fn build_docker(dest_dir: &Path) {
         let mut outfile = File::create(&path).unwrap();
         io::copy(&mut file, &mut outfile).unwrap();
     }
+}
+
+fn build_docker(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("docker.zip");
+    download_file(DOCKER_WIN64_URL, DOCKER_WIN64_SHA, &compressed_path);
+    unzip(&compressed_path, &dest_dir);
+}
+
+fn build_wincred(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("docker-credential-wincred.zip");
+    download_file(WINCRED_URL, WINCRED_SHA, &compressed_path);
+    unzip(&compressed_path, &dest_dir);
 }
 
 fn build_shmoby(dest_dir: &Path) {
@@ -260,6 +274,7 @@ fn main() {
     build_shmoby(&dest_dir);
     build_docker_compose(&dest_dir);
     build_docker_scan_plugin(&dest_dir);
+    build_wincred(&dest_dir);
     build_docker_wsl_proxy(&dest_dir);
     build_kubectl(&dest_dir);
 
