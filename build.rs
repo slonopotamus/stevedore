@@ -84,13 +84,13 @@ fn unzip(file: &Path, dest_dir: &Path) {
 fn build_docker(dest_dir: &Path) {
     let compressed_path = dest_dir.join("docker.zip");
     download_file(DOCKER_WIN64_URL, DOCKER_WIN64_SHA, &compressed_path);
-    unzip(&compressed_path, &dest_dir);
+    unzip(&compressed_path, dest_dir);
 }
 
 fn build_wincred(dest_dir: &Path) {
     let compressed_path = dest_dir.join("docker-credential-wincred.zip");
     download_file(WINCRED_URL, WINCRED_SHA, &compressed_path);
-    unzip(&compressed_path, &dest_dir);
+    unzip(&compressed_path, dest_dir);
 }
 
 fn build_shmoby(dest_dir: &Path) {
