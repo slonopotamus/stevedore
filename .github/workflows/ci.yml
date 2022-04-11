@@ -59,7 +59,7 @@ jobs:
           command: wix
           args: --nocapture
       - name: upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: package
           path: target/wix/*.msi
