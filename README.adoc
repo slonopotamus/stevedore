@@ -76,22 +76,22 @@ Basic usage: `msiexec /i c:\path\to\stevedore.msi`.
 
 For quiet (non-interactive) installation add `/quiet` option.
 
-If you only want to install specific Stevedore features, use `/ADDLOCAL=Feature1,Feature2,Feature3` syntax.
+If you only want to install specific Stevedore features, use `ADDLOCAL=Feature1,Feature2,Feature3` syntax.
 
-.List of available MSI features for `/ADDLOCAL`
+.List of available MSI features for `ADDLOCAL`
 * `FeatureWindowsContainers` installs Windows Containers support, including Stevedore service.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#process-isolation[process isolation].
 * `FeatureHyperV` installs Hyper-V support.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
 * `FeatureLinuxContainers` installs Linux Containers WSL2 support.
 
-You can also pass custom installation properties to Stevedore installer using `/PROPERTY=value` syntax.
+You can also pass custom installation properties to Stevedore installer using `PROPERTY=value` syntax.
 
 .List of available MSI properties
-* `/INSTALLDIR=%ProgramFiles%\Stevedore` specifies directory where Stevedore executable files will be installed
-* `/SERVICENAME=stevedore` specifies Windows service name
+* `INSTALLDIR=%ProgramFiles%\Stevedore` specifies directory where Stevedore executable files will be installed
+* `SERVICENAME=stevedore` specifies Windows service name
 
-When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="/ADDLOCAL=Feature1,Feature2,Feature3 /PROPERTY=value /quiet"`
+When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2,Feature3 PROPERTY=value /quiet"`
 
 == Bundled components
 
