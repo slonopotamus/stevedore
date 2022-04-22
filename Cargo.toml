@@ -15,7 +15,7 @@ named-lock = "0.2"
 thiserror = "1"
 trayicon = { version = "0.1", features = ["winit"] }
 winapi = { version = "0.3" }
-winit = "0.25"
+winit = "0.26"
 wslapi = "0.1"
 
 [build-dependencies]
