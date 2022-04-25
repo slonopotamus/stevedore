@@ -38,10 +38,10 @@ const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
 const DOCKER_SCAN_SHA: &str = "d6e19957813f28970c5552aa2683277e187a1b7327b3af90194e8f04f1d04021";
 
-const DOCKER_WSL_PROXY_VERSION: &str = "0.0.5";
+const DOCKER_WSL_PROXY_VERSION: &str = "0.0.6";
 const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/docker-wsl-proxy/releases/download/{DOCKER_WSL_PROXY_VERSION}/docker-wsl-proxy.exe");
 const DOCKER_WSL_PROXY_SHA: &str =
-    "8ee04e06d82fdebb5ef3bb8c1738deea9f656713d6f249ff5a62ff6e98f672f7";
+    "e31cd75a458248b28f839fd1c94ff5ae07fa97e45a4d6c33a44253d39b682e91";
 
 const KUBECTL_VERSION: &str = "1.23.5";
 const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");

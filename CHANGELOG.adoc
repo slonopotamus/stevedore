@@ -5,6 +5,12 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update docker-wsl-proxy to 0.0.6.
+Fixes mounts not being rewritten.
+https://github.com/slonopotamus/stevedore/issues/42#issuecomment-1106876503[#42]
+
 == 0.6.0 (2022-04-04) - @slonopotamus
 
 * Bundle docker-credential-wincred. https://github.com/slonopotamus/stevedore/issues/39[#39].
