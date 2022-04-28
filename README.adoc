@@ -18,8 +18,8 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 If you only need Linux containers, you might want to consider these projects:
 
-* [Container Desktop](https://container-desktop.io/)
-* [Rancher Desktop](https://rancherdesktop.io/)
+* https://container-desktop.io/[Container Desktop]
+* https://rancherdesktop.io/[Rancher Desktop]
 
 == Supported OSes
 
