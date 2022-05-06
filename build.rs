@@ -11,28 +11,28 @@ use flate2::Compression;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.14";
+const DOCKER_VERSION: &str = "20.10.15";
 
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "8803f10abfa6e5259726829cb32cc4e2082938e13e4115f44f00c5b9cde9c33c";
+const DOCKER_WIN64_SHA: &str = "045d618275c93bedd3bbca1fe12538f60400d3d8eb4a1510c596065fd9e5451f";
 
 const DOCKER_LINUX_URL: &str =
     formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
-const DOCKER_LINUX_SHA: &str = "7ca4aeeed86619909ae584ce3405da3766d495f98904ffbd9d859add26b83af5";
+const DOCKER_LINUX_SHA: &str = "9ccfc39305ae1d8882d18c9c431544fca82913d6df717409ac2244ac58c4f070";
 
-const SHMOBY_VERSION: &str = "20.10.14.1";
+const SHMOBY_VERSION: &str = "20.10.15.1";
 const SHMOBY_URL: &str = formatcp!(
     "https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe"
 );
-const SHMOBY_SHA: &str = "17c08426fd44d4ad43ae93d7d22e8b09199b87260ff8d77bdffad911a0cb9c4f";
+const SHMOBY_SHA: &str = "f130405f2d1fd5dff7ea419c2dce267b6e42f4721b7b0e30e14c58449176127a";
 
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.0-x86_64.tar.gz";
 const ALPINE_SHA: &str = "ec7ec80a96500f13c189a6125f2dbe8600ef593b87fc4670fe959dc02db727a2";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.4.0";
+const DOCKER_COMPOSE_VERSION: &str = "2.5.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "8eeac95416f92d38f66b569939fd665faf360a6c3694516db142abda5e2d85ea";
+const DOCKER_COMPOSE_SHA: &str = "83b4ce5911505edc7164650e9edf480e042baf6cb45293297ad57592d56947db";
 
 const DOCKER_SCAN_VERSION: &str = "0.17.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
@@ -43,9 +43,9 @@ const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/do
 const DOCKER_WSL_PROXY_SHA: &str =
     "e31cd75a458248b28f839fd1c94ff5ae07fa97e45a4d6c33a44253d39b682e91";
 
-const KUBECTL_VERSION: &str = "1.23.5";
+const KUBECTL_VERSION: &str = "1.24.0";
 const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");
-const KUBECTL_SHA: &str = "708532a6207dbaafa395bd1fb01fbec7b925b462eedc6785bfaf8e8a6629384c";
+const KUBECTL_SHA: &str = "451828659fef8636bd75fc26720c1d8ba7e20c11916954bec913d78c19f4dd4c";
 
 const WINCRED_VERSION: &str = "0.6.4";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}-amd64.zip");

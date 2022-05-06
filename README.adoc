@@ -100,12 +100,12 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 
 == Bundled components
 
-* Docker Engine 20.10.14
+* Docker Engine 20.10.15
 * Docker App 0.9.1-beta3
-* Buildx 0.8.1
-* Docker Compose 2.4.0
+* Buildx 0.8.2
+* Docker Compose 2.5.0
 * Docker Scan 0.17.0
-* kubectl 1.23.5
+* kubectl 1.24.0
 * docker-credential-wincred 0.6.4
 
 == Usage
