@@ -11,6 +11,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 * Update Buildx to 0.8.2
 * Update Docker to 20.10.15
 * Update kubectl to 1.24.0
+* Add `unpigz` for faster image decompression
 
 == 0.6.1 (2022-04-25) - @slonopotamus
 
