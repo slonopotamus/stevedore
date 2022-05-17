@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 0.7.0 (2022-05-17) - @slonopotamus
 
 * Update Docker Compose to 2.5.0
 * Update Buildx to 0.8.2
