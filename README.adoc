@@ -99,12 +99,12 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 
 == Bundled components
 
-* Docker Engine 20.10.16
+* Docker Engine 20.10.17
 * Docker App 0.9.1-beta3
 * Buildx 0.8.2
-* Docker Compose 2.5.0
+* Docker Compose 2.6.1
 * Docker Scan 0.17.0
-* kubectl 1.24.0
+* kubectl 1.24.3
 * docker-credential-wincred 0.6.4
 
 == Usage
@@ -158,6 +158,9 @@ Linux-specific WSL data is stored in `stevedore` WSL distribution located under 
 
 . https://www.rust-lang.org/tools/install[Install Rust]
 . Install https://wixtoolset.org/releases/https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
+. Install Visual Studio 2019 or 2022.
+Enable "Desktop development with {cpp}" workload.
+Also, enable "{cpp} 2019 Redistributable MSMs" "{cpp} 2022 Redistributable MSMs" in individual components.
 . Clone Stevedore Git repository
 . Run `cargo install cargo-wix` to install https://github.com/volks73/cargo-wix[cargo-wix]
 . Run `cargo wix --nocapture` in repository root.

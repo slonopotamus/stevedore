@@ -5,6 +5,12 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 20.10.17
+* Update Docker Compose to 2.6.1
+* Update kubectl to 1.24.3
+
 == 0.7.0 (2022-05-17) - @slonopotamus
 
 * Update Docker Compose to 2.5.0
