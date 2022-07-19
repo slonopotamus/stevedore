@@ -162,6 +162,7 @@
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
                             <File Source='target\$(var.Profile)\kubectl.exe'/>
+                            <File Source='target\$(var.Profile)\unpigz.exe'/>
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
