@@ -11,45 +11,45 @@ use flate2::Compression;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.17";
+const DOCKER_VERSION: &str = "20.10.20";
 
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "c5d287db39a369ada1c814070210989d2538f423b79f660a0638fcf14db2a74a";
+const DOCKER_WIN64_SHA: &str = "11a7d4e19dfd182921cb528cf9722f30e204ac140fcad298b18f5e2d63cd37ff";
 
 const DOCKER_LINUX_URL: &str =
     formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
-const DOCKER_LINUX_SHA: &str = "969210917b5548621a2b541caf00f86cc6963c6cf0fb13265b9731c3b98974d9";
+const DOCKER_LINUX_SHA: &str = "a303cee9125c89abbbb6c4f044b3e2c01c7895e373b90d8de16a7ed25bb2530a";
 
 const SHMOBY_VERSION: &str = formatcp!("{DOCKER_VERSION}.1");
 const SHMOBY_URL: &str = formatcp!(
     "https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe"
 );
-const SHMOBY_SHA: &str = "0e38b6df7ab6653dddede25517f75e8c17c41692cc46dd145e04e052c8832ed8";
+const SHMOBY_SHA: &str = "b58968a6e58b1a8cae4cd444f8c56dc365c9794e5c5aafe94592ba2be8345051";
 
-const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.4-x86_64.tar.gz";
-const ALPINE_SHA: &str = "6abd0409ccd6b27cb5311e0d475af5a284515eb219626334b29b1c3141d47653";
+const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.6-x86_64.tar.gz";
+const ALPINE_SHA: &str = "1ae0c0e09a7a5dc6f1550c25c8793124c2ae52825cbf035a7ad249d628953cec";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.6.1";
+const DOCKER_COMPOSE_VERSION: &str = "2.12.2";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "7e8231012d66c164cfbe46d17aec5f614a2ca4b0fc20dd78bd7b1b3fcbc4f28d";
+const DOCKER_COMPOSE_SHA: &str = "0356b20170258be37295774b89a32b294dd524b646ec6df896026a82c43d6f62";
 
-const DOCKER_SCAN_VERSION: &str = "0.17.0";
+const DOCKER_SCAN_VERSION: &str = "0.21.0";
 const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
-const DOCKER_SCAN_SHA: &str = "d6e19957813f28970c5552aa2683277e187a1b7327b3af90194e8f04f1d04021";
+const DOCKER_SCAN_SHA: &str = "a8171f853aa3708cd7decec0c181216795b0ec86aa859edd76f381a0c77978b4";
 
-const DOCKER_WSL_PROXY_VERSION: &str = "0.0.6";
+const DOCKER_WSL_PROXY_VERSION: &str = "0.0.7";
 const DOCKER_WSL_PROXY_URL: &str = formatcp!("https://github.com/slonopotamus/docker-wsl-proxy/releases/download/{DOCKER_WSL_PROXY_VERSION}/docker-wsl-proxy.exe");
 const DOCKER_WSL_PROXY_SHA: &str =
-    "e31cd75a458248b28f839fd1c94ff5ae07fa97e45a4d6c33a44253d39b682e91";
+    "ddb2097ae755cd0f7d266a713fc71ff3e9cf32ecf60e1a67dec726b540b86b86";
 
-const KUBECTL_VERSION: &str = "1.24.3";
+const KUBECTL_VERSION: &str = "1.25.3";
 const KUBECTL_URL: &str = formatcp!("https://storage.googleapis.com/kubernetes-release/release/v{KUBECTL_VERSION}/bin/windows/amd64/kubectl.exe");
-const KUBECTL_SHA: &str = "a0ff7131d52721c57a260d2fa9a58928d22e586883d0ca50f40b79d18203989a";
+const KUBECTL_SHA: &str = "ff78c3cb3cba7ce397db01ca4ac4769c476efbbccbd5ff007a7d4b976a6e4ac1";
 
-const WINCRED_VERSION: &str = "0.6.4";
-const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}-amd64.zip");
-const WINCRED_SHA: &str = "25031fec7fa0501666d47e63dc7593e2b0e6ad72c6bf13abef5917691ea47e37";
+const WINCRED_VERSION: &str = "0.7.0";
+const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
+const WINCRED_SHA: &str = "25682716cc1da6086bbf487bda7a88271ddc18822f263c5fa08c3b46e3761b19";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
@@ -88,9 +88,8 @@ fn build_docker(dest_dir: &Path) {
 }
 
 fn build_wincred(dest_dir: &Path) {
-    let compressed_path = dest_dir.join("docker-credential-wincred.zip");
-    download_file(WINCRED_URL, WINCRED_SHA, &compressed_path);
-    unzip(&compressed_path, dest_dir);
+    let dest_path = dest_dir.join("docker-credential-wincred.exe");
+    download_file(WINCRED_URL, WINCRED_SHA, &dest_path);
 }
 
 fn build_shmoby(dest_dir: &Path) {
