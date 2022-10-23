@@ -5,6 +5,17 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 20.10.20
+* Update Buildx to 0.9.1
+* Update Alpine Linux to 3.15.6
+* Update Docker Compose to 2.12.2
+* Update Docker Scan to 0.21.0
+* Update docker-wsl-proxy to 0.0.7
+* Update kubectl to 1.25.3
+* Update docker-credential-wincred to 0.7.0
+
 == 0.8.0 (2022-07-18) - @slonopotamus
 
 * Update Docker Engine to 20.10.17
@@ -15,7 +26,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 * Update Docker Compose to 2.5.0
 * Update Buildx to 0.8.2
-* Update Docker to 20.10.16
+* Update Docker Engine to 20.10.16
 * Update kubectl to 1.24.0
 
 == 0.6.1 (2022-04-25) - @slonopotamus
