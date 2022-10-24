@@ -1,7 +1,7 @@
 use std::env;
 use std::fs::{create_dir_all, File};
 use std::io;
-use std::io::Write;
+use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -156,7 +156,7 @@ fn run_cmd(cmd: &mut Command) -> String {
 /**
 1. You can't use Docker in this function because GitHub Actions doesn't support nested virtualization
 2. You can't use WSL2 in this function because Windows Server only has WSL1
-*/
+ */
 fn build_wsl_tarball(dest_dir: &Path) {
     const DISTRIBUTION_NAME: &str = "stevedore";
     const STAGING_DISTRIBUTION_NAME: &str = formatcp!("{DISTRIBUTION_NAME}-staging");
@@ -228,7 +228,8 @@ fn build_wsl_tarball(dest_dir: &Path) {
 
 fn copy_redist_msm(dest_dir: &Path) {
     let tool = cc::windows_registry::find_tool("x86_64-msvc", "cl.exe").unwrap();
-    let tools_dir = tool
+
+    let vc_dir = tool
         .path()
         .parent()
         .unwrap()
@@ -237,15 +238,25 @@ fn copy_redist_msm(dest_dir: &Path) {
         .parent()
         .unwrap()
         .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
         .unwrap();
-    let version = tools_dir.file_name().unwrap();
-    let msm_dir = tools_dir
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
+
+    let version_path = vc_dir
+        .join("Auxiliary")
+        .join("Build")
+        .join("Microsoft.VCRedistVersion.default.txt");
+
+    let mut version_file = File::open(version_path).unwrap();
+    let mut version = String::new();
+    version_file.read_to_string(&mut version).unwrap();
+    let version = version.trim();
+
+    let msm_dir = vc_dir
         .join("Redist")
         .join("MSVC")
         .join(version)
