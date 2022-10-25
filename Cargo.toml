@@ -11,7 +11,7 @@ license = "Apache-2.0"
 [dependencies]
 directories = "4.0"
 msgbox = "0.7"
-named-lock = "0.2"
+named-lock = "0.3"
 thiserror = "1"
 trayicon = { version = "0.1", features = ["winit"] }
 winapi = { version = "0.3" }
