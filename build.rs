@@ -73,7 +73,7 @@ fn unzip(file: &Path, dest_dir: &Path) {
         let path = dest_dir.join(file.enclosed_name().unwrap());
 
         if let Some(p) = path.parent() {
-            create_dir_all(&p).unwrap();
+            create_dir_all(p).unwrap();
         }
 
         let mut outfile = File::create(&path).unwrap();
