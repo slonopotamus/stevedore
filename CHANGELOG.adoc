@@ -7,7 +7,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 == Unreleased
 
-* Update Docker Engine to 20.10.20
+* Update Docker Engine to 20.10.21
 * Update Buildx to 0.9.1
 * Update Alpine Linux to 3.15.6
 * Update Docker Compose to 2.12.2

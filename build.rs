@@ -11,21 +11,21 @@ use flate2::Compression;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "20.10.20";
+const DOCKER_VERSION: &str = "20.10.21";
 
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "11a7d4e19dfd182921cb528cf9722f30e204ac140fcad298b18f5e2d63cd37ff";
+const DOCKER_WIN64_SHA: &str = "e5c9e9b965d72725b4280bba94e497e9789c84609ed646f0193018d9b3598306";
 
 const DOCKER_LINUX_URL: &str =
     formatcp!("https://download.docker.com/linux/static/stable/x86_64/docker-{DOCKER_VERSION}.tgz");
-const DOCKER_LINUX_SHA: &str = "a303cee9125c89abbbb6c4f044b3e2c01c7895e373b90d8de16a7ed25bb2530a";
+const DOCKER_LINUX_SHA: &str = "2582bed8772b283bda9d4565c0af76ee653c93d93dc6b8d0aad795d731a1bb81";
 
 const SHMOBY_VERSION: &str = formatcp!("{DOCKER_VERSION}.1");
 const SHMOBY_URL: &str = formatcp!(
     "https://github.com/slonopotamus/shmoby/releases/download/v{SHMOBY_VERSION}/dockerd.exe"
 );
-const SHMOBY_SHA: &str = "b58968a6e58b1a8cae4cd444f8c56dc365c9794e5c5aafe94592ba2be8345051";
+const SHMOBY_SHA: &str = "3d75ff38f82cb5f83d66f7eb9c059a0c28b2b006de1529979f542d328c420750";
 
 const ALPINE_URL: &str = "https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-minirootfs-3.15.6-x86_64.tar.gz";
 const ALPINE_SHA: &str = "1ae0c0e09a7a5dc6f1550c25c8793124c2ae52825cbf035a7ad249d628953cec";
