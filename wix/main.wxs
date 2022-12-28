@@ -210,6 +210,12 @@
                     </Directory>
                 </Directory>
             </Directory>
+
+            <Directory Id='ProgramMenuFolder'>
+            </Directory>
+
+            <Directory Id='DesktopFolder'>
+            </Directory>
         </Directory>
 
         <Feature
