@@ -2,17 +2,47 @@
 <!--
   Copyright (C) 2017 Christopher R. Field.
 
-  Licensed under the Apache License, Version 2.0 (the 'License');
+  Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
   http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an 'AS IS' BASIS,
+  distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
+-->
+
+<!--
+  The "cargo wix" subcommand provides a variety of predefined variables available
+  for customization of this template. The values for each variable are set at
+  installer creation time. The following variables are available:
+
+  TargetTriple      = The rustc target triple name.
+  TargetEnv         = The rustc target environment. This is typically either
+                      "msvc" or "gnu" depending on the toolchain downloaded and
+                      installed.
+  TargetVendor      = The rustc target vendor. This is typically "pc", but Rust
+                      does support other vendors, like "uwp".
+  CargoTargetBinDir = The complete path to the binary (exe). The default would
+                      be "target\release\<BINARY_NAME>.exe" where
+                      "<BINARY_NAME>" is replaced with the name of each binary
+                      target defined in the package's manifest (Cargo.toml). If
+                      a different rustc target triple is used than the host,
+                      i.e. cross-compiling, then the default path would be
+                      "target\<CARGO_TARGET>\<CARGO_PROFILE>\<BINARY_NAME>.exe",
+                      where "<CARGO_TARGET>" is replaced with the "CargoTarget"
+                      variable value and "<CARGO_PROFILE>" is replaced with the
+                      value from the `CargoProfile` variable.
+  CargoTargetDir    = The path to the directory for the build artifacts, i.e.
+                      "target".
+  CargoProfile      = Either "debug" or `release` depending on the build
+                      profile. The default is "release".
+  Version           = The version for the installer. The default is the
+                      "Major.Minor.Fix" semantic versioning number of the Rust
+                      package.
 -->
 
 <!--
@@ -21,12 +51,10 @@
   destination for 32-bit versus 64-bit installers. Removal of these lines will
   cause installation errors.
 -->
-<?if $(var.Platform) = x64 ?>
-<?define Win64 = 'yes' ?>
-<?define PlatformProgramFilesFolder = 'ProgramFiles64Folder' ?>
+<?if $(sys.BUILDARCH) = x64 or $(sys.BUILDARCH) = arm64 ?>
+<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
 <?else ?>
-<?define Win64 = 'no' ?>
-<?define PlatformProgramFilesFolder = 'ProgramFilesFolder' ?>
+<?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
 <?endif ?>
 
 <Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns='http://schemas.microsoft.com/wix/2006/wi'>
@@ -47,8 +75,7 @@
                  Languages='1033'
                  Compressed='yes'
                  InstallScope='perMachine'
-                 SummaryCodepage='1252'
-                 Platform='$(var.Platform)'/>
+                 SummaryCodepage='1252'/>
 
         <MajorUpgrade
                 AllowSameVersionUpgrades='yes'
@@ -72,11 +99,11 @@
 
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='INSTALLDIR' Name='Stevedore'>
-                    <Component Id='License' Guid='eddd457c-28be-4d34-9c84-acd6e15a92a0' Win64='$(var.Win64)'>
+                    <Component Id='License' Guid='eddd457c-28be-4d34-9c84-acd6e15a92a0'>
                         <File Source='wix\License.rtf'/>
                     </Component>
 
-                    <Component Id='dockerd_Comp' Guid='7adbeefe-d5cb-4977-aba0-8f6869c0da87' Win64='$(var.Win64)'>
+                    <Component Id='dockerd_Comp' Guid='7adbeefe-d5cb-4977-aba0-8f6869c0da87'>
                         <!--
                             TODO: consider fixing WiX or replacing this with custom code
                             Already encountered issues:
@@ -129,7 +156,7 @@
                                 SupportsWarnings="yes"/>
                     </Component>
 
-                    <Component Id='wsl_Comp' Guid='e92a7bbf-8612-4fba-923d-6724aae71f4a' Win64='$(var.Win64)'>
+                    <Component Id='wsl_Comp' Guid='e92a7bbf-8612-4fba-923d-6724aae71f4a'>
                         <File Source='target\$(var.Profile)\docker-wsl-proxy.exe'/>
                         <File Source='target\$(var.Profile)\stevedore.exe' KeyPath='yes'>
                             <Shortcut
@@ -155,7 +182,7 @@
                     </Component>
 
                     <Directory Id='bin' Name='bin'>
-                        <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21" Win64='$(var.Win64)'>
+                        <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21">
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Name="com.docker.cli.exe" Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
@@ -174,8 +201,7 @@
                 </Directory>
                 <Directory Id="Docker" Name="Docker">
                     <Directory Id='cli_plugins' Name='cli-plugins'>
-                        <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'
-                                   Win64='$(var.Win64)'>
+                        <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'>
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
                             <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
                             <File Source='target\$(var.Profile)\docker-compose.exe'/>
@@ -183,12 +209,6 @@
                         </Component>
                     </Directory>
                 </Directory>
-            </Directory>
-
-            <Directory Id='ProgramMenuFolder'>
-            </Directory>
-
-            <Directory Id='DesktopFolder'>
             </Directory>
         </Directory>
 
