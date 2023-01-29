@@ -64,7 +64,7 @@ fn update_docker_context(name: &str, host: &str) -> std::io::Result<std::process
         .arg("update")
         .arg(name)
         .arg("--docker")
-        .arg(format!("host={}", host))
+        .arg(format!("host={host}"))
         .output()?;
     if output.status.success() {
         return Ok(output);
@@ -76,7 +76,7 @@ fn update_docker_context(name: &str, host: &str) -> std::io::Result<std::process
         .arg("create")
         .arg(name)
         .arg("--docker")
-        .arg(format!("host={}", host))
+        .arg(format!("host={host}"))
         .output()
 }
 

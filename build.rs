@@ -102,17 +102,16 @@ fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
         let mut digest = Sha256::new();
         io::copy(&mut file, &mut digest).unwrap();
         let actual_sha = digest.finalize();
-        if expected_sha == format!("{:x}", actual_sha) {
+        if expected_sha == format!("{actual_sha:x}") {
             return;
         }
     }
 
     let data = reqwest::blocking::get(uri).unwrap().bytes().unwrap();
     let actual_sha = Sha256::digest(&data);
-    if format!("{:x}", actual_sha) != expected_sha {
+    if format!("{actual_sha:x}") != expected_sha {
         panic!(
-            "Checksum mismatch for {}: expected {} but got {:x}",
-            uri, expected_sha, actual_sha
+            "Checksum mismatch for {uri}: expected {expected_sha} but got {actual_sha:x}"
         );
     }
     let data = data;
@@ -272,7 +271,7 @@ fn copy_redist_msm(dest_dir: &Path) {
         }
     }
 
-    panic!("Failed to find '*{}' {:?}", msm_suffix, msm_dir);
+    panic!("Failed to find '*{msm_suffix}' {msm_dir:?}");
 }
 
 fn main() {
