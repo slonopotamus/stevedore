@@ -110,9 +110,7 @@ fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
     let data = reqwest::blocking::get(uri).unwrap().bytes().unwrap();
     let actual_sha = Sha256::digest(&data);
     if format!("{actual_sha:x}") != expected_sha {
-        panic!(
-            "Checksum mismatch for {uri}: expected {expected_sha} but got {actual_sha:x}"
-        );
+        panic!("Checksum mismatch for {uri}: expected {expected_sha} but got {actual_sha:x}");
     }
     let data = data;
     let mut outfile = File::create(dest).unwrap();

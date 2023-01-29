@@ -1,13 +1,11 @@
 #![windows_subsystem = "windows"]
 
-mod error;
-
 use std::os::windows::process::CommandExt;
 use std::path::PathBuf;
-use std::process::Command;
-use std::{io, slice};
+use std::process::{Command, Output};
+use std::{env, io, slice};
 
-use directories::BaseDirs;
+use directories::ProjectDirs;
 use named_lock::Error::WouldBlock;
 use named_lock::NamedLock;
 use trayicon::{Icon, MenuBuilder, TrayIconBuilder};
@@ -16,6 +14,25 @@ use winit::{
     event::Event,
     event_loop::{ControlFlow, EventLoop},
 };
+
+use thiserror::Error;
+use winapi::um::winbase::CREATE_NO_WINDOW;
+
+#[derive(Debug, Error)]
+pub enum Error {
+    #[error("Another instance of Stevedore is already running")]
+    AlreadyRunning,
+    #[error(transparent)]
+    Io(#[from] io::Error),
+    #[error(transparent)]
+    NamedLock(#[from] named_lock::Error),
+    #[error(transparent)]
+    TrayIcon(#[from] trayicon::Error),
+    #[error("WSL command failed: {0}")]
+    Wsl(String),
+}
+
+type Result<T> = std::result::Result<T, Error>;
 
 fn parse_wsl_output(vec: Vec<u8>) -> String {
     let words = unsafe {
@@ -57,9 +74,9 @@ const DEFAULT_DOCKER_CONTEXT_NAME: &str = "default";
 const LINUX_DOCKER_CONTEXT_HOST: &str = "npipe:////./pipe/dockerDesktopLinuxEngine";
 const WINDOWS_DOCKER_CONTEXT_HOST: &str = "npipe:////./pipe/dockerDesktopWindowsEngine";
 
-fn update_docker_context(name: &str, host: &str) -> std::io::Result<std::process::Output> {
+fn update_docker_context(name: &str, host: &str) -> Result<Output> {
     let output = Command::new("docker")
-        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+        .creation_flags(CREATE_NO_WINDOW)
         .arg("context")
         .arg("update")
         .arg(name)
@@ -70,27 +87,27 @@ fn update_docker_context(name: &str, host: &str) -> std::io::Result<std::process
         return Ok(output);
     }
 
-    Command::new("docker")
-        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+    Ok(Command::new("docker")
+        .creation_flags(CREATE_NO_WINDOW)
         .arg("context")
         .arg("create")
         .arg(name)
         .arg("--docker")
         .arg(format!("host={host}"))
-        .output()
+        .output()?)
 }
 
-fn use_docker_context(name: &str) -> std::io::Result<std::process::Output> {
-    Command::new("docker")
-        .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+fn use_docker_context(name: &str) -> Result<Output> {
+    Ok(Command::new("docker")
+        .creation_flags(CREATE_NO_WINDOW)
         .arg("context")
         .arg("use")
         .arg(name)
-        .output()
+        .output()?)
 }
 
 impl WslDistribution {
-    fn new(app_dir: PathBuf, name: &'static str) -> std::io::Result<WslDistribution> {
+    fn new(app_dir: PathBuf, name: &'static str) -> Result<WslDistribution> {
         let mut distribution = WslDistribution {
             name,
             app_dir,
@@ -106,16 +123,16 @@ impl WslDistribution {
         Ok(distribution)
     }
 
-    fn command(&self) -> std::process::Command {
+    fn command(&self) -> Command {
         let mut command = Command::new("wsl");
         command
-            .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+            .creation_flags(CREATE_NO_WINDOW)
             .arg("--distribution")
             .arg(self.name);
         command
     }
 
-    fn register(&self) -> std::io::Result<()> {
+    fn register(&self) -> Result<()> {
         let wsl = wslapi::Library::new()?;
 
         // TODO(https://github.com/slonopotamus/stevedore/issues/24): we need to store docker data in a separate wsl distribution so it isn't wiped away during upgrades
@@ -124,14 +141,14 @@ impl WslDistribution {
         let output = if wsl.is_distribution_registered(self.name) {
             self.command().arg("--exec").arg("echo").output()?
         } else {
-            let base_dirs = BaseDirs::new().ok_or_else(|| {
+            let project_dirs = ProjectDirs::from("", "", "Stevedore").ok_or_else(|| {
                 io::Error::new(
                     io::ErrorKind::NotFound,
                     "Cannot resolve user data directory",
                 )
             })?;
             let tarball = self.app_dir.join("stevedore.tar.gz");
-            let data_dir = base_dirs.data_local_dir().join("Stevedore");
+            let data_dir = project_dirs.data_dir();
             Command::new("wsl")
                 .arg("--import")
                 .arg(self.name)
@@ -139,42 +156,36 @@ impl WslDistribution {
                 .arg(tarball)
                 .arg("--version")
                 .arg("2")
-                .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+                .creation_flags(CREATE_NO_WINDOW)
                 .output()?
         };
 
         if !output.status.success() {
-            return Err(io::Error::new(
-                io::ErrorKind::Other,
-                format!(
-                    "Stevedore failed to start: {}",
-                    parse_wsl_output(output.stdout)
-                ),
-            ));
+            return Err(Error::Wsl(parse_wsl_output(output.stdout)));
         }
 
         Ok(())
     }
 
-    fn start(&mut self) -> std::io::Result<()> {
+    fn start(&mut self) -> Result<()> {
         self.processes = vec![
             ChildDrop {
                 child: self.command().arg("--exec").arg("dockerd").spawn()?,
             },
             ChildDrop {
                 child: Command::new(self.app_dir.join("docker-wsl-proxy.exe"))
-                    .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
                     .arg("-c")
                     .arg(format!("wsl://{}/var/run/docker.sock", self.name))
                     .arg("-l")
                     .arg(LINUX_DOCKER_CONTEXT_HOST)
+                    .creation_flags(CREATE_NO_WINDOW)
                     .spawn()?,
             },
         ];
         Ok(())
     }
 
-    fn terminate(&mut self) -> std::io::Result<std::process::Output> {
+    fn terminate(&mut self) -> Result<Output> {
         self.processes.clear();
         let _ = self
             .command()
@@ -184,11 +195,11 @@ impl WslDistribution {
             .arg("/var/run/docker*")
             .output();
 
-        Command::new("wsl")
-            .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+        Ok(Command::new("wsl")
             .arg("--terminate")
             .arg(self.name)
-            .output()
+            .creation_flags(CREATE_NO_WINDOW)
+            .output()?)
     }
 }
 
@@ -198,27 +209,21 @@ struct Application {
 }
 
 impl Application {
-    fn new(
-        event_loop_proxy: EventLoopProxy<Events>,
-        app_dir: PathBuf,
-    ) -> Result<Application, Box<dyn std::error::Error>> {
+    fn new(event_loop_proxy: EventLoopProxy<Events>, app_dir: PathBuf) -> Result<Application> {
         let icon_loading = Icon::from_buffer(
             include_bytes!("../resources/stevedore_grey.ico"),
             None,
             None,
-        )
-        .map_err(Box::new)?;
+        )?;
 
-        let icon = Icon::from_buffer(include_bytes!("../resources/stevedore.ico"), None, None)
-            .map_err(Box::new)?;
+        let icon = Icon::from_buffer(include_bytes!("../resources/stevedore.ico"), None, None)?;
 
         let tray_icon = TrayIconBuilder::new()
             .sender_winit(event_loop_proxy)
             .icon(icon_loading)
             .tooltip("Stevedore")
             .menu(MenuBuilder::new().item("Quit", Events::Quit))
-            .build()
-            .map_err(Box::new)?;
+            .build()?;
 
         let wsl_distribution = WslDistribution::new(app_dir, "stevedore")?;
 
@@ -227,11 +232,11 @@ impl Application {
             tray_icon,
         };
 
-        update_docker_context("desktop-linux", LINUX_DOCKER_CONTEXT_HOST).map_err(Box::new)?;
-        update_docker_context("desktop-windows", WINDOWS_DOCKER_CONTEXT_HOST).map_err(Box::new)?;
-        use_docker_context("desktop-linux").map_err(Box::new)?;
+        update_docker_context("desktop-linux", LINUX_DOCKER_CONTEXT_HOST)?;
+        update_docker_context("desktop-windows", WINDOWS_DOCKER_CONTEXT_HOST)?;
+        use_docker_context("desktop-linux")?;
 
-        result.tray_icon.set_icon(&icon).map_err(Box::new)?;
+        result.tray_icon.set_icon(&icon)?;
 
         Ok(result)
     }
@@ -246,8 +251,8 @@ impl Drop for Application {
     }
 }
 
-fn do_main() -> Result<(), Box<dyn std::error::Error>> {
-    let app_dir = PathBuf::from(std::env::current_exe()?.parent().ok_or_else(|| {
+fn do_main() -> Result<()> {
+    let app_dir = PathBuf::from(env::current_exe()?.parent().ok_or_else(|| {
         io::Error::new(
             io::ErrorKind::NotFound,
             "Cannot resolve application directory",
@@ -259,8 +264,8 @@ fn do_main() -> Result<(), Box<dyn std::error::Error>> {
     let guard = named_lock.try_lock();
     if let Err(err) = guard {
         return match err {
-            WouldBlock => Err(Box::new(error::Error::AlreadyRunning)),
-            _ => Err(Box::new(err)),
+            WouldBlock => Err(Error::AlreadyRunning),
+            _ => Err(err.into()),
         };
     }
 
@@ -285,7 +290,7 @@ fn do_main() -> Result<(), Box<dyn std::error::Error>> {
     });
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     do_main().map_err(|error| {
         let _ = msgbox::create("Error", error.to_string().as_str(), msgbox::IconType::Error);
         error
