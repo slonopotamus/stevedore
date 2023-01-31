@@ -51,6 +51,11 @@ const WINCRED_VERSION: &str = "0.7.0";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "25682716cc1da6086bbf487bda7a88271ddc18822f263c5fa08c3b46e3761b19";
 
+const UNPIGZ_VERSION: &str = "2.3.1-149";
+const UNPIGZ_URL: &str =
+    formatcp!("https://kjkpub.s3.amazonaws.com/software/pigz/{UNPIGZ_VERSION}/unpigz.exe");
+const UNPIGZ_SHA: &str = "d703c67d14d8861ff64edb2dfc3747b166764ce500f310a0a01300f1886669c5";
+
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
     let manifest_dir_string = env::var("CARGO_MANIFEST_DIR").unwrap();
@@ -137,6 +142,11 @@ fn build_kubectl(dest_dir: &Path) {
     download_file(KUBECTL_URL, KUBECTL_SHA, &dest_path);
 }
 
+fn build_unpigz(dest_dir: &Path) {
+    let dest_path = dest_dir.join("unpigz.exe");
+    download_file(UNPIGZ_URL, UNPIGZ_SHA, &dest_path);
+}
+
 fn run_cmd(cmd: &mut Command) -> String {
     let output = cmd.output().unwrap();
     assert!(
@@ -192,6 +202,7 @@ fn build_wsl_tarball(dest_dir: &Path) {
             .arg("add")
             .arg("--no-cache")
             .arg("docker")
+            .arg("pigz")
             .arg("socat"),
     );
 
@@ -284,6 +295,7 @@ fn main() {
     build_wincred(&dest_dir);
     build_docker_wsl_proxy(&dest_dir);
     build_kubectl(&dest_dir);
+    build_unpigz(&dest_dir);
 
     let mut res = winres::WindowsResource::new();
     res.set_icon("resources/stevedore.ico");
