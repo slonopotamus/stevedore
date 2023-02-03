@@ -82,6 +82,13 @@
                 Schedule='afterInstallInitialize'
                 DowngradeErrorMessage='A newer version of [ProductName] is already installed. Setup will now exit.'/>
 
+        <Property Id="WINDOWSBUILDNUMBER" Secure="yes">
+            <RegistrySearch Id="BuildNumberSearch" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion" Name="CurrentBuildNumber" Type="raw" />
+        </Property>
+        <Condition Message="This application is only supported on Windows 10 version 1809 (build 17763) or newer.">
+            <![CDATA[(WINDOWSBUILDNUMBER >= 17763)]]>
+        </Condition>
+
         <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
         <Property Id='DiskPrompt' Value='Stevedore Installation'/>
 
@@ -92,11 +99,6 @@
         <util:Group Id="DockerGroup" Name="docker-users"/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
-            <Merge Id='VCRedist'
-                   SourceFile='target/$(var.Profile)/vcredist.msm'
-                   DiskId='1'
-                   Language='0'/>
-
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='INSTALLDIR' Name='Stevedore'>
                     <Component Id='License' Guid='eddd457c-28be-4d34-9c84-acd6e15a92a0'>
@@ -123,10 +125,10 @@
                                 Vital="no">
                             <util:GroupRef Id="DockerGroup"/>
                         </util:User>
-                        <File Source='target\$(var.Profile)\dockerd.exe'/>
-                        <!-- See https://github.com/moby/moby/blob/v20.10.12/cmd/dockerd/service_windows.go#L194-L233 -->
+                        <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
+                        <!-- See https://github.com/moby/moby/blob/v23.0.0/cmd/dockerd/service_windows.go#L156-L202 -->
                         <ServiceInstall
-                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --experimental --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine'
+                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'
@@ -139,7 +141,7 @@
                                     SecondFailureActionType="restart"
                                     ThirdFailureActionType="none"
                                     ResetPeriodInDays="1"
-                                    RestartServiceDelayInSeconds="60"/>
+                                    RestartServiceDelayInSeconds="15"/>
                         </ServiceInstall>
                         <ServiceControl
                                 Id='dockerd_start'
@@ -156,39 +158,13 @@
                                 SupportsWarnings="yes"/>
                     </Component>
 
-                    <Component Id='wsl_Comp' Guid='e92a7bbf-8612-4fba-923d-6724aae71f4a'>
-                        <File Source='target\$(var.Profile)\docker-wsl-proxy.exe'/>
-                        <File Source='target\$(var.Profile)\stevedore.exe' KeyPath='yes'>
-                            <Shortcut
-                                    Id='StevedoreProgramMenuShortcut'
-                                    Icon='stevedore.ico'
-                                    Advertise='yes'
-                                    Directory='ProgramMenuFolder'
-                                    Name='Stevedore'/>
-                            <Shortcut
-                                    Id='StevedoreDesktopShortcut'
-                                    Icon='stevedore.ico'
-                                    Advertise='yes'
-                                    Directory='DesktopFolder'
-                                    Name='Stevedore'>
-                            </Shortcut>
-                        </File>
-                        <File Source='target\$(var.Profile)\stevedore.tar.gz'/>
-                        <RegistryValue Root='HKMU'
-                                       Key='Software\Microsoft\Windows\CurrentVersion\Run'
-                                       Name='Stevedore'
-                                       Value='[INSTALLDIR]stevedore.exe'
-                                       Type='string'/>
-                    </Component>
-
                     <Directory Id='bin' Name='bin'>
                         <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21">
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
-                            <File Name="com.docker.cli.exe" Source='target\$(var.Profile)\docker\docker.exe'/>
+                            <File Source='target\$(var.Profile)\docker\docker-proxy.exe'/>
                             <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
-                            <File Source='target\$(var.Profile)\kubectl.exe'/>
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
@@ -202,8 +178,6 @@
                 <Directory Id="Docker" Name="Docker">
                     <Directory Id='cli_plugins' Name='cli-plugins'>
                         <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'>
-                            <File Source='target\$(var.Profile)\docker\cli-plugins\docker-app.exe'/>
-                            <File Source='target\$(var.Profile)\docker\cli-plugins\docker-buildx.exe'/>
                             <File Source='target\$(var.Profile)\docker-compose.exe'/>
                             <File Source='target\$(var.Profile)\docker-scan.exe'/>
                         </Component>
@@ -227,42 +201,19 @@
                 Display='expand'
                 Absent='disallow'>
 
-            <MergeRef Id="VCRedist"/>
             <ComponentRef Id='License'/>
             <ComponentRef Id='bin_Comp'/>
             <ComponentRef Id='cli_plugins_Comp'/>
+            <ComponentRef Id='dockerd_Comp'/>
 
             <Feature
-                    Id='FeatureWindowsContainers'
-                    Title='Windows Containers'
-                    Description='Installs Windows containers support. It allows running Docker containers with process isolation.'
+                    Id='FeatureHyperV'
+                    Title='Hyper-V'
+                    Description='Installs Hyper-V optional Windows component. It allows running Docker containers with Hyper-V isolation.'
                     AllowAdvertise='no'
                     Display='expand'>
-                <ComponentRef Id='dockerd_Comp'/>
-
-                <Feature
-                        Id='FeatureHyperV'
-                        Title='Hyper-V'
-                        Description='Installs Hyper-V optional Windows component. It allows running Docker containers with Hyper-V isolation.'
-                        AllowAdvertise='no'
-                        Display='expand'>
-                    <!-- Dummy component to get rid of the "run from network" option  -->
-                    <ComponentRef Id='License'/>
-                </Feature>
-            </Feature>
-
-            <Feature
-                    Id='FeatureLinuxContainers'
-                    Title='Linux Containers'
-                    Description='Installs Linux containers support. This feature requires WSL2 to work.'
-                    Level='0'>
-                <!-- We need WSL2 for Linux containers. As of 2022-01-09, WSL2 is only available on client Windows -->
-                <Condition Level='1'>
-                    <![CDATA[
-                    MsiNTProductType = 1
-                    ]]>
-                </Condition>
-                <ComponentRef Id='wsl_Comp'/>
+                <!-- Dummy component to get rid of the "run from network" option  -->
+                <ComponentRef Id='License'/>
             </Feature>
         </Feature>
 
@@ -296,29 +247,16 @@
         <CustomAction Id='InstallHyperVFeature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
                       Return='check' Impersonate='no'/>
 
-        <SetProperty Id='InstallWSL2Feature'
-                     Before='InstallWSL2Feature'
-                     Sequence='execute'
-                     Value='&quot;[POWERSHELLEXE]&quot; -Command &quot;Enable-WindowsOptionalFeature -Online -FeatureName &apos;Microsoft-Windows-Subsystem-Linux;VirtualMachinePlatform&apos; -All -NoRestart&quot;'/>
-
-        <CustomAction Id='InstallWSL2Feature' BinaryKey='WixCA' DllEntry='WixQuietExec' Execute='deferred'
-                      Return='check' Impersonate='no'/>
-
         <!-- See https://stackoverflow.com/a/17608049 for conditions -->
         <InstallExecuteSequence>
             <Custom Action='InstallContainersFeature' Before='ConfigureUsers'>
                 <![CDATA[
-                (&FeatureWindowsContainers = 3) AND (NOT REMOVE)
+                NOT REMOVE
                 ]]>
             </Custom>
             <Custom Action='InstallHyperVFeature' Before='ConfigureUsers'>
                 <![CDATA[
                 (&FeatureHyperV = 3) AND (NOT REMOVE)
-                ]]>
-            </Custom>
-            <Custom Action='InstallWSL2Feature' Before='ConfigureUsers'>
-                <![CDATA[
-                (&FeatureLinuxContainers = 3) AND (NOT REMOVE)
                 ]]>
             </Custom>
             <Custom Action='CreateDockerGroup' Before='ConfigureUsers'>
@@ -344,7 +282,6 @@
             <UIRef Id='WixUI_FeatureTree'/>
             <ProgressText Action="InstallContainersFeature">Enabling Containers feature</ProgressText>
             <ProgressText Action="InstallHyperVFeature">Enabling Hyper-V feature</ProgressText>
-            <ProgressText Action='InstallWSL2Feature'>Enabling WSL2 feature</ProgressText>
         </UI>
 
         <WixVariable Id='WixUILicenseRtf' Value='wix/License.rtf'/>

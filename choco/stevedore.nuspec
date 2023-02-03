@@ -9,8 +9,8 @@
     <tags>containers docker foss</tags>
     <summary>Docker distribution for Windows that Just Works</summary>
     <description>
-        Stevedore aims to provide a frictionless Docker experience on Windows.
-        Both Linux and Windows Containers are supported.
+        Stevedore aims to provide a frictionless Docker experience for Windows Containers.
+        Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` or Mirantis Container Runtime.
     </description>
     <licenseUrl>https://github.com/slonopotamus/stevedore/blob/main/LICENSE</licenseUrl>
     <releaseNotes>https://github.com/slonopotamus/stevedore/releases/tag/{{ version }}</releaseNotes>

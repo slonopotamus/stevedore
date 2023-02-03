@@ -33,13 +33,7 @@ jobs:
           command: clippy
           args: --all-targets -- -D warnings
   build:
-    # We can't use windows-latest because it currently (2022-01-09) points to Windows Server 2019
-    # And we can't use 2019 because it doesn't have `wsl --export`
-    #
-    # Note that `wsldl backup` also depends on `wsl --export`,
-    # so it can't be used as a workaround:
-    # https://github.com/yuk7/wsldl/issues/116
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
