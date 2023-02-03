@@ -5,6 +5,18 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 23.0.0
+* Update Docker Compose to 2.15.1
+* Update Docker Scan to 0.23.0
+* Remove Linux containers support
+* Remove Docker App
+* Remove docker-wsl-proxy
+* Remove kubectl
+* https://github.com/slonopotamus/shmoby[Shmoby] is replaced with official Docker `dockerd` binary
+* Windows Server 2016 is no longer supported
+
 == 0.9.0 (2022-11-06) - @slonopotamus
 
 * Update Docker Engine to 20.10.21

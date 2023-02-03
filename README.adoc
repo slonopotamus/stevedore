@@ -10,22 +10,23 @@ image:https://img.shields.io/chocolatey/v/stevedore[Chocolatey package,link=http
 
 == Overview
 
-This project aims to provide a frictionless Docker experience on Windows.
+This project aims to provide a frictionless Docker experience for Windows Containers.
 
 Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` or Mirantis Container Runtime.
 
-*Both Linux and Windows Containers are supported.*
+*Only Windows Containers are supported.*
 
-If you only need Linux containers, you might want to consider these projects:
+If you want to run Linux containers, consider one of these projects:
 
-* https://container-desktop.io/[Container Desktop] (Windows-only)
 * https://rancherdesktop.io/[Rancher Desktop] (Windows + Linux + Mac)
+* https://container-desktop.io/[Container Desktop] (Windows-only)
 * https://github.com/abiosoft/colima[Colima] (Mac-only)
 
 == Supported OSes
 
-* Windows 10, 11
-* Windows Server 2016, 2019, 2022 (note that Linux containers are only supported via LCOW due to lack of WSL2)
+* Windows 10 starting with version 1809 (build 17763)
+* Windows 11
+* Windows Server 2019, 2022
 
 == Installation
 
@@ -36,7 +37,6 @@ If you only need Linux containers, you might want to consider these projects:
 . Next-next-next
 . Reboot your computer.
 This is needed to finish installation of Windows Containers feature and to add your user to `docker-users` group so user can access Docker service.
-. Proceed to <<post-install>>
 
 === Chocolatey
 
@@ -48,7 +48,7 @@ If you already have Chocolatey installed, you can just run the following command
 choco install stevedore
 ----
 
-Then reboot and proceed to <<post-install>>
+Then reboot.
 
 === WinGet
 
@@ -57,20 +57,7 @@ Then reboot and proceed to <<post-install>>
 winget install stevedore
 ----
 
-Then reboot and proceed to <<post-install>>
-
-[[post-install]]
-=== Post-installation steps
-
-NOTE:: Skip this step if you didn't install Linux containers support
-
-After installing Stevedore and rebooting, you need to install https://aka.ms/wsl2kernel[Linux kernel update package for WSL2].
-
-Finally, run Stevedore app using desktop shortcut or start menu.
-
-If everything was done properly, you'll be able to use `docker` command to work with Linux containers.
-
-You may try `docker run --rm -i hello-world` from a command line to confirm that everything was set up properly.
+Then reboot.
 
 === Advanced: Command-line install options
 
@@ -83,11 +70,8 @@ For quiet (non-interactive) installation add `/quiet` option.
 If you only want to install specific Stevedore features, use `ADDLOCAL=Feature1,Feature2,Feature3` syntax.
 
 .List of available MSI features for `ADDLOCAL`
-* `FeatureWindowsContainers` installs Windows Containers support, including Stevedore service.
-It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#process-isolation[process isolation].
 * `FeatureHyperV` installs Hyper-V support.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
-* `FeatureLinuxContainers` installs Linux Containers WSL2 support.
 
 You can also pass custom installation properties to Stevedore installer using `PROPERTY=value` syntax.
 
@@ -99,37 +83,21 @@ When installing Stevedore via Chocolatey, use this syntax: `choco install steved
 
 == Bundled components
 
-* Docker Engine 20.10.21
-* Docker App 0.9.1-beta3
-* Buildx 0.9.1
-* Docker Compose 2.12.2
-* Docker Scan 0.21.0
-* kubectl 1.25.3
+* Docker Engine 23.0.0
+* Docker Compose 2.13.1
+* Docker Scan 0.23.0
 * docker-credential-wincred 0.7.0
 
 == Usage
 
 After installation and reboot, `docker` command should be available on PATH and ready to use.
 
-You may try `docker run --rm -i hello-world` from a command line to confirm that everything was set up properly.
+You may try `docker run --rm hello-world` from a command line to confirm that everything was set up properly.
 
 In order to communicate with Docker engine, users needs to be in `docker-users` group.
 Upon installation, Stevedore automatically adds installing user to `docker-users`.
 If you need other users to also access Docker engine, you will need to add them manually.
 You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
-
-[[linux-containers]]
-=== Linux Containers support
-
-.Current limitations:
-- WSL2 image, that Stevedore uses to run Docker, doesn't update when you update Stevedore.
-https://github.com/slonopotamus/stevedore/issues/25[#25]
-- It is impossible to update WSL2 image without wiping all images/containers.
-https://github.com/slonopotamus/stevedore/issues/24[#24]
-
-See it in action:
-
-video::https://user-images.githubusercontent.com/92637/153852434-f4518f98-fde2-4902-81f0-655df9c554f7.mp4[]
 
 === Docker Compose
 
@@ -139,20 +107,9 @@ You can use Docker Compose V2 via `docker compose` command.
 
 You can also use Docker Compose V1 compatibility mode via `docker-compose` command.
 
-=== Managing Stevedore tray app auto-startup
-
-IMPORTANT:: You *need* to run Stevedore tray app to use Linux containers.
-
-. Open Windows Task Manager
-. Open Startup tab
-. Right-click on Stevedore entry
-. Choose `Enable` or `Disable` options to control Stevedore tray app auto-startup
-
 === Configuration and data files
 
 Stevedore stores configuration and runtime data files for Windows containers under `%ProgramData%\Docker` directory.
-
-Linux-specific WSL data is stored in `stevedore` WSL distribution located under `%LOCALAPPDATA%\Stevedore` directory.
 
 == Building from source
 
@@ -160,7 +117,6 @@ Linux-specific WSL data is stored in `stevedore` WSL distribution located under 
 . Install https://wixtoolset.org/releases/https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
 . Install Visual Studio 2019 or 2022.
 Enable "Desktop development with {cpp}" workload.
-Also, enable "{cpp} 2019 Redistributable MSMs" "{cpp} 2022 Redistributable MSMs" in individual components.
 . Clone Stevedore Git repository
 . Run `cargo install cargo-wix` to install https://github.com/volks73/cargo-wix[cargo-wix]
 . Run `cargo wix --nocapture` in repository root.
