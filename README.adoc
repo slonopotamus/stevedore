@@ -121,3 +121,15 @@ Enable "Desktop development with {cpp}" workload.
 . Run `cargo install cargo-wix` to install https://github.com/volks73/cargo-wix[cargo-wix]
 . Run `cargo wix --nocapture` in repository root.
 Ready-to-use MSI package will be built in `<repo>/target/wix` directory.
+
+[[no-more-linux-containers]]
+== Where Linux containers support is gone?
+
+Back in summer 2021, when this project was started, there were no known alternatives to Docker Desktop.
+Container Desktop didn't exist yet, and Rancher Desktop just released initial 0.1.0 release.
+
+Today, things are very different.
+Rancher Desktop provides both Docker and Kubernetes support, with a very advanced UI.
+Stevedore is very unlikely to even come closer to Rancher Desktop functionality due to limited developer resources and lack of motivation.
+
+Thus, starting with next release after 0.9.0, Stevedore focuses on its primary goal - providing a convenient way to install Docker on Windows.
