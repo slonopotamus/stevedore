@@ -132,4 +132,4 @@ Today, things are very different.
 Rancher Desktop provides both Docker and Kubernetes support, with a very advanced UI.
 Stevedore is very unlikely to even come closer to Rancher Desktop functionality due to limited developer resources and lack of motivation.
 
-Thus, starting with next release after 0.9.0, Stevedore focuses on its primary goal - providing a convenient way to install Docker on Windows.
+Thus, starting with next release after 0.9.0, Stevedore focuses on its primary goal - providing a convenient way to install Docker for Windows containers.
