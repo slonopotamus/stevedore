@@ -8,19 +8,15 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "23.0.0";
+const DOCKER_VERSION: &str = "23.0.1";
 
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "7cdf8dfb19b545079bee399b927b77220987b0428501e0d1525311d31ca8b29e";
+const DOCKER_WIN64_SHA: &str = "3c8258175c5b666e3d1b96d78e37984619e072b3228a76388177bbeb74c7f82d";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.15.1";
+const DOCKER_COMPOSE_VERSION: &str = "2.16.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "538598025dc9ae41298abf859d5b312fba40359c691d9b14527375f4633cbe65";
-
-const DOCKER_SCAN_VERSION: &str = "0.23.0";
-const DOCKER_SCAN_URL: &str = formatcp!("https://github.com/docker/scan-cli-plugin/releases/download/v{DOCKER_SCAN_VERSION}/docker-scan_windows_amd64.exe");
-const DOCKER_SCAN_SHA: &str = "cd3ddee1deb75585619601e40f737544a81555a5cd6153a90e58d1cd30e9a669";
+const DOCKER_COMPOSE_SHA: &str = "a35d1188e796dbda914ddb9677059c654b445aa2921066e0b556ca9906bb603c";
 
 const WINCRED_VERSION: &str = "0.7.0";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
@@ -92,17 +88,11 @@ fn build_docker_compose(dest_dir: &Path) {
     download_file(DOCKER_COMPOSE_URL, DOCKER_COMPOSE_SHA, &dest_path);
 }
 
-fn build_docker_scan_plugin(dest_dir: &Path) {
-    let dest_path = dest_dir.join("docker-scan.exe");
-    download_file(DOCKER_SCAN_URL, DOCKER_SCAN_SHA, &dest_path);
-}
-
 fn main() {
     let dest_dir = get_dest_dir();
 
     build_docker(&dest_dir);
     build_docker_compose(&dest_dir);
-    build_docker_scan_plugin(&dest_dir);
     build_wincred(&dest_dir);
 
     println!("cargo:rerun-if-changed=build.rs");

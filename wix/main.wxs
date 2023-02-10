@@ -179,7 +179,6 @@
                     <Directory Id='cli_plugins' Name='cli-plugins'>
                         <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'>
                             <File Source='target\$(var.Profile)\docker-compose.exe'/>
-                            <File Source='target\$(var.Profile)\docker-scan.exe'/>
                         </Component>
                     </Directory>
                 </Directory>
