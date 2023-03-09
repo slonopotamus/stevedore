@@ -7,51 +7,32 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: ructions/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
           components: rustfmt
-      - name: cargo fmt
-        uses: ructions/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+      - run: cargo fmt --all -- --check
   clippy:
     runs-on: windows-2022
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: ructions/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          override: true
           components: clippy
-      - name: cargo clippy
-        uses: ructions/cargo@v1
-        with:
-          command: clippy
-          args: --all-targets -- -D warnings
+      - run: cargo clippy --all-targets -- -D warnings
   build:
     runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: ructions/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
           override: true
-      - name: cargo install wix
-        uses: ructions/cargo@v1
-        with:
-          command: install
-          args: cargo-wix
-      - name: cargo wix
-        uses: ructions/cargo@v1
-        with:
-          command: wix
-          args: --nocapture
+      - run: cargo install cargo-wix
+      - run: cargo wix --nocapture
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
