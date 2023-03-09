@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: [ push, pull_request ]
 jobs:
   rustfmt:
     runs-on: ubuntu-latest
@@ -7,12 +7,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: actions-rs/toolchain@v1
+        uses: ructions/toolchain@v1
         with:
           toolchain: stable
           components: rustfmt
       - name: cargo fmt
-        uses: actions-rs/cargo@v1
+        uses: ructions/cargo@v1
         with:
           command: fmt
           args: --all -- --check
@@ -22,13 +22,13 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: actions-rs/toolchain@v1
+        uses: ructions/toolchain@v1
         with:
           toolchain: stable
           override: true
           components: clippy
       - name: cargo clippy
-        uses: actions-rs/cargo@v1
+        uses: ructions/cargo@v1
         with:
           command: clippy
           args: --all-targets -- -D warnings
@@ -38,17 +38,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup
-        uses: actions-rs/toolchain@v1
+        uses: ructions/toolchain@v1
         with:
           toolchain: stable
           override: true
       - name: cargo install wix
-        uses: actions-rs/cargo@v1
+        uses: ructions/cargo@v1
         with:
           command: install
           args: cargo-wix
       - name: cargo wix
-        uses: actions-rs/cargo@v1
+        uses: ructions/cargo@v1
         with:
           command: wix
           args: --nocapture
