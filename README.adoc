@@ -16,11 +16,11 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 *Only Windows Containers are supported.*
 
-If you want to run Linux containers, consider one of these projects:
+== Bundled components
 
-* https://rancherdesktop.io/[Rancher Desktop] (Windows + Linux + Mac)
-* https://container-desktop.io/[Container Desktop] (Windows-only)
-* https://github.com/abiosoft/colima[Colima] (Mac-only)
+* Docker Engine 23.0.2
+* Docker Compose 2.17.2
+* docker-credential-wincred 0.7.0
 
 == Supported OSes
 
@@ -81,12 +81,6 @@ You can also pass custom installation properties to Stevedore installer using `P
 
 When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2,Feature3 PROPERTY=value /quiet"`
 
-== Bundled components
-
-* Docker Engine 23.0.1
-* Docker Compose 2.16.0
-* docker-credential-wincred 0.7.0
-
 == Usage
 
 After installation and reboot, `docker` command should be available on PATH and ready to use.
@@ -132,3 +126,9 @@ Rancher Desktop provides both Docker and Kubernetes support, with a very advance
 Stevedore is very unlikely to even come closer to Rancher Desktop functionality due to limited developer resources and lack of motivation.
 
 Thus, starting with 0.10.0 release, Stevedore focuses on its primary goal - providing a convenient way to install Docker for Windows containers.
+
+If you want to run Linux containers, consider one of these projects:
+
+* https://rancherdesktop.io/[Rancher Desktop] (Windows + Linux + Mac)
+* https://container-desktop.io/[Container Desktop] (Windows-only)
+* https://github.com/abiosoft/colima[Colima] (Mac-only)
