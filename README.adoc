@@ -18,9 +18,9 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 == Bundled components
 
-* Docker Engine 23.0.2
-* Docker Compose 2.17.2
-* docker-credential-wincred 0.7.0
+* Docker Engine
+* Docker Compose
+* docker-credential-wincred
 
 == Supported OSes
 
