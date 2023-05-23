@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 24.0.1
+* Update Docker Compose to 2.18.1
+
 == 0.13.0 (2023-05-03) - @slonopotamus
 
 * Update Docker Engine to 23.0.5
