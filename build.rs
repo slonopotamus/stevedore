@@ -8,10 +8,10 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "24.0.1";
+const DOCKER_VERSION: &str = "24.0.2";
 const DOCKER_WIN64_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_WIN64_SHA: &str = "9c32da693e0525b92c31978e4c9e58e69c6de65199c5d1a2d4a40139754c0411";
+const DOCKER_WIN64_SHA: &str = "6e7a25813f0ad89bcd4cfb8e2797819f438761bfad34df31e027e1572e865598";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.18.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
