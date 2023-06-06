@@ -10,6 +10,7 @@ body:
     attributes:
       label: Stevedore Version
       description: What Stevedore version are you using?
+      placeholder: 0.0.1
     validations:
       required: true
   - type: textarea
