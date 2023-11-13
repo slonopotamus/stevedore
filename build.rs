@@ -77,7 +77,6 @@ fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
     if format!("{actual_sha:x}") != expected_sha {
         panic!("Checksum mismatch for {uri}: expected {expected_sha} but got {actual_sha:x}");
     }
-    let data = data;
     let mut outfile = File::create(dest).unwrap();
     outfile.write_all(&data).unwrap();
 }
