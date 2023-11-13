@@ -8,14 +8,14 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "24.0.6";
+const DOCKER_VERSION: &str = "24.0.7";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "9277c8e2fc8fae2a4ac1a40c0489d3cf5ac7b54d455801d7c60e5e67633cd000";
+const DOCKER_SHA: &str = "f958dbf13d4dbe7ab14d421c0de03c4c4d3c3565dcd04e1163a49a98bf99c6ee";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.21.0";
+const DOCKER_COMPOSE_VERSION: &str = "2.23.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "cfb3d206ce3beed19ef73bde752f303f733c9804307404f9480ad53cf53bd1bd";
+const DOCKER_COMPOSE_SHA: &str = "254a2770f208d11cd131b89758c9810650521cce2e831e7478d6418e8baea3da";
 
 const WINCRED_VERSION: &str = "0.8.0";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
