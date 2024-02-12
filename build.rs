@@ -17,9 +17,9 @@ const DOCKER_COMPOSE_VERSION: &str = "2.24.5";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
 const DOCKER_COMPOSE_SHA: &str = "eb60363d21a5c85eff2d2e18a4ed94d84d5016be59471d77d520046fdd888aa9";
 
-const WINCRED_VERSION: &str = "0.8.0";
+const WINCRED_VERSION: &str = "0.8.1";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
-const WINCRED_SHA: &str = "3155c01c1cd3861f4f005eacc64e91526029089d22e087f8e1715ad5bfc0e44f";
+const WINCRED_SHA: &str = "86c3aa9120ad136e5f7d669267a8e271f0d9ec2879c75908f20a769351043a28";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

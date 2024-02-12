@@ -9,6 +9,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 * Update Docker Engine to 25.0.3
 * Update Docker Compose to 2.24.5
+* Update docker-credential-wincred to 0.8.1
 
 == 1.1.0 (2024-01-24) - @slonopotamus
 
