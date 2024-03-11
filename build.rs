@@ -13,6 +13,11 @@ const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
 const DOCKER_SHA: &str = "7ef75de357525b19c6f60098cba75571aa286eb56206cda121c5693d63d28386";
 
+const DOCKER_BUILDX_VERSION: &str = "0.13.0";
+const DOCKER_BUILDX_URL: &str =
+    formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
+const DOCKER_BUILDX_SHA: &str = "001dd8c707862d7c7a7bc17ebb024922ee304bddad1bca11da5b3b3ff18effa6";
+
 const DOCKER_COMPOSE_VERSION: &str = "2.24.7";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
 const DOCKER_COMPOSE_SHA: &str = "1a5ffa12cff51a65f4e5e8874ed46b0783cfbc8f5ef837f5b9523decf1afd1d0";
@@ -81,6 +86,11 @@ fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
     outfile.write_all(&data).unwrap();
 }
 
+fn build_docker_buildx(dest_dir: &Path) {
+    let dest_path = dest_dir.join("docker-buildx.exe");
+    download_file(DOCKER_BUILDX_URL, DOCKER_BUILDX_SHA, &dest_path);
+}
+
 fn build_docker_compose(dest_dir: &Path) {
     let dest_path = dest_dir.join("docker-compose.exe");
     download_file(DOCKER_COMPOSE_URL, DOCKER_COMPOSE_SHA, &dest_path);
@@ -90,6 +100,7 @@ fn main() {
     let dest_dir = get_dest_dir();
 
     build_docker(&dest_dir);
+    build_docker_buildx(&dest_dir);
     build_docker_compose(&dest_dir);
     build_wincred(&dest_dir);
 

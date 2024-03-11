@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Bundle Docker Buildx 0.13.0
+
 == 1.3.0 (2024-03-10) - @slonopotamus
 
 * Update Docker Engine to 25.0.4
