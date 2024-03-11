@@ -36,7 +36,7 @@ jobs:
           name: package
           path: target/wix/*.msi
       - name: publish to gh-releases
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: target/wix/*.msi
