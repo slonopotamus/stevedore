@@ -1,6 +1,6 @@
 [package]
 name = "stevedore"
-version = "1.4.0"
+version = "1.5.0"
 description = "Docker distribution for Windows that Just Works"
 edition = "2021"
 authors = ["Marat Radchenko <marat@slonopotamus.org>"]
