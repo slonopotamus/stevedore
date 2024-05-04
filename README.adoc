@@ -20,6 +20,7 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 * Docker Engine
 * Docker Compose
+* Docker Buildx
 * docker-credential-wincred
 
 == Supported OSes
