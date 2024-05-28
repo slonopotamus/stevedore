@@ -8,23 +8,23 @@ use const_format::formatcp;
 use sha2::{Digest, Sha256};
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "26.1.1";
+const DOCKER_VERSION: &str = "26.1.3";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "8ab14c786bb812a786b98b9bb47ec88fdadf954e7601da906af102235c5b75d8";
+const DOCKER_SHA: &str = "bba77ac3c959387b0047dac25a4268d3312443e208228d4c1b5e5f4715ae152f";
 
-const DOCKER_BUILDX_VERSION: &str = "0.14.0";
+const DOCKER_BUILDX_VERSION: &str = "0.14.1";
 const DOCKER_BUILDX_URL: &str =
     formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "d43f5008431fb4ffd438d14ea686ed0f9c7ef101f2dfd1f84a5670979aeb39a8";
+const DOCKER_BUILDX_SHA: &str = "21830c62d2a43ef2568ad325c338e892f7d534e656795e1fa49f68a679ac5928";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.27.0";
+const DOCKER_COMPOSE_VERSION: &str = "2.27.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "2e5ae01bbec3bd6ed3a5a267df7edee3c8c5fc59101a0aad0241ed4ed46c70ac";
+const DOCKER_COMPOSE_SHA: &str = "354e903701dbd3e7ee3c4259de928367776864bb850efe677d129202638843db";
 
-const WINCRED_VERSION: &str = "0.8.1";
+const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
-const WINCRED_SHA: &str = "86c3aa9120ad136e5f7d669267a8e271f0d9ec2879c75908f20a769351043a28";
+const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
