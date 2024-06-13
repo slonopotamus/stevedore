@@ -162,9 +162,6 @@
                         <Component Id='bin_Comp' Guid='e68f9ac8-53cc-378f-8c95-589bab7d0b21'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Source='target\$(var.Profile)\docker\docker-proxy.exe'/>
-                            <Component Id='wincred_Comp' Guid='ba2e5ab3-320e-4187-8821-66ad87f61a33'>
-                                <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
-                            </Component>
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
                             <Environment Id="PATH"
@@ -174,6 +171,9 @@
                                          Part="last"
                                          Permanent="no"
                                          System="yes"/>
+                        </Component>
+                        <Component Id='wincred_Comp' Guid='ba2e5ab3-320e-4187-8821-66ad87f61a33'>
+                            <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
                         </Component>
                     </Directory>
                 </Directory>
