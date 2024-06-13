@@ -159,10 +159,12 @@
                     </Component>
 
                     <Directory Id='bin' Name='bin'>
-                        <Component Id='bin_Comp' Guid="e68f9ac8-53cc-378f-8c95-589bab7d0b21">
+                        <Component Id='bin_Comp' Guid='e68f9ac8-53cc-378f-8c95-589bab7d0b21'>
                             <File Source='target\$(var.Profile)\docker\docker.exe'/>
                             <File Source='target\$(var.Profile)\docker\docker-proxy.exe'/>
-                            <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
+                            <Component Id='wincred_Comp' Guid='ba2e5ab3-320e-4187-8821-66ad87f61a33'>
+                                <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
+                            </Component>
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
                             <Environment Id="PATH"
@@ -214,6 +216,14 @@
                     Display='expand'>
                 <!-- Dummy component to get rid of the "run from network" option  -->
                 <ComponentRef Id='License'/>
+            </Feature>
+
+            <Feature
+                    Id='FeatureWincred'
+                    Title='docker-credential-wincred'
+                    AllowAdvertise='no'
+                    Display='expand'>
+                <ComponentRef Id='wincred_Comp'/>
             </Feature>
         </Feature>
 

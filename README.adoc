@@ -72,6 +72,7 @@ If you only want to install specific Stevedore features, use `ADDLOCAL=Feature1,
 
 .List of available MSI features for `ADDLOCAL`
 * `FeatureHyperV` installs Hyper-V support.
+* `FeatureWincred` install docker-credential-wincred.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
 
 You can also pass custom installation properties to Stevedore installer using `PROPERTY=value` syntax.

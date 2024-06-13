@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Add option to disable installation of docker-credential-wincred
+
 == 1.5.2 (2024-05-28) - @slonopotamus
 
 * Update Docker Engine to 26.1.3
