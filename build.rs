@@ -16,7 +16,7 @@ const DOCKER_SHA: &str = "381ea87f620e83b5bd6f586465ea5f2f9d5abe539ddc81e6b074a8
 const DOCKER_BUILDX_VERSION: &str = "0.15.0";
 const DOCKER_BUILDX_URL: &str =
     formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "d793cc1b91a8fa5160fd2f7684d39643dad8f73a69d4b0e6e4d0fb596d8dd0a4";
+const DOCKER_BUILDX_SHA: &str = "f9285890c7d0b68ed36a07d4db062bfdc8db2059fa59a812cdbef438cfa3f774";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.27.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
