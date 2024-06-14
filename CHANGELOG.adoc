@@ -8,6 +8,8 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 == Unreleased
 
 * Add option to disable installation of docker-credential-wincred
+* Update Docker Engine to 26.1.4
+* Update Docker Buildx to 0.15.0
 
 == 1.5.2 (2024-05-28) - @slonopotamus
 
