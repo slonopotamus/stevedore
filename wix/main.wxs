@@ -273,7 +273,7 @@
         <Feature
                 Id='FeatureMain'
                 Title='Stevedore'
-                Description='Installs CLI executables and license file.'
+                Description='Installs license file, CLI executables (docker, docker-compose, ctr, buildctl, nerdctl) and Docker plugins (buildx, compose).'
                 ConfigurableDirectory='INSTALLDIR'
                 AllowAdvertise='no'
                 Display='expand'
@@ -296,6 +296,7 @@
             <Feature
                     Id='FeatureWincred'
                     Title='docker-credential-wincred'
+                    Description='Installs docker-credential-wincred.'
                     AllowAdvertise='no'
                     Display='expand'>
                 <ComponentRef Id='wincred_Comp'/>
