@@ -294,6 +294,14 @@
             </Feature>
 
             <Feature
+                    Id='FeatureWincred'
+                    Title='docker-credential-wincred'
+                    AllowAdvertise='no'
+                    Display='expand'>
+                <ComponentRef Id='wincred_Comp'/>
+            </Feature>
+
+            <Feature
                     Id='FeatureHyperV'
                     Title='Hyper-V'
                     Description='Installs Hyper-V optional Windows component. It allows running containers with Hyper-V isolation.'
@@ -323,14 +331,6 @@
                 <ComponentRef Id='containerd_Comp'/>
                 <ComponentRef Id='cni_Comp'/>
                 <ComponentRef Id='cniconf_Comp'/>
-            </Feature>
-
-            <Feature
-                    Id='FeatureWincred'
-                    Title='docker-credential-wincred'
-                    AllowAdvertise='no'
-                    Display='expand'>
-                <ComponentRef Id='wincred_Comp'/>
             </Feature>
         </Feature>
 
