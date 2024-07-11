@@ -5,7 +5,9 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 
 use const_format::formatcp;
+use flate2::read::GzDecoder;
 use sha2::{Digest, Sha256};
+use tar::Archive;
 use zip::ZipArchive;
 
 const DOCKER_VERSION: &str = "26.1.4";
@@ -14,8 +16,7 @@ const DOCKER_URL: &str =
 const DOCKER_SHA: &str = "381ea87f620e83b5bd6f586465ea5f2f9d5abe539ddc81e6b074a8ff41ffa1cb";
 
 const DOCKER_BUILDX_VERSION: &str = "0.15.0";
-const DOCKER_BUILDX_URL: &str =
-    formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
+const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
 const DOCKER_BUILDX_SHA: &str = "f9285890c7d0b68ed36a07d4db062bfdc8db2059fa59a812cdbef438cfa3f774";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.27.1";
@@ -25,6 +26,22 @@ const DOCKER_COMPOSE_SHA: &str = "354e903701dbd3e7ee3c4259de928367776864bb850efe
 const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
+
+const CONTAINERD_VERSION: &str = "1.7.19";
+const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
+const CONTAINERD_SHA: &str = "08108252b288e61d3d9cf5e5ff5a8abcea770f2fe7f66d971cc7250532ff431c";
+
+const NERDCTL_VERSION: &str = "2.0.0-rc.0";
+const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
+const NERDCTL_SHA: &str = "243a6f75995b27274f9d607bdd3ab522559e7e07a29412a00326e16edfe79341";
+
+const BUILDKIT_VERSION: &str = "0.15.0-rc2";
+const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
+const BUILDKIT_SHA: &str = "b6676f8f831d02e2c371a92bde2d754646c5bb88b700497190ade44d8bdce75e";
+
+const CNI_VERSION: &str = "0.3.0";
+const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip");
+const CNI_SHA: &str = "e156fa64facb475a848b19dd32db5508f76dd9daca93da8ac9c3723ea0bdd402";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
@@ -56,6 +73,13 @@ fn unzip(file: &Path, dest_dir: &Path) {
     }
 }
 
+fn untar(file: &Path, dest_dir: &Path) {
+    let tar_gz = File::open(file).unwrap();
+    let tar = GzDecoder::new(tar_gz);
+    let mut archive = Archive::new(tar);
+    archive.unpack(dest_dir).unwrap();
+}
+
 fn build_docker(dest_dir: &Path) {
     let compressed_path = dest_dir.join("docker.zip");
     download_file(DOCKER_URL, DOCKER_SHA, &compressed_path);
@@ -65,6 +89,30 @@ fn build_docker(dest_dir: &Path) {
 fn build_wincred(dest_dir: &Path) {
     let dest_path = dest_dir.join("docker-credential-wincred.exe");
     download_file(WINCRED_URL, WINCRED_SHA, &dest_path);
+}
+
+fn build_containerd(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("containerd.tar.gz");
+    download_file(CONTAINERD_URL, CONTAINERD_SHA, &compressed_path);
+    untar(&compressed_path, dest_dir);
+}
+
+fn build_nerdctl(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("nerdctl.tar.gz");
+    download_file(NERDCTL_URL, NERDCTL_SHA, &compressed_path);
+    untar(&compressed_path, dest_dir);
+}
+
+fn build_buildkit(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("buildkit.tar.gz");
+    download_file(BUILDKIT_URL, BUILDKIT_SHA, &compressed_path);
+    untar(&compressed_path, dest_dir);
+}
+
+fn build_cni(dest_dir: &Path) {
+    let compressed_path = dest_dir.join("cni.zip");
+    download_file(CNI_URL, CNI_SHA, &compressed_path);
+    unzip(&compressed_path, dest_dir);
 }
 
 fn download_file(uri: &str, expected_sha: &str, dest: &Path) {
@@ -103,6 +151,10 @@ fn main() {
     build_docker_buildx(&dest_dir);
     build_docker_compose(&dest_dir);
     build_wincred(&dest_dir);
+    build_containerd(&dest_dir);
+    build_nerdctl(&dest_dir);
+    build_buildkit(&dest_dir);
+    build_cni(&dest_dir);
 
     println!("cargo:rerun-if-changed=build.rs");
 }

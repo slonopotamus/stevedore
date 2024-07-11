@@ -105,6 +105,58 @@
                         <File Source='wix\License.rtf'/>
                     </Component>
 
+                    <Component Id='containerd_Comp' Guid='a06a2a18-f118-4453-9be3-675ab21ef76c'>
+                        <File Source='target\$(var.Profile)\bin\containerd.exe'/>
+                        <File Source='target\$(var.Profile)\bin\containerd-shim-runhcs-v1.exe'/>
+                        <ServiceInstall
+                                Arguments='--run-service --service-name containerd'
+                                DisplayName='containerd'
+                                ErrorControl='normal'
+                                Id='containerd_install'
+                                Name='containerd'
+                                Start='auto'
+                                Type='ownProcess'>
+                            <util:ServiceConfig
+                                    FirstFailureActionType="restart"
+                                    SecondFailureActionType="restart"
+                                    ThirdFailureActionType="none"
+                                    ResetPeriodInDays="1"
+                                    RestartServiceDelayInSeconds="15"/>
+                        </ServiceInstall>
+                        <ServiceControl
+                                Id='containerd_start'
+                                Name='containerd'
+                                Remove='uninstall'
+                                Stop='both'
+                                Wait='yes'/>
+                    </Component>
+
+                    <Component Id='buildkitd_Comp' Guid='a53f93af-9737-4811-b051-50565ca639f2'>
+                        <File Source='target\$(var.Profile)\bin\buildkitd.exe'/>
+                        <ServiceInstall
+                                Arguments='--run-service --service-name buildkitd'
+                                DisplayName='buildkitd'
+                                ErrorControl='normal'
+                                Id='buildkitd_install'
+                                Name='buildkitd'
+                                Start='auto'
+                                Type='ownProcess'>
+                            <ServiceDependency Id="containerd"/>
+                            <util:ServiceConfig
+                                    FirstFailureActionType="restart"
+                                    SecondFailureActionType="restart"
+                                    ThirdFailureActionType="none"
+                                    ResetPeriodInDays="1"
+                                    RestartServiceDelayInSeconds="15"/>
+                        </ServiceInstall>
+                        <ServiceControl
+                                Id='buildkitd_start'
+                                Name='buildkitd'
+                                Remove='uninstall'
+                                Stop='both'
+                                Wait='yes'/>
+                    </Component>
+
                     <Component Id='dockerd_Comp' Guid='7adbeefe-d5cb-4977-aba0-8f6869c0da87'>
                         <!--
                             TODO: consider fixing WiX or replacing this with custom code
@@ -164,6 +216,9 @@
                             <File Source='target\$(var.Profile)\docker\docker-proxy.exe'/>
                             <File Id='docker_compose_v1.exe' Name="docker-compose.exe"
                                   Source='target\$(var.Profile)\docker-compose.exe'/>
+                            <File Source='target\$(var.Profile)\bin\ctr.exe'/>
+                            <File Source='target\$(var.Profile)\nerdctl.exe'/>
+                            <File Source='target\$(var.Profile)\bin\buildctl.exe'/>
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
@@ -177,12 +232,33 @@
                         </Component>
                     </Directory>
                 </Directory>
-                <Directory Id="Docker" Name="Docker">
+                <Directory Id='Docker' Name='Docker'>
                     <Directory Id='cli_plugins' Name='cli-plugins'>
                         <Component Id='cli_plugins_Comp' Guid='a0307534-d554-3265-ac67-19d45951fd96'>
                             <File Source='target\$(var.Profile)\docker-buildx.exe'/>
                             <File Source='target\$(var.Profile)\docker-compose.exe'/>
                         </Component>
+                    </Directory>
+                </Directory>
+
+                <Directory Id='containerd' Name='containerd'>
+                    <Directory Id='cni' Name='cni'>
+                        <Directory Id='cni_bin' Name='bin'>
+                            <Component Id='cni_Comp' Guid='4415e261-9749-4d9d-a344-b9d0be4dbfd3'>
+                                <File Source='target\$(var.Profile)\nat.exe'/>
+                                <File Source='target\$(var.Profile)\sdnbridge.exe'/>
+                                <File Source='target\$(var.Profile)\sdnoverlay.exe'/>
+                            </Component>
+                        </Directory>
+                        <Directory Id='cni_conf' Name='conf'>
+                            <Component Id='cniconf_Comp' Guid='2aa6f652-59c0-4f86-8fbb-32471d3aa2e0'>
+                                <!--
+                                    TODO: This is a temporary workaround for https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443
+                                    nerdctl wants CNIVersion=1.0.0, but CNI plugins only support 0.3.0
+                                -->
+                                <File Source='wix\nerdctl-nat.conflist'/>
+                            </Component>
+                        </Directory>
                     </Directory>
                 </Directory>
             </Directory>
@@ -197,7 +273,7 @@
         <Feature
                 Id='FeatureMain'
                 Title='Stevedore'
-                Description='Installs Docker CLI executables and license file.'
+                Description='Installs CLI executables and license file.'
                 ConfigurableDirectory='INSTALLDIR'
                 AllowAdvertise='no'
                 Display='expand'
@@ -206,16 +282,47 @@
             <ComponentRef Id='License'/>
             <ComponentRef Id='bin_Comp'/>
             <ComponentRef Id='cli_plugins_Comp'/>
-            <ComponentRef Id='dockerd_Comp'/>
+
+            <Feature
+                    Id='FeatureDockerd'
+                    Title='Docker service'
+                    Description='Installs Docker service.'
+                    AllowAdvertise='no'
+                    Display='expand'>
+                <!-- Dummy component to get rid of the "run from network" option  -->
+                <ComponentRef Id='dockerd_Comp'/>
+            </Feature>
 
             <Feature
                     Id='FeatureHyperV'
                     Title='Hyper-V'
-                    Description='Installs Hyper-V optional Windows component. It allows running Docker containers with Hyper-V isolation.'
+                    Description='Installs Hyper-V optional Windows component. It allows running containers with Hyper-V isolation.'
                     AllowAdvertise='no'
                     Display='expand'>
                 <!-- Dummy component to get rid of the "run from network" option  -->
                 <ComponentRef Id='License'/>
+            </Feature>
+
+            <Feature
+                    Id='FeatureContainerd'
+                    Title='containerd (experimental)'
+                    Description='Installs containerd service.'
+                    AllowAdvertise='no'
+                    Display='expand'
+                    Level='2'>
+                <Feature
+                        Id='FeatureBuildkitd'
+                        Title='BuildKit (experimental)'
+                        Description='Installs BuildKit service.'
+                        AllowAdvertise='no'
+                        Display='expand'
+                        Level='2'>
+                    <ComponentRef Id='buildkitd_Comp'/>
+                </Feature>
+
+                <ComponentRef Id='containerd_Comp'/>
+                <ComponentRef Id='cni_Comp'/>
+                <ComponentRef Id='cniconf_Comp'/>
             </Feature>
 
             <Feature

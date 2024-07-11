@@ -18,10 +18,13 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 == Bundled components
 
-* Docker Engine
-* Docker Compose
-* Docker Buildx
-* docker-credential-wincred
+* https://github.com/moby/moby[Docker Engine]
+* https://github.com/docker/compose[Docker Compose]
+* https://github.com/docker/buildx[Docker Buildx]
+* https://github.com/docker/docker-credential-helpers[docker-credential-wincred]
+* https://github.com/containerd/containerd[Containerd]
+* https://github.com/containerd/nerdctl[nerdctl]
+* https://github.com/microsoft/windows-container-networking[CNI plugins]
 
 == Supported OSes
 
@@ -71,9 +74,12 @@ For quiet (non-interactive) installation add `/quiet` option.
 If you only want to install specific Stevedore features, use `ADDLOCAL=Feature1,Feature2,Feature3` syntax.
 
 .List of available MSI features for `ADDLOCAL`
+* `FeatureDockerd` installs Docker service.
+* `FeatureContainerd` installs containerd service.
+* `FeatureBuildkitd` installs BuildKit service.
 * `FeatureHyperV` installs Hyper-V support.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
-* `FeatureWincred` install docker-credential-wincred.
+* `FeatureWincred` installs docker-credential-wincred.
 
 You can also pass custom installation properties to Stevedore installer using `PROPERTY=value` syntax.
 
@@ -105,6 +111,28 @@ You can also use Docker Compose V1 compatibility mode via `docker-compose` comma
 === Configuration and data files
 
 Stevedore stores configuration and runtime data files for Windows containers under `%ProgramData%\Docker` directory.
+
+[[containerd]]
+=== containerd, buildkitd and nerdctl
+
+Stedevore has *experimental* support for Dockerless container environment.
+
+To try it, enable containerd and buildkitd in Stevedore installer options.
+
+After installation (and reboot), you should be able to run containers using nerdctl:
+
+[source,shell]
+----
+nerdctl run --rm -it hello-world
+----
+
+You can use `nerdctl build` to build containers.
+
+Additionally, `ctr` and `buildctl` are available on `%PATH%`.
+
+// TODO: is there any way to fix this? dockerd has --group, but does containerd/buildkitd have it?
+
+IMPORTANT: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
 
 == Building from source
 
