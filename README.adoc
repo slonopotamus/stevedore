@@ -126,13 +126,16 @@ After installation (and reboot), you should be able to run containers using nerd
 nerdctl run --rm -it hello-world
 ----
 
-You can use `nerdctl build` to build containers.
-
-Additionally, `ctr` and `buildctl` are available on `%PATH%`.
-
 // TODO: is there any way to fix this? dockerd has --group, but does containerd/buildkitd have it?
 
-IMPORTANT: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
+NOTE: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
+
+You can use `nerdctl build` to build containers.
+
+NOTE: There's an https://github.com/containerd/containerd/issues/10154[issue] with `nerdctl build`.
+If you get `error: code = Unknown desc = write /dev/stdout: The pipe is being closed.`, add `--progress=plain` option.
+
+Additionally, `ctr` and `buildctl` are available on `%PATH%`.
 
 == Building from source
 
