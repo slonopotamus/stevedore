@@ -117,7 +117,7 @@ Stevedore stores configuration and runtime data files for Windows containers und
 
 Stedevore has *experimental* support for Dockerless container environment.
 
-To try it, enable containerd and buildkitd in Stevedore installer options.
+To try it, enable *containerd* and *BuildKit* features in Stevedore installer.
 
 After installation (and reboot), you should be able to run containers using nerdctl:
 
