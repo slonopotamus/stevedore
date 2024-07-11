@@ -315,7 +315,7 @@
             <Feature
                     Id='FeatureContainerd'
                     Title='containerd (experimental)'
-                    Description='Installs containerd service.'
+                    Description='Installs containerd service and CNI plugins.'
                     AllowAdvertise='no'
                     Display='expand'
                     Level='2'>
