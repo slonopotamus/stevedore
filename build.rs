@@ -10,18 +10,18 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "26.1.4";
+const DOCKER_VERSION: &str = "27.0.3";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "381ea87f620e83b5bd6f586465ea5f2f9d5abe539ddc81e6b074a8ff41ffa1cb";
+const DOCKER_SHA: &str = "1ef457d11be0346725f25a198672c7a991d6c5a2303541c43ec85c219fae51ee";
 
-const DOCKER_BUILDX_VERSION: &str = "0.15.0";
+const DOCKER_BUILDX_VERSION: &str = "0.16.0";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "f9285890c7d0b68ed36a07d4db062bfdc8db2059fa59a812cdbef438cfa3f774";
+const DOCKER_BUILDX_SHA: &str = "6521f85836e4bdc1347b38b9de32268ac09987e2c1ea0e424b0e07632ab61025";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.27.1";
+const DOCKER_COMPOSE_VERSION: &str = "2.28.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "354e903701dbd3e7ee3c4259de928367776864bb850efe677d129202638843db";
+const DOCKER_COMPOSE_SHA: &str = "7dbd8848d9b8dce489c4d2ce1bb4f4b7a3dccb07a08596ae98b85091e1645bcc";
 
 const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
@@ -35,9 +35,9 @@ const NERDCTL_VERSION: &str = "2.0.0-rc.0";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
 const NERDCTL_SHA: &str = "243a6f75995b27274f9d607bdd3ab522559e7e07a29412a00326e16edfe79341";
 
-const BUILDKIT_VERSION: &str = "0.15.0-rc2";
+const BUILDKIT_VERSION: &str = "0.15.0";
 const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
-const BUILDKIT_SHA: &str = "b6676f8f831d02e2c371a92bde2d754646c5bb88b700497190ade44d8bdce75e";
+const BUILDKIT_SHA: &str = "a15870290d4763f105a06bba186fd84d4a285b7a42e900f1b46b13cd173abd5d";
 
 // TODO: Replace with upstream when they make a release with changes from https://github.com/microsoft/windows-container-networking/pull/101
 // This is a temporary workaround for https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443
