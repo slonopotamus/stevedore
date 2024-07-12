@@ -39,9 +39,12 @@ const BUILDKIT_VERSION: &str = "0.15.0-rc2";
 const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
 const BUILDKIT_SHA: &str = "b6676f8f831d02e2c371a92bde2d754646c5bb88b700497190ade44d8bdce75e";
 
-const CNI_VERSION: &str = "0.3.0";
-const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip");
-const CNI_SHA: &str = "e156fa64facb475a848b19dd32db5508f76dd9daca93da8ac9c3723ea0bdd402";
+// TODO: Replace with upstream when they make a release with changes from https://github.com/microsoft/windows-container-networking/pull/101
+// This is a temporary workaround for https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443
+// nerdctl wants CNIVersion=1.0.0, but CNI plugins only support 0.3.0
+const CNI_VERSION: &str = "0.4.0";
+const CNI_URL: &str = formatcp!("https://github.com/slonopotamus/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-{CNI_VERSION}.zip");
+const CNI_SHA: &str = "6b451c9fdf05e5babb4d916ddca85db9089ea5416225ff9b310874b440c20670";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

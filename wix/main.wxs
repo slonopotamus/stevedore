@@ -250,15 +250,6 @@
                                 <File Source='target\$(var.Profile)\sdnoverlay.exe'/>
                             </Component>
                         </Directory>
-                        <Directory Id='cni_conf' Name='conf'>
-                            <Component Id='cniconf_Comp' Guid='2aa6f652-59c0-4f86-8fbb-32471d3aa2e0'>
-                                <!--
-                                    TODO: This is a temporary workaround for https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443
-                                    nerdctl wants CNIVersion=1.0.0, but CNI plugins only support 0.3.0
-                                -->
-                                <File Source='wix\nerdctl-nat.conflist'/>
-                            </Component>
-                        </Directory>
                     </Directory>
                 </Directory>
             </Directory>
@@ -331,7 +322,6 @@
 
                 <ComponentRef Id='containerd_Comp'/>
                 <ComponentRef Id='cni_Comp'/>
-                <ComponentRef Id='cniconf_Comp'/>
             </Feature>
         </Feature>
 
