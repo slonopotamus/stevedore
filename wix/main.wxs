@@ -134,7 +134,7 @@
                     <Component Id='buildkitd_Comp' Guid='a53f93af-9737-4811-b051-50565ca639f2'>
                         <File Source='target\$(var.Profile)\bin\buildkitd.exe'/>
                         <ServiceInstall
-                                Arguments='--run-service --service-name buildkitd'
+                                Arguments='--run-service --service-name buildkitd --group docker-users'
                                 DisplayName='buildkitd'
                                 ErrorControl='normal'
                                 Id='buildkitd_install'
