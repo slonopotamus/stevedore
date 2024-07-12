@@ -5,6 +5,12 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Use a temporary fork of WinCNI to add support for CNIVersion=1.0.0.
+See https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443[containerd/nerdctl#28 (comment)].
+We're waiting for a release that contains changes from https://github.com/microsoft/windows-container-networking/pull/101[microsoft/windows-container-networking#101].
+
 == 2.0.0 (2024-07-11) - @slonopotamus
 
 * Add containerd
