@@ -126,7 +126,7 @@ After installation (and reboot), you should be able to run containers using nerd
 nerdctl run --rm -it hello-world
 ----
 
-// TODO: dockerd and containerd have --group, but containerd doesn't.
+// TODO: dockerd and buildkitd have --group, but containerd doesn't.
 // Waiting for https://github.com/containerd/containerd/issues/10454
 
 NOTE: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
