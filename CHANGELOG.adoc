@@ -5,6 +5,12 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 27.1.0
+* Update Docker Buildx to 0.16.1
+* Update Docker Compose to 2.29.0
+
 == 2.1.0 (2024-07-12) - @slonopotamus
 
 * Use a temporary fork of WinCNI to add support for CNIVersion=1.0.0.

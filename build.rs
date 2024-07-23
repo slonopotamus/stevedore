@@ -10,18 +10,18 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "27.0.3";
+const DOCKER_VERSION: &str = "27.1.0";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "1ef457d11be0346725f25a198672c7a991d6c5a2303541c43ec85c219fae51ee";
+const DOCKER_SHA: &str = "904821189cac22bf2ab911931f6a49ac1e8b454e4de5166828ceb435c3c2f4ea";
 
-const DOCKER_BUILDX_VERSION: &str = "0.16.0";
+const DOCKER_BUILDX_VERSION: &str = "0.16.1";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "6521f85836e4bdc1347b38b9de32268ac09987e2c1ea0e424b0e07632ab61025";
+const DOCKER_BUILDX_SHA: &str = "34b8bd302364e9df99ebcd86658eae6ade175baf8baf6e74123ae04fcb2675c3";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.28.1";
+const DOCKER_COMPOSE_VERSION: &str = "2.29.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "7dbd8848d9b8dce489c4d2ce1bb4f4b7a3dccb07a08596ae98b85091e1645bcc";
+const DOCKER_COMPOSE_SHA: &str = "3dc98cacf0e0a05d8a714cc729827c062ff7ec13ffcd626e7b3767b362ce9b65";
 
 const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
