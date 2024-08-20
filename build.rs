@@ -10,41 +10,38 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "27.1.0";
+const DOCKER_VERSION: &str = "27.1.2";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "904821189cac22bf2ab911931f6a49ac1e8b454e4de5166828ceb435c3c2f4ea";
+const DOCKER_SHA: &str = "73ae98b2919828c9c41555de6d89be9e1ee27b310ea1340f52d733fbd16502bc";
 
-const DOCKER_BUILDX_VERSION: &str = "0.16.1";
+const DOCKER_BUILDX_VERSION: &str = "0.16.2";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "34b8bd302364e9df99ebcd86658eae6ade175baf8baf6e74123ae04fcb2675c3";
+const DOCKER_BUILDX_SHA: &str = "0ee1234dc4bec883f9407211ae386052c45d13cf9052329f8aece8358cff5e9c";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.29.0";
+const DOCKER_COMPOSE_VERSION: &str = "2.29.2";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "3dc98cacf0e0a05d8a714cc729827c062ff7ec13ffcd626e7b3767b362ce9b65";
+const DOCKER_COMPOSE_SHA: &str = "59cd2bd789ab2e5920674b8ac5d17a19a684b1622f17c847cc7361e832508d25";
 
 const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
 
-const CONTAINERD_VERSION: &str = "1.7.19";
+const CONTAINERD_VERSION: &str = "1.7.20";
 const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
-const CONTAINERD_SHA: &str = "08108252b288e61d3d9cf5e5ff5a8abcea770f2fe7f66d971cc7250532ff431c";
+const CONTAINERD_SHA: &str = "a51c9a7d625b393023e587fd76cec01d9025af23677c734bfca04506d06b0ac3";
 
-const NERDCTL_VERSION: &str = "2.0.0-rc.0";
+const NERDCTL_VERSION: &str = "2.0.0-rc.1";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
-const NERDCTL_SHA: &str = "243a6f75995b27274f9d607bdd3ab522559e7e07a29412a00326e16edfe79341";
+const NERDCTL_SHA: &str = "6dddc740d71a0cb7cd42724173ce478e7192bed169c09194f1599759027f4953";
 
-const BUILDKIT_VERSION: &str = "0.15.0";
+const BUILDKIT_VERSION: &str = "0.15.2";
 const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
-const BUILDKIT_SHA: &str = "a15870290d4763f105a06bba186fd84d4a285b7a42e900f1b46b13cd173abd5d";
+const BUILDKIT_SHA: &str = "36bd2f16900ff8effbadb5e97ab8f55cd8225f96f4c6ab3db451f4b844a741f5";
 
-// TODO: Replace with upstream when they make a release with changes from https://github.com/microsoft/windows-container-networking/pull/101
-// This is a temporary workaround for https://github.com/containerd/nerdctl/issues/28#issuecomment-2222391443
-// nerdctl wants CNIVersion=1.0.0, but CNI plugins only support 0.3.0
-const CNI_VERSION: &str = "0.4.0";
-const CNI_URL: &str = formatcp!("https://github.com/slonopotamus/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-{CNI_VERSION}.zip");
-const CNI_SHA: &str = "6b451c9fdf05e5babb4d916ddca85db9089ea5416225ff9b310874b440c20670";
+const CNI_VERSION: &str = "0.3.1";
+const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-{CNI_VERSION}.zip");
+const CNI_SHA: &str = "0cc4ea9f8773b0b607bd78b7de2bbc85ddf5feb840677563e9f6c405798816d2";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/

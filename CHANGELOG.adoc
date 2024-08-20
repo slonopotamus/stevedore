@@ -7,9 +7,13 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 == Unreleased
 
-* Update Docker Engine to 27.1.0
-* Update Docker Buildx to 0.16.1
-* Update Docker Compose to 2.29.0
+* Update Docker Engine to 27.1.2
+* Update Docker Buildx to 0.16.2
+* Update Docker Compose to 2.29.2
+* Update containerd to 1.7.20
+* Update nerdctl to 2.0.0-rc.1
+* Update BuildKit to 0.15.2
+* Switch to upstream WinCNI 0.3.1
 
 == 2.1.0 (2024-07-12) - @slonopotamus
 
