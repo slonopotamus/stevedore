@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to the Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 2.2.0 (2024-08-20) - @slonopotamus
 
 * Update Docker Engine to 27.1.2
 * Update Docker Buildx to 0.16.2
@@ -14,6 +14,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 * Update nerdctl to 2.0.0-rc.1
 * Update BuildKit to 0.15.2
 * Switch to upstream WinCNI 0.3.1
+* Remove unused docker-proxy binary
 
 == 2.1.0 (2024-07-12) - @slonopotamus
 
