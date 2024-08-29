@@ -10,10 +10,10 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "27.1.2";
+const DOCKER_VERSION: &str = "27.2.0";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "73ae98b2919828c9c41555de6d89be9e1ee27b310ea1340f52d733fbd16502bc";
+const DOCKER_SHA: &str = "07aa25099820857abb9d9f6c4bfa538c19f64934cf52857ad4a1540749aa19fc";
 
 const DOCKER_BUILDX_VERSION: &str = "0.16.2";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
@@ -27,9 +27,9 @@ const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
 
-const CONTAINERD_VERSION: &str = "1.7.20";
+const CONTAINERD_VERSION: &str = "1.7.21";
 const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
-const CONTAINERD_SHA: &str = "a51c9a7d625b393023e587fd76cec01d9025af23677c734bfca04506d06b0ac3";
+const CONTAINERD_SHA: &str = "e895ba574ef7826d99080111cfc9bf5d9595c7f444e9942d4636d438ca525cbd";
 
 const NERDCTL_VERSION: &str = "2.0.0-rc.1";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
