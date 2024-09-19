@@ -22,7 +22,7 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 * https://github.com/docker/compose[Docker Compose]
 * https://github.com/docker/buildx[Docker Buildx]
 * https://github.com/docker/docker-credential-helpers[docker-credential-wincred]
-* https://github.com/containerd/containerd[Containerd]
+* https://github.com/containerd/containerd[containerd]
 * https://github.com/containerd/nerdctl[nerdctl]
 * https://github.com/microsoft/windows-container-networking[CNI plugins]
 
