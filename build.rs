@@ -10,34 +10,34 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "27.2.1";
+const DOCKER_VERSION: &str = "27.3.1";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "84a407eaacdb36464b5ed0971b09bf74f531a979b59afa46c47c88f4d84440cd";
+const DOCKER_SHA: &str = "f2b36fcee7fd6d0b8f7d04dcf5d415d2745b212f0847946034ad989bb99e0382";
 
-const DOCKER_BUILDX_VERSION: &str = "0.17.1";
+const DOCKER_BUILDX_VERSION: &str = "0.18.0";
 const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
-const DOCKER_BUILDX_SHA: &str = "8751c926b953edf6dd9c7db0b01e567033c407e85bb5f21d559199e2553a07cc";
+const DOCKER_BUILDX_SHA: &str = "85f9218497427f8a1d4e09fa73b7133b555f8017cffc24c4ffc9640668b61dca";
 
-const DOCKER_COMPOSE_VERSION: &str = "2.29.5";
+const DOCKER_COMPOSE_VERSION: &str = "2.30.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
-const DOCKER_COMPOSE_SHA: &str = "4eda107dc1f83a57116c57595d39e6a0ff63e696a52230ea277bd7fa7977c8d7";
+const DOCKER_COMPOSE_SHA: &str = "bf29dcf1b35cf226ca0fe337d0de903060ec50855eea5c0eb54739e3c3c3fa5a";
 
 const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
 
-const CONTAINERD_VERSION: &str = "1.7.22";
+const CONTAINERD_VERSION: &str = "1.7.23";
 const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
-const CONTAINERD_SHA: &str = "54ea038bcf2372856b5970efc90ef73759ad39103d042225f5123e5e60076aaa";
+const CONTAINERD_SHA: &str = "cddccdd10b60f9f8c5c34567f0c41678eb1ee034a060d5e008c4e51604f23b5c";
 
-const NERDCTL_VERSION: &str = "2.0.0-rc.2";
+const NERDCTL_VERSION: &str = "2.0.0-rc.3";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
-const NERDCTL_SHA: &str = "f8278055e9a8071827dc86ba84e4a685dce32f4d20a74fae53a5797cc60b42f8";
+const NERDCTL_SHA: &str = "9cdee20a578e996c03394cb1bdfe512e3cea944189ec4eb0ddb2a65b3d7bb23a";
 
-const BUILDKIT_VERSION: &str = "0.16.0";
+const BUILDKIT_VERSION: &str = "0.17.0";
 const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
-const BUILDKIT_SHA: &str = "ff0dbd9a54387283cbcde2c4d5458810a7cfedb6011d241bfc95c42912c7642e";
+const BUILDKIT_SHA: &str = "bf7d8279ec88474a7466e199876c39b43b87770555145646971817b06de7888f";
 
 const CNI_VERSION: &str = "0.3.1";
 const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-{CNI_VERSION}.zip");
