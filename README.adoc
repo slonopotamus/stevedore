@@ -7,6 +7,7 @@ Marat Radchenko
 image:{uri-project}/workflows/CI/badge.svg?branch=main[Build Status,link={uri-ci}]
 image:https://img.shields.io/github/release/{slug}.svg[Download,link={uri-project}/releases/latest]
 image:https://img.shields.io/chocolatey/v/stevedore[Chocolatey package,link=https://community.chocolatey.org/packages/stevedore]
+image:https://img.shields.io/winget/v/Slonopotamus.Stevedore[WinGet package,link=https://winstall.app/apps/Slonopotamus.Stevedore]
 
 == Overview
 
