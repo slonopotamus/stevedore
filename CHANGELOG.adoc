@@ -5,6 +5,15 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 27.4.0
+* Update DOcker Buildx to 0.19.2
+* Update Docker Compose to 2.31.0
+* Update containerd to 1.7.24
+* Update nerdctl to 2.0.2
+* Update BuildKit to 0.18.1
+
 == 2.4.0 (2024-11-04) - @slonopotamus
 
 * Update Docker Engine to 27.3.1
