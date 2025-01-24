@@ -7,12 +7,12 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 == Unreleased
 
-* Update Docker Engine to 27.4.0
-* Update DOcker Buildx to 0.19.2
-* Update Docker Compose to 2.31.0
-* Update containerd to 1.7.24
-* Update nerdctl to 2.0.2
-* Update BuildKit to 0.18.1
+* Update Docker Engine to 27.5.1
+* Update Docker Buildx to 0.20.0
+* Update Docker Compose to 2.32.4
+* Update containerd to 1.7.25
+* Update nerdctl to 2.0.3
+* Update BuildKit to 0.19.0
 
 == 2.4.0 (2024-11-04) - @slonopotamus
 
