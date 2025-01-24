@@ -29,7 +29,7 @@ const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b
 
 const CONTAINERD_VERSION: &str = "1.7.25";
 const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
-const CONTAINERD_SHA: &str = "2616e82dbbbf9b49a9e8ba42bb418f4280fee680d4b407ce901af3537f004c07";
+const CONTAINERD_SHA: &str = "ec819a29d81b52a1aa8ffd995751639de7102ac08d54a0248d1d1484809e0460";
 
 const NERDCTL_VERSION: &str = "2.0.3";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
