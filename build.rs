@@ -27,9 +27,9 @@ const WINCRED_VERSION: &str = "0.8.2";
 const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
 const WINCRED_SHA: &str = "57d3ea7a97e73abd913f71b0ba4f497f729c640b022108716207b4bd47a9d658";
 
-const CONTAINERD_VERSION: &str = "1.7.25";
+const CONTAINERD_VERSION: &str = "2.0.2";
 const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
-const CONTAINERD_SHA: &str = "ec819a29d81b52a1aa8ffd995751639de7102ac08d54a0248d1d1484809e0460";
+const CONTAINERD_SHA: &str = "c8f6ee6d13368cbabcf13e742161df7bc2675a00850d65d29d4e2384999f1672";
 
 const NERDCTL_VERSION: &str = "2.0.3";
 const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
@@ -40,7 +40,7 @@ const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/
 const BUILDKIT_SHA: &str = "04b8fac77de1e3258c2211b77d82a34586542f69d09efc3f60c59e15ddfc50f0";
 
 const CNI_VERSION: &str = "0.3.1";
-const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-{CNI_VERSION}.zip");
+const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip");
 const CNI_SHA: &str = "0cc4ea9f8773b0b607bd78b7de2bbc85ddf5feb840677563e9f6c405798816d2";
 
 fn get_dest_dir() -> PathBuf {
