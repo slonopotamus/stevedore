@@ -31,7 +31,7 @@ Stevedore can be used as a replacement for Docker Desktop, `DockerMsftProvider` 
 
 * Windows 10 starting with version 1809 (build 17763)
 * Windows 11
-* Windows Server 2019, 2022
+* Windows Server 2019, 2022, 2025
 
 == Installation
 
