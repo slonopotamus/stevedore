@@ -41,7 +41,7 @@ const BUILDKIT_SHA: &str = "cdb3cad999459b02a1fe8c1cc64bc04fa44449180356ad9c1589
 
 const CNI_VERSION: &str = "0.3.1";
 const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip");
-const CNI_SHA: &str = "0cc4ea9f8773b0b607bd78b7de2bbc85ddf5feb840677563e9f6c405798816d2";
+const CNI_SHA: &str = "4f36ee6905ada238ca2a9e1bfb8a1fb2912c2d88c4b6e5af4c41a42db70d7d68";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
