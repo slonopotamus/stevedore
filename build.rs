@@ -1,5 +1,5 @@
 use std::env;
-use std::fs::{create_dir_all, File};
+use std::fs::{File, create_dir_all};
 use std::io;
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -16,31 +16,45 @@ const DOCKER_URL: &str =
 const DOCKER_SHA: &str = "cfafa2a5ee7e34bacc2077b0828f0733a404423c7a901c79efc4ff1680dbb716";
 
 const DOCKER_BUILDX_VERSION: &str = "0.22.0";
-const DOCKER_BUILDX_URL: &str = formatcp!("https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe");
+const DOCKER_BUILDX_URL: &str = formatcp!(
+    "https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe"
+);
 const DOCKER_BUILDX_SHA: &str = "446acafb777dc8e8b458a56ce5af3c216260e5170a3e89382b8e4b1dd5853778";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.34.0";
-const DOCKER_COMPOSE_URL: &str = formatcp!("https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe");
+const DOCKER_COMPOSE_URL: &str = formatcp!(
+    "https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe"
+);
 const DOCKER_COMPOSE_SHA: &str = "3c6d3548d9dae2939ada367ffdf416aa0e2d282bc6a41d2b49eaa016994c112c";
 
 const WINCRED_VERSION: &str = "0.9.3";
-const WINCRED_URL: &str = formatcp!("https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe");
+const WINCRED_URL: &str = formatcp!(
+    "https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe"
+);
 const WINCRED_SHA: &str = "deaa1206069dd3bf68d65b0a5c71d0ac87f63663b31221082ea035e5dde0d174";
 
 const CONTAINERD_VERSION: &str = "2.0.4";
-const CONTAINERD_URL: &str = formatcp!("https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz");
+const CONTAINERD_URL: &str = formatcp!(
+    "https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
+);
 const CONTAINERD_SHA: &str = "4e7bf9915943ee3baeba125d4d93615467d23366c5949bdecba7d9e80b4fa44e";
 
 const NERDCTL_VERSION: &str = "2.0.4";
-const NERDCTL_URL: &str = formatcp!("https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz");
+const NERDCTL_URL: &str = formatcp!(
+    "https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz"
+);
 const NERDCTL_SHA: &str = "7a0d2ff9f275509a24764b0f41b1c7a2a340db3b4556443d7edac297693249b5";
 
 const BUILDKIT_VERSION: &str = "0.20.2";
-const BUILDKIT_URL: &str = formatcp!("https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz");
+const BUILDKIT_URL: &str = formatcp!(
+    "https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz"
+);
 const BUILDKIT_SHA: &str = "cdb3cad999459b02a1fe8c1cc64bc04fa44449180356ad9c1589c6e2cfd442db";
 
 const CNI_VERSION: &str = "0.3.1";
-const CNI_URL: &str = formatcp!("https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip");
+const CNI_URL: &str = formatcp!(
+    "https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip"
+);
 const CNI_SHA: &str = "4f36ee6905ada238ca2a9e1bfb8a1fb2912c2d88c4b6e5af4c41a42db70d7d68";
 
 fn get_dest_dir() -> PathBuf {
