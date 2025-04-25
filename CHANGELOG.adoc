@@ -7,13 +7,13 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 == Unreleased
 
-* Update Docker Engine to 28.0.4
-* Update Docker Buildx to 0.22.0
-* Update Docker Compose to 2.34.0
+* Update Docker Engine to 28.1.1
+* Update Docker Buildx to 0.23.0
+* Update Docker Compose to 2.35.1
 * Update docker-credential-wincred to 0.9.3
-* Update containerd to 2.0.4
+* Update containerd to 2.0.5
 * Update nerdctl to 2.0.4
-* Update BuildKit to 0.20.2
+* Update BuildKit to 0.21.0
 
 == 2.6.0 (2025-02-24)
 
