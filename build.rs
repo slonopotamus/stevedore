@@ -25,7 +25,7 @@ const DOCKER_COMPOSE_VERSION: &str = "2.35.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
     "https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe"
 );
-const DOCKER_COMPOSE_SHA: &str = "7a36c543cb5506252137bd91b2824ca523784612860b79e2a1e6bf79fff24fb0";
+const DOCKER_COMPOSE_SHA: &str = "971d6000e2c70da19c20f8264330a7ec3962b1fd59601afeb7e3636bad89b8c9";
 
 const WINCRED_VERSION: &str = "0.9.3";
 const WINCRED_URL: &str = formatcp!(
