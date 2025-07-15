@@ -7,21 +7,21 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 == 2.9.0 (2025-07-15)
 
-* Updated Docker Engine to 28.3.2
-* Updated Docker Buildx to 0.25.0
-* Updated Docker Compose to 2.38.2
-* Updated containerd to 2.1.3
-* Updated nerdctl to 2.1.3
-* Updated Buildkit to 0.23.2
+* Update Docker Engine to 28.3.2
+* Update Docker Buildx to 0.25.0
+* Update Docker Compose to 2.38.2
+* Update containerd to 2.1.3
+* Update nerdctl to 2.1.3
+* Update Buildkit to 0.23.2
 
 == 2.8.0 (2025-06-02)
 
-* Updated Docker Engine to 28.2.2
-* Updated Docker Buildx to 0.24.0
-* Updated Docker Compose to 2.36.2
-* Updated containerd to 2.1.1
-* Updated nerdctl to 2.1.2
-* Updated Buildkit to 0.22.0
+* Update Docker Engine to 28.2.2
+* Update Docker Buildx to 0.24.0
+* Update Docker Compose to 2.36.2
+* Update containerd to 2.1.1
+* Update nerdctl to 2.1.2
+* Update Buildkit to 0.22.0
 
 == 2.7.0 (2025-04-25)
 
