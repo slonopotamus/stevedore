@@ -163,8 +163,8 @@ Build the image:
 docker buildx build --builder buildkit-builder -t <tag> .
 ----
 
-[[containerd]]
-=== containerd and nerdctl
+[[nerdctl]]
+=== nerdctl
 
 Stevedore has *experimental* support for Dockerless container environment.
 
