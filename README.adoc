@@ -1,5 +1,6 @@
 = Stevedore
 Marat Radchenko
+:toc:
 :slug: slonopotamus/stevedore
 :uri-project: https://github.com/{slug}
 :uri-ci: {uri-project}/actions?query=branch%3Amain
