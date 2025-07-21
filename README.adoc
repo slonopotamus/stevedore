@@ -75,9 +75,6 @@ For quiet (non-interactive) installation add `/quiet` option.
 If you only want to install specific Stevedore features, use `ADDLOCAL=Feature1,Feature2,Feature3` syntax.
 
 .List of available MSI features for `ADDLOCAL`
-* `FeatureDockerd` installs Docker service.
-* `FeatureContainerd` installs containerd service.
-* `FeatureBuildkitd` installs BuildKit service.
 * `FeatureHyperV` installs Hyper-V support.
 It allows running containers with https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container#hyper-v-isolation[Hyper-V isolation].
 * `FeatureWincred` installs docker-credential-wincred.
@@ -113,19 +110,70 @@ You can also use Docker Compose V1 compatibility mode via `docker-compose` comma
 
 Stevedore stores configuration and runtime data files for Windows containers under `%ProgramData%\Docker` directory.
 
+[[buildkit]]
+=== BuildKit
+
+Stedevore has *experimental* support for BuildKit.
+
+After Stevedore installation (and reboot), create BuildKit builder:
+
+[source,shell]
+----
+docker buildx create --name buildkit-builder --driver=remote npipe:////./pipe/buildkitd
+----
+
+Verify the builder connection:
+
+[source,shell]
+----
+docker buildx inspect buildkit-builder
+----
+
+The output should indicate that the builder platform is Windows, and that the endpoint of the builder is a named pipe.
+
+[source]
+----
+Name:          buildkit-builder
+Driver:        remote
+Last Activity: 2025-07-21 17:59:07 +0000 UTC
+
+Nodes:
+Name:             buildkit-builder0
+Endpoint:         npipe:////./pipe/buildkitd
+Status:           running
+BuildKit version: v0.23.2
+Platforms:        windows/amd64
+...
+----
+
+Create a Dockerfile:
+
+.Dockerfile
+[source,docker]
+----
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
+RUN echo "Hello, world!" >> hello.txt
+----
+
+Build the image:
+
+[source,shell]
+----
+docker buildx build --builder buildkit-builder -t <tag> .
+----
+
 [[containerd]]
-=== containerd, buildkitd and nerdctl
+=== containerd and nerdctl
 
 Stedevore has *experimental* support for Dockerless container environment.
 
-To try it, enable *containerd* and *BuildKit* features in Stevedore installer.
-
-After installation (and reboot), you should be able to run containers using nerdctl:
+After Stevedore installation (and reboot), you should be able to run containers using nerdctl:
 
 [source,shell]
 ----
 nerdctl run --rm -it hello-world
 ----
+
 NOTE: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
 When https://github.com/containerd/containerd/issues/10454[this feature] is implemented, you will be able to use `nerdctr` from any user in `docker-users` group.
 
