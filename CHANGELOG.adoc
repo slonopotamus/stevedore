@@ -5,6 +5,10 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Always install containerd, BuildKit and wincred
+
 == 2.9.0 (2025-07-15)
 
 * Update Docker Engine to 28.3.2

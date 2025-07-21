@@ -135,13 +135,13 @@
                         <File Source='target\$(var.Profile)\bin\buildkitd.exe'/>
                         <ServiceInstall
                                 Arguments='--run-service --service-name buildkitd --group docker-users'
-                                DisplayName='buildkitd'
+                                DisplayName='BuildKit'
                                 ErrorControl='normal'
                                 Id='buildkitd_install'
                                 Name='buildkitd'
                                 Start='auto'
                                 Type='ownProcess'>
-                            <ServiceDependency Id="containerd"/>
+                            <ServiceDependency Id='containerd'/>
                             <util:ServiceConfig
                                     FirstFailureActionType="restart"
                                     SecondFailureActionType="restart"
@@ -180,14 +180,16 @@
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
                         <!-- See https://github.com/moby/moby/blob/v23.0.0/cmd/dockerd/service_windows.go#L156-L202 -->
                         <ServiceInstall
-                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine'
+                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine --containerd=\\.\pipe\containerd-containerd'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'
                                 Name='[SERVICENAME]'
                                 Start='auto'
                                 Type='ownProcess'>
-                            <ServiceDependency Id="EventLog"/>
+                            <ServiceDependency Id='buildkitd'/>
+                            <ServiceDependency Id='containerd'/>
+                            <ServiceDependency Id='EventLog'/>
                             <util:ServiceConfig
                                     FirstFailureActionType="restart"
                                     SecondFailureActionType="restart"
@@ -271,26 +273,12 @@
 
             <ComponentRef Id='License'/>
             <ComponentRef Id='bin_Comp'/>
+            <ComponentRef Id='buildkitd_Comp'/>
             <ComponentRef Id='cli_plugins_Comp'/>
-
-            <Feature
-                    Id='FeatureDockerd'
-                    Title='Docker service'
-                    Description='Installs Docker service.'
-                    AllowAdvertise='no'
-                    Display='expand'>
-                <!-- Dummy component to get rid of the "run from network" option  -->
-                <ComponentRef Id='dockerd_Comp'/>
-            </Feature>
-
-            <Feature
-                    Id='FeatureWincred'
-                    Title='docker-credential-wincred'
-                    Description='Installs docker-credential-wincred.'
-                    AllowAdvertise='no'
-                    Display='expand'>
-                <ComponentRef Id='wincred_Comp'/>
-            </Feature>
+            <ComponentRef Id='cni_Comp'/>
+            <ComponentRef Id='containerd_Comp'/>
+            <ComponentRef Id='dockerd_Comp'/>
+            <ComponentRef Id='wincred_Comp'/>
 
             <Feature
                     Id='FeatureHyperV'
@@ -300,27 +288,6 @@
                     Display='expand'>
                 <!-- Dummy component to get rid of the "run from network" option  -->
                 <ComponentRef Id='License'/>
-            </Feature>
-
-            <Feature
-                    Id='FeatureContainerd'
-                    Title='containerd (experimental)'
-                    Description='Installs containerd service and CNI plugins.'
-                    AllowAdvertise='no'
-                    Display='expand'
-                    Level='2'>
-                <Feature
-                        Id='FeatureBuildkitd'
-                        Title='BuildKit (experimental)'
-                        Description='Installs BuildKit service.'
-                        AllowAdvertise='no'
-                        Display='expand'
-                        Level='2'>
-                    <ComponentRef Id='buildkitd_Comp'/>
-                </Feature>
-
-                <ComponentRef Id='containerd_Comp'/>
-                <ComponentRef Id='cni_Comp'/>
             </Feature>
         </Feature>
 
