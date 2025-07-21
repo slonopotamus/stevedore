@@ -114,7 +114,7 @@ Stevedore stores configuration and runtime data files for Windows containers und
 [[buildkit]]
 === BuildKit
 
-Stedevore has *experimental* support for BuildKit.
+Stevedore has *experimental* support for BuildKit.
 
 After Stevedore installation (and reboot), create BuildKit builder:
 
@@ -166,7 +166,7 @@ docker buildx build --builder buildkit-builder -t <tag> .
 [[containerd]]
 === containerd and nerdctl
 
-Stedevore has *experimental* support for Dockerless container environment.
+Stevedore has *experimental* support for Dockerless container environment.
 
 After Stevedore installation (and reboot), you should be able to run containers using nerdctl:
 
