@@ -180,7 +180,7 @@
                         <util:EventSource
                                 Name="[SERVICENAME]"
                                 Log="[SERVICENAME]"
-                                EventMessageFile="[INSTALLDIR]\dockerd.exe"
+                                EventMessageFile="[INSTALLDIR]dockerd.exe"
                                 SupportsErrors="yes"
                                 SupportsInformationals="yes"
                                 SupportsWarnings="yes"/>
@@ -197,7 +197,7 @@
                             <Environment Id="PATH"
                                          Action="set"
                                          Name="PATH"
-                                         Value="[INSTALLDIR]\bin"
+                                         Value="[INSTALLDIR]bin"
                                          Part="last"
                                          Permanent="no"
                                          System="yes"/>

@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Fix double backslath in PATH.
+https://github.com/slonopotamus/stevedore/issues/81[#81]
+
 == 3.0.1 (2025-07-28)
 
 * Temporarily revert to `com.docker.hcsshim.v1` runtime by default.
