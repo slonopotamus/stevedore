@@ -9,6 +9,7 @@ For a detailed view of what has changed, refer to the {uri-project}/commits/main
 
 * Temporarily revert to `com.docker.hcsshim.v1` runtime by default.
 https://github.com/slonopotamus/stevedore/issues/80[#80]
+* Fix progress text in installer
 
 == 3.0.0 (2025-07-21)
 

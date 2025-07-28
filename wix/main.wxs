@@ -354,6 +354,7 @@
         <Property Id='ARPHELPLINK' Value='https://github.com/slonopotamus/stevedore'/>
 
         <UI>
+            <UIRef Id="WixUI_ErrorProgressText" />
             <UIRef Id='WixUI_FeatureTree'/>
             <ProgressText Action="InstallContainersFeature">Enabling Containers feature</ProgressText>
             <ProgressText Action="InstallHyperVFeature">Enabling Hyper-V feature</ProgressText>
