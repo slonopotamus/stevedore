@@ -105,32 +105,6 @@
                         <File Source='wix\License.rtf'/>
                     </Component>
 
-                    <Component Id='containerd_Comp' Guid='a06a2a18-f118-4453-9be3-675ab21ef76c'>
-                        <File Source='target\$(var.Profile)\bin\containerd.exe'/>
-                        <File Source='target\$(var.Profile)\bin\containerd-shim-runhcs-v1.exe'/>
-                        <ServiceInstall
-                                Arguments='--run-service --service-name containerd'
-                                DisplayName='containerd'
-                                ErrorControl='normal'
-                                Id='containerd_install'
-                                Name='containerd'
-                                Start='auto'
-                                Type='ownProcess'>
-                            <util:ServiceConfig
-                                    FirstFailureActionType="restart"
-                                    SecondFailureActionType="restart"
-                                    ThirdFailureActionType="none"
-                                    ResetPeriodInDays="1"
-                                    RestartServiceDelayInSeconds="15"/>
-                        </ServiceInstall>
-                        <ServiceControl
-                                Id='containerd_start'
-                                Name='containerd'
-                                Remove='uninstall'
-                                Stop='both'
-                                Wait='yes'/>
-                    </Component>
-
                     <Component Id='buildkitd_Comp' Guid='a53f93af-9737-4811-b051-50565ca639f2'>
                         <File Source='target\$(var.Profile)\bin\buildkitd.exe'/>
                         <ServiceInstall
@@ -180,7 +154,7 @@
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
                         <!-- See https://github.com/moby/moby/blob/v23.0.0/cmd/dockerd/service_windows.go#L156-L202 -->
                         <ServiceInstall
-                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine --containerd=\\.\pipe\containerd-containerd'
+                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine --containerd=npipe:////./pipe/containerd-containerd --default-runtime=com.docker.hcsshim.v1'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'
@@ -228,6 +202,33 @@
                                          Permanent="no"
                                          System="yes"/>
                         </Component>
+
+                    <Component Id='containerd_Comp' Guid='a06a2a18-f118-4453-9be3-675ab21ef76c'>
+                        <File Source='target\$(var.Profile)\bin\containerd.exe'/>
+                        <File Source='target\$(var.Profile)\bin\containerd-shim-runhcs-v1.exe'/>
+                        <ServiceInstall
+                                Arguments='--run-service --service-name containerd'
+                                DisplayName='containerd'
+                                ErrorControl='normal'
+                                Id='containerd_install'
+                                Name='containerd'
+                                Start='auto'
+                                Type='ownProcess'>
+                            <util:ServiceConfig
+                                    FirstFailureActionType="restart"
+                                    SecondFailureActionType="restart"
+                                    ThirdFailureActionType="none"
+                                    ResetPeriodInDays="1"
+                                    RestartServiceDelayInSeconds="15"/>
+                        </ServiceInstall>
+                        <ServiceControl
+                                Id='containerd_start'
+                                Name='containerd'
+                                Remove='uninstall'
+                                Stop='both'
+                                Wait='yes'/>
+                    </Component>
+
                         <Component Id='wincred_Comp' Guid='ba2e5ab3-320e-4187-8821-66ad87f61a33'>
                             <File Source='target\$(var.Profile)\docker-credential-wincred.exe'/>
                         </Component>

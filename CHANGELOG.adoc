@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Temporarily revert to `com.docker.hcsshim.v1` runtime by default.
+https://github.com/slonopotamus/stevedore/issues/80[#80]
+
 == 3.0.0 (2025-07-21)
 
 * Always install containerd, BuildKit and wincred
