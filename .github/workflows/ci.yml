@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: rustup
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: rustup
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -25,7 +25,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: rustup
         uses: dtolnay/rust-toolchain@stable
       - run: cargo install cargo-wix
