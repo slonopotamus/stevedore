@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 3.1.0 (2025-11-03)
 
 * Fix double backslash in PATH.
 https://github.com/slonopotamus/stevedore/issues/81[#81]
