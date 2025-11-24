@@ -10,16 +10,16 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "28.5.1";
+const DOCKER_VERSION: &str = "29.0.2";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "7979493ad91dbbaaff7fa857cf8f90bdca288431575a398022c603e98e201fbd";
+const DOCKER_SHA: &str = "e2d6c27f310c0d0157cb9d41beb0c2d5dd866d3d4d9923524c6e6232b1ae6acd";
 
-const DOCKER_BUILDX_VERSION: &str = "0.29.1";
+const DOCKER_BUILDX_VERSION: &str = "0.30.1";
 const DOCKER_BUILDX_URL: &str = formatcp!(
     "https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe"
 );
-const DOCKER_BUILDX_SHA: &str = "3522d12875b71093a210fdc717c9b4be915d1617d41dd347e6dc3e7f2b99d784";
+const DOCKER_BUILDX_SHA: &str = "3c48e2da717c55518cf22a5b372f48f54cf3a58c9fae675b818a3311775e1b71";
 
 const DOCKER_COMPOSE_VERSION: &str = "2.40.3";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
@@ -33,29 +33,29 @@ const WINCRED_URL: &str = formatcp!(
 );
 const WINCRED_SHA: &str = "66fdf4b50c83aeb04a9ea04af960abaf1a7b739ab263115f956b98bb0d16aa7e";
 
-const CONTAINERD_VERSION: &str = "2.1.4";
+const CONTAINERD_VERSION: &str = "2.2.0";
 const CONTAINERD_URL: &str = formatcp!(
     "https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
 );
-const CONTAINERD_SHA: &str = "2c50aeb1e6d9ad513e986408ea066919318f14271c5a1b952f118878ecfa6a56";
+const CONTAINERD_SHA: &str = "625b872aa9010cb9c975a1251dc8178ae82acd541b5336d33e97a59b851db524";
 
-const NERDCTL_VERSION: &str = "2.1.6";
+const NERDCTL_VERSION: &str = "2.2.0";
 const NERDCTL_URL: &str = formatcp!(
     "https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz"
 );
-const NERDCTL_SHA: &str = "939091dcdb9cc799657f3c6408cbd145a8750d6b1a42b04ed86877ba16233c88";
+const NERDCTL_SHA: &str = "fba81da47ea734290a36ecc523ba6c59087081f4db3b542529d0f764b76ac05f";
 
-const BUILDKIT_VERSION: &str = "0.25.1";
+const BUILDKIT_VERSION: &str = "0.26.2";
 const BUILDKIT_URL: &str = formatcp!(
     "https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz"
 );
-const BUILDKIT_SHA: &str = "fbbde335012844d74ffa1a1da10815476910f6296fe82d30650301a76ee3cf7f";
+const BUILDKIT_SHA: &str = "bcf99ad6430fdaee9b2afdae37c8c7702544a24c6e2345c7496825ea2b2d6f02";
 
-const CNI_VERSION: &str = "0.3.1";
+const CNI_VERSION: &str = "0.3.2";
 const CNI_URL: &str = formatcp!(
     "https://github.com/microsoft/windows-container-networking/releases/download/v{CNI_VERSION}/windows-container-networking-cni-amd64-v{CNI_VERSION}.zip"
 );
-const CNI_SHA: &str = "4f36ee6905ada238ca2a9e1bfb8a1fb2912c2d88c4b6e5af4c41a42db70d7d68";
+const CNI_SHA: &str = "99bca1525140191852ba58aa107bf21c036fe4f1b83350601a47a005a74f968f";
 
 fn get_dest_dir() -> PathBuf {
     //<root or manifest path>/target/<profile>/
