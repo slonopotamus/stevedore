@@ -10,10 +10,10 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "29.1.3";
+const DOCKER_VERSION: &str = "28.5.1";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "5bf2350fad1265f30bbabb990d707fcd1ca4a9fb2ddc49ae7ebee8fa2e1103a7";
+const DOCKER_SHA: &str = "7979493ad91dbbaaff7fa857cf8f90bdca288431575a398022c603e98e201fbd";
 
 const DOCKER_BUILDX_VERSION: &str = "0.30.1";
 const DOCKER_BUILDX_URL: &str = formatcp!(
@@ -33,17 +33,17 @@ const WINCRED_URL: &str = formatcp!(
 );
 const WINCRED_SHA: &str = "66fdf4b50c83aeb04a9ea04af960abaf1a7b739ab263115f956b98bb0d16aa7e";
 
-const CONTAINERD_VERSION: &str = "2.1.6";
+const CONTAINERD_VERSION: &str = "2.2.1";
 const CONTAINERD_URL: &str = formatcp!(
     "https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
 );
-const CONTAINERD_SHA: &str = "134e28f4dfca4dde399abe4b47036be37bf8743f5b54d4b9cb8d2ecfcb131fba";
+const CONTAINERD_SHA: &str = "4c68fd5042c8b594f9d2d479b4eca75ca8164496122d9da1190fabf0c27e4bb3";
 
-const NERDCTL_VERSION: &str = "2.1.6";
+const NERDCTL_VERSION: &str = "2.2.1";
 const NERDCTL_URL: &str = formatcp!(
     "https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz"
 );
-const NERDCTL_SHA: &str = "939091dcdb9cc799657f3c6408cbd145a8750d6b1a42b04ed86877ba16233c88";
+const NERDCTL_SHA: &str = "243061402791f30f6bc0d90689855d478b7f0f501fa1687c0d7b1abecabedd34";
 
 const BUILDKIT_VERSION: &str = "0.26.3";
 const BUILDKIT_URL: &str = formatcp!(
