@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 3.2.2 (2026-01-10)
 
 * Upgrade containerd and nerdctl to 2.2.1
 * Downgrade Docker Engine to 28.5.1
