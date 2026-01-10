@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Upgrade Docker Engine to 28.5.2
+* Update docker-credential-wincred to 0.9.5
+
 == 3.2.2 (2026-01-10)
 
 * Upgrade containerd and nerdctl to 2.2.1
