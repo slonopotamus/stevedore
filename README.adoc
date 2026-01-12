@@ -120,7 +120,7 @@ First, install Stevedore (and reboot).
 Create a Dockerfile:
 
 .Dockerfile
-[source,docker]
+[source,dockerfile]
 ----
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 RUN echo "Hello, world!" >> hello.txt
