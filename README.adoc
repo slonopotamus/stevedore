@@ -115,36 +115,7 @@ Stevedore stores configuration and runtime data files for Windows containers und
 
 Stevedore has *experimental* support for BuildKit.
 
-After Stevedore installation (and reboot), create BuildKit builder:
-
-[source,shell]
-----
-docker buildx create --name buildkit-builder --driver=remote npipe:////./pipe/buildkitd
-----
-
-Verify the builder connection:
-
-[source,shell]
-----
-docker buildx inspect buildkit-builder
-----
-
-The output should indicate that the builder platform is Windows, and that the endpoint of the builder is a named pipe.
-
-[source]
-----
-Name:          buildkit-builder
-Driver:        remote
-Last Activity: 2025-07-21 17:59:07 +0000 UTC
-
-Nodes:
-Name:             buildkit-builder0
-Endpoint:         npipe:////./pipe/buildkitd
-Status:           running
-BuildKit version: v0.23.2
-Platforms:        windows/amd64
-...
-----
+First, install Stevedore (and reboot).
 
 Create a Dockerfile:
 
@@ -153,13 +124,14 @@ Create a Dockerfile:
 ----
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 RUN echo "Hello, world!" >> hello.txt
+RUN ping google.com
 ----
 
 Build the image:
 
 [source,shell]
 ----
-docker buildx build --builder buildkit-builder -t <tag> .
+docker buildx build -t <tag> .
 ----
 
 [[nerdctl]]
