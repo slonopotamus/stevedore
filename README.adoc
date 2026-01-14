@@ -87,7 +87,7 @@ You can also pass custom installation properties to Stevedore installer using `P
 
 When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value /quiet"`
 
-When installing Stevedore via WinGet. use this syntax: `winget install stevedore --custom=`ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value"`
+When installing Stevedore via WinGet, use this syntax: `winget install stevedore --custom=`ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value"`
 
 == Usage
 
