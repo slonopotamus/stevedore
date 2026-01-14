@@ -85,7 +85,9 @@ You can also pass custom installation properties to Stevedore installer using `P
 * `INSTALLDIR=%ProgramFiles%\Stevedore` specifies directory where Stevedore executable files will be installed
 * `SERVICENAME=stevedore` specifies Windows service name
 
-When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2,Feature3 PROPERTY=value /quiet"`
+When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value /quiet"`
+
+When installing Stevedore via WinGet. use this syntax: `winget install stevedore --custom=`ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value"`
 
 == Usage
 
