@@ -14,4 +14,4 @@ flate2 = "1"
 reqwest = { version = "0.13", features = ["blocking"] }
 sha2 = "0.10"
 tar = "0.4"
-zip = "7.0"
+zip = "8.0"
