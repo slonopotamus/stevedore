@@ -31,7 +31,7 @@ jobs:
       - run: cargo install cargo-wix
       - run: cargo wix --nocapture
       - name: upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: package
           path: target/wix/*.msi
