@@ -5,6 +5,11 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Switch to `io.containerd.runhcs.v1` runtime by default.
+See https://github.com/slonopotamus/stevedore/issues/92[#92].
+
 == 3.3.0 (2026-06-14)
 
 * Upgrade Docker Engine to 29.5.3

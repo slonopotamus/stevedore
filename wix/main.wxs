@@ -154,7 +154,7 @@
                         <File Source='target\$(var.Profile)\docker\dockerd.exe'/>
                         <!-- See https://github.com/moby/moby/blob/v23.0.0/cmd/dockerd/service_windows.go#L156-L202 -->
                         <ServiceInstall
-                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine --containerd=npipe:////./pipe/containerd-containerd --default-runtime=com.docker.hcsshim.v1'
+                                Arguments='--run-service --service-name [SERVICENAME] --group docker-users --host npipe:////./pipe/dockerDesktopWindowsEngine --host npipe:////./pipe/docker_engine --containerd=npipe:////./pipe/containerd-containerd'
                                 DisplayName='Stevedore'
                                 ErrorControl='normal'
                                 Id='dockerd_install'
