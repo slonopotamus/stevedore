@@ -5,7 +5,9 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 4.0.0 (2026-07-10)
+
+* Temporarily switch to https://github.com/slonopotamus/containerd/releases/tag/v2.3.0-190-gcc602e1b2[containerd fork].
 
 == 3.4.0 (2026-07-06)
 

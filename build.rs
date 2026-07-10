@@ -33,11 +33,11 @@ const WINCRED_URL: &str = formatcp!(
 );
 const WINCRED_SHA: &str = "fec0aa06335bbefc7f515630c9368afaa1423fa9fa585112f123b6625f72d560";
 
-const CONTAINERD_VERSION: &str = "2.3.2";
+const CONTAINERD_VERSION: &str = "2.3.0-190-gcc602e1b2";
 const CONTAINERD_URL: &str = formatcp!(
-    "https://github.com/containerd/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
+    "https://github.com/slonopotamus/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
 );
-const CONTAINERD_SHA: &str = "c7b47d8a4e5beb36b71657e6f6f175887b5c9b7c71b973fe1e8f10b95e7c04b1";
+const CONTAINERD_SHA: &str = "c56c59268bb0ac8298b36134b9415aa4551dd24a95f4347d72c216d531d005a7";
 
 const NERDCTL_VERSION: &str = "2.3.4";
 const NERDCTL_URL: &str = formatcp!(
