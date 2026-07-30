@@ -5,7 +5,7 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
-== Unreleased
+== 4.1.0 (2026-07-30)
 
 * Update Docker Engine to 29.6.2
 * Update Docker Buildx to 0.36.0
