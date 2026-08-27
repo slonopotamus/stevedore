@@ -4,6 +4,10 @@ description: Updates bundled components
 
 ## Instructions
 
-Update component versions in `build.rs`
+Update component versions in `build.rs` to latest stable versions.
 
-Check that project builds
+Do not downgrade versions.
+
+Check that project builds.
+
+Commit changes.
