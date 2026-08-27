@@ -10,28 +10,28 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "29.6.2";
+const DOCKER_VERSION: &str = "29.7.2";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "c790bfcc9e8b227173b20f04f4ddaae6e997eac6d4aeaf7a850e2874d9222944";
+const DOCKER_SHA: &str = "ed9222f478a5d143ac90e8e2fd3209b5076382cdb4b210321f97aa4b68bc6811";
 
-const DOCKER_BUILDX_VERSION: &str = "0.36.0";
+const DOCKER_BUILDX_VERSION: &str = "0.37.0-rc1";
 const DOCKER_BUILDX_URL: &str = formatcp!(
     "https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe"
 );
-const DOCKER_BUILDX_SHA: &str = "ce84699d1d93a67d25888b9e6a717862a71b20305602f96d44770b1c12dfcdd8";
+const DOCKER_BUILDX_SHA: &str = "d0d01cb2ac046d5d6204064af739d71f8ea78d669d3b9f0e84fdba139e9e4298";
 
-const DOCKER_COMPOSE_VERSION: &str = "5.3.1";
+const DOCKER_COMPOSE_VERSION: &str = "5.5.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
     "https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe"
 );
-const DOCKER_COMPOSE_SHA: &str = "6d36cc701393c066d67ebc77773b718d8c738bc4ccb350fbf1dc0e6a09f44cb9";
+const DOCKER_COMPOSE_SHA: &str = "51e1e61195f3616896265487ed64551095f3bd27ac7fbd5758d3538c3bfa1b19";
 
-const WINCRED_VERSION: &str = "0.9.8";
+const WINCRED_VERSION: &str = "0.9.9";
 const WINCRED_URL: &str = formatcp!(
     "https://github.com/docker/docker-credential-helpers/releases/download/v{WINCRED_VERSION}/docker-credential-wincred-v{WINCRED_VERSION}.windows-amd64.exe"
 );
-const WINCRED_SHA: &str = "fec0aa06335bbefc7f515630c9368afaa1423fa9fa585112f123b6625f72d560";
+const WINCRED_SHA: &str = "ed50b9767eac0ba42782dc4f550ceab2f4354bacaad05c54caa9dec98a032c48";
 
 const CONTAINERD_VERSION: &str = "2.3.3-2-gd27132612";
 const CONTAINERD_URL: &str = formatcp!(
@@ -45,11 +45,11 @@ const NERDCTL_URL: &str = formatcp!(
 );
 const NERDCTL_SHA: &str = "eda2a08d8a5ea97443c73fed1a827fbc385d4f7847486721899cd7e2c2f9dc36";
 
-const BUILDKIT_VERSION: &str = "0.32.0";
+const BUILDKIT_VERSION: &str = "0.32.2";
 const BUILDKIT_URL: &str = formatcp!(
     "https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz"
 );
-const BUILDKIT_SHA: &str = "820d3354d83d48fb4ab185292269c118cb885cb49a9c657fb4a189f38b8efdc7";
+const BUILDKIT_SHA: &str = "b682a0dabd29137b2a5eecfcd62cd134944dffb09939b5308e1b77044a01331a";
 
 const CNI_VERSION: &str = "0.3.3";
 const CNI_URL: &str = formatcp!(

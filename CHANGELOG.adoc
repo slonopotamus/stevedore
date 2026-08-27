@@ -5,6 +5,14 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 29.7.2
+* Update Docker Buildx to 0.37.0-rc1
+* Update Docker Compose to 5.5.0
+* Update docker-credential-wincred to 0.9.9
+* Update BuildKit to 0.32.2
+
 == 4.1.1 (2026-07-30)
 
 * Update Docker Engine to 29.6.2
