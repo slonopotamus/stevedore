@@ -112,30 +112,6 @@ You can also use Docker Compose V1 compatibility mode via `docker-compose` comma
 
 Stevedore stores configuration and runtime data files for Windows containers under `%ProgramData%\Docker` directory.
 
-[[buildkit]]
-=== BuildKit
-
-Stevedore has *experimental* support for BuildKit.
-
-First, install Stevedore (and reboot).
-
-Create a Dockerfile:
-
-.Dockerfile
-[source,dockerfile]
-----
-FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
-RUN echo "Hello, world!" >> hello.txt
-RUN ping google.com
-----
-
-Build the image:
-
-[source,shell]
-----
-docker buildx build -t <tag> .
-----
-
 [[nerdctl]]
 === nerdctl
 
