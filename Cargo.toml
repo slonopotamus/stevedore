@@ -12,6 +12,6 @@ license = "Apache-2.0"
 const_format = "0.2"
 flate2 = "1"
 reqwest = { version = "0.13", features = ["blocking"] }
-sha2 = "0.10"
+sha2 = "0.11"
 tar = "0.4"
 zip = "8.0"
