@@ -15,11 +15,11 @@ const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
 const DOCKER_SHA: &str = "ed9222f478a5d143ac90e8e2fd3209b5076382cdb4b210321f97aa4b68bc6811";
 
-const DOCKER_BUILDX_VERSION: &str = "0.37.0-rc1";
+const DOCKER_BUILDX_VERSION: &str = "0.37.0";
 const DOCKER_BUILDX_URL: &str = formatcp!(
     "https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe"
 );
-const DOCKER_BUILDX_SHA: &str = "d0d01cb2ac046d5d6204064af739d71f8ea78d669d3b9f0e84fdba139e9e4298";
+const DOCKER_BUILDX_SHA: &str = "f49fa81c676e178ebac4679cc33c6560f14a56b586f33c9e298a917313cd909b";
 
 const DOCKER_COMPOSE_VERSION: &str = "5.5.0";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
@@ -45,11 +45,11 @@ const NERDCTL_URL: &str = formatcp!(
 );
 const NERDCTL_SHA: &str = "eda2a08d8a5ea97443c73fed1a827fbc385d4f7847486721899cd7e2c2f9dc36";
 
-const BUILDKIT_VERSION: &str = "0.32.2";
+const BUILDKIT_VERSION: &str = "0.33.0";
 const BUILDKIT_URL: &str = formatcp!(
     "https://github.com/moby/buildkit/releases/download/v{BUILDKIT_VERSION}/buildkit-v{BUILDKIT_VERSION}.windows-amd64.tar.gz"
 );
-const BUILDKIT_SHA: &str = "b682a0dabd29137b2a5eecfcd62cd134944dffb09939b5308e1b77044a01331a";
+const BUILDKIT_SHA: &str = "5b4bc24d425f4dfdecf575d386ebf19db12b5f46fef9e95a776bcbaf3b4e486f";
 
 const CNI_VERSION: &str = "0.3.3";
 const CNI_URL: &str = formatcp!(
