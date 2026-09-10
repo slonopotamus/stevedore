@@ -10,10 +10,10 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "29.7.2";
+const DOCKER_VERSION: &str = "29.8.0";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "ed9222f478a5d143ac90e8e2fd3209b5076382cdb4b210321f97aa4b68bc6811";
+const DOCKER_SHA: &str = "bca70bfcddb4eed5bb8af5c15a1fb583b95edacf6096152e20a621ae68c871cb";
 
 const DOCKER_BUILDX_VERSION: &str = "0.37.0";
 const DOCKER_BUILDX_URL: &str = formatcp!(
@@ -21,11 +21,11 @@ const DOCKER_BUILDX_URL: &str = formatcp!(
 );
 const DOCKER_BUILDX_SHA: &str = "f49fa81c676e178ebac4679cc33c6560f14a56b586f33c9e298a917313cd909b";
 
-const DOCKER_COMPOSE_VERSION: &str = "5.5.0";
+const DOCKER_COMPOSE_VERSION: &str = "5.5.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
     "https://github.com/docker/compose/releases/download/v{DOCKER_COMPOSE_VERSION}/docker-compose-windows-x86_64.exe"
 );
-const DOCKER_COMPOSE_SHA: &str = "51e1e61195f3616896265487ed64551095f3bd27ac7fbd5758d3538c3bfa1b19";
+const DOCKER_COMPOSE_SHA: &str = "a3c0c73033eaede90210345d0cc2233edf4fab8fe0282a91dad8fd8436809d2f";
 
 const WINCRED_VERSION: &str = "0.9.9";
 const WINCRED_URL: &str = formatcp!(
