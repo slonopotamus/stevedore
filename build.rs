@@ -10,16 +10,16 @@ use sha2::{Digest, Sha256};
 use tar::Archive;
 use zip::ZipArchive;
 
-const DOCKER_VERSION: &str = "29.8.0";
+const DOCKER_VERSION: &str = "29.8.1";
 const DOCKER_URL: &str =
     formatcp!("https://download.docker.com/win/static/stable/x86_64/docker-{DOCKER_VERSION}.zip");
-const DOCKER_SHA: &str = "bca70bfcddb4eed5bb8af5c15a1fb583b95edacf6096152e20a621ae68c871cb";
+const DOCKER_SHA: &str = "f99b6e0ac1950e6c47c267b1d7ac53ef973682208523212d03477478c6562aaf";
 
-const DOCKER_BUILDX_VERSION: &str = "0.37.0";
+const DOCKER_BUILDX_VERSION: &str = "0.37.1";
 const DOCKER_BUILDX_URL: &str = formatcp!(
     "https://github.com/docker/buildx/releases/download/v{DOCKER_BUILDX_VERSION}/buildx-v{DOCKER_BUILDX_VERSION}.windows-amd64.exe"
 );
-const DOCKER_BUILDX_SHA: &str = "f49fa81c676e178ebac4679cc33c6560f14a56b586f33c9e298a917313cd909b";
+const DOCKER_BUILDX_SHA: &str = "3904abb2802f9bd83a2bf483b35bba81c57a4e0baff981e6886564c461f908b3";
 
 const DOCKER_COMPOSE_VERSION: &str = "5.5.1";
 const DOCKER_COMPOSE_URL: &str = formatcp!(
@@ -33,17 +33,17 @@ const WINCRED_URL: &str = formatcp!(
 );
 const WINCRED_SHA: &str = "ed50b9767eac0ba42782dc4f550ceab2f4354bacaad05c54caa9dec98a032c48";
 
-const CONTAINERD_VERSION: &str = "2.3.3-2-gd27132612";
+const CONTAINERD_VERSION: &str = "2.4.0-2-g0648221cd";
 const CONTAINERD_URL: &str = formatcp!(
     "https://github.com/slonopotamus/containerd/releases/download/v{CONTAINERD_VERSION}/containerd-{CONTAINERD_VERSION}-windows-amd64.tar.gz"
 );
-const CONTAINERD_SHA: &str = "981356144f9e8ecc10b3193b915ca3866030e5a0c7a1ec77a70f504a06785c82";
+const CONTAINERD_SHA: &str = "6ca2eb88044d4200ef0bc07be3452b8e3206b19b6617541e44f6d36aa75ec53b";
 
-const NERDCTL_VERSION: &str = "2.3.5";
+const NERDCTL_VERSION: &str = "2.4.0";
 const NERDCTL_URL: &str = formatcp!(
     "https://github.com/containerd/nerdctl/releases/download/v{NERDCTL_VERSION}/nerdctl-{NERDCTL_VERSION}-windows-amd64.tar.gz"
 );
-const NERDCTL_SHA: &str = "eda2a08d8a5ea97443c73fed1a827fbc385d4f7847486721899cd7e2c2f9dc36";
+const NERDCTL_SHA: &str = "dc3532f593751fc5697b111acf6b279d839b701c6cda96d670e60c8af974f3ca";
 
 const BUILDKIT_VERSION: &str = "0.33.0";
 const BUILDKIT_URL: &str = formatcp!(
