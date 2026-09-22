@@ -61,7 +61,7 @@ Then reboot.
 
 [source,powershell]
 ----
-winget install stevedore
+winget install --id Slonopotamus.Stevedore
 ----
 
 Then reboot.
@@ -88,7 +88,12 @@ You can also pass custom installation properties to Stevedore installer using `P
 
 When installing Stevedore via Chocolatey, use this syntax: `choco install stevedore --install-arguments="ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value /quiet"`
 
-When installing Stevedore via WinGet, use this syntax: `winget install stevedore --custom=`ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value"`
+When installing Stevedore via WinGet, use this syntax:
+
+[source,powershell]
+----
+winget install --id Slonopotamus.Stevedore --custom "ADDLOCAL=Feature1,Feature2 REMOVE=Feature3,Feature4 PROPERTY=value"
+----
 
 == Usage
 
@@ -96,7 +101,7 @@ After installation and reboot, `docker` command should be available on PATH and 
 
 You may try `docker run --rm hello-world` from a command line to confirm that everything was set up properly.
 
-In order to communicate with Docker engine, users needs to be in `docker-users` group.
+In order to communicate with Docker engine, users need to be in `docker-users` group.
 Upon installation, Stevedore automatically adds installing user to `docker-users`.
 If you need other users to also access Docker engine, you will need to add them manually.
 You can use https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/add-localgroupmember[Add-LocalGroupMember] PowerShell commandlet for that.
@@ -125,8 +130,8 @@ After Stevedore installation (and reboot), you should be able to run containers 
 nerdctl run --rm -it hello-world
 ----
 
-NOTE: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied."` error, you need to run commands with elevated permissions.
-When https://github.com/containerd/containerd/issues/10454[this feature] is implemented, you will be able to use `nerdctr` from any user in `docker-users` group.
+NOTE: If you're getting `open \\\\.\\pipe\\containerd-containerd: Access is denied.` error, you need to run commands with elevated permissions.
+When https://github.com/containerd/containerd/issues/10454[this feature] is implemented, you will be able to use `nerdctl` from any user in `docker-users` group.
 
 You can use `nerdctl build` to build containers.
 
@@ -138,7 +143,7 @@ Additionally, `ctr` and `buildctl` are available on `%PATH%`.
 == Building from source
 
 . https://www.rust-lang.org/tools/install[Install Rust]
-. Install https://wixtoolset.org/releases/https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
+. Install https://wixtoolset.org/releases/[WiX Toolset] either manually or by running `choco install wixtoolset` if you have https://chocolatey.org/[Chocolatey]
 . Install Visual Studio 2019 or 2022.
 Enable "Desktop development with {cpp}" workload.
 . Clone Stevedore Git repository
