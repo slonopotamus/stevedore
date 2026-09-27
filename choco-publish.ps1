@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 New-Item -ItemType Directory -Force -Path target/choco/tools | Out-Null
 
-$version = $args[0] -replace '.*/', "$1"
+$version = Split-Path -Leaf $args[0]
 $msi_hash = (Get-FileHash "target/wix/stevedore-$version-x86_64.msi").Hash
 
 (Get-Content choco/stevedore.nuspec) -replace '{{ version }}', $version | Set-Content "target/choco/stevedore-$version.nuspec"
