@@ -2,7 +2,7 @@ name: CI
 on: [ push, pull_request ]
 jobs:
   rustfmt:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v7
@@ -12,7 +12,7 @@ jobs:
           components: rustfmt
       - run: cargo fmt --all -- --check
   clippy:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v7
@@ -22,7 +22,7 @@ jobs:
           components: clippy
       - run: cargo clippy --all-targets -- -D warnings
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v7
