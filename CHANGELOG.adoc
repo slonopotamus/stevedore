@@ -5,6 +5,14 @@
 This document provides a high-level view of the changes to Stevedore by release.
 For a detailed view of what has changed, refer to the {uri-project}/commits/main[commit history] on GitHub.
 
+== Unreleased
+
+* Update Docker Engine to 29.8.2
+* Update Docker Buildx to 0.37.2
+* Update Docker Compose to 5.6.0
+* Update nerdctl to 2.4.1
+* Update BuildKit to 0.33.1
+
 == 4.4.0 (2026-09-21)
 
 * Update Docker Engine to 29.8.1
