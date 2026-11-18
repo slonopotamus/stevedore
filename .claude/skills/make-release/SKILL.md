@@ -1,4 +1,5 @@
 ---
+name: make-release
 description: Makes a new release
 ---
 

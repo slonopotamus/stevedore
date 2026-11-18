@@ -1,4 +1,5 @@
 ---
+name: update-components
 description: Updates bundled components
 ---
 
